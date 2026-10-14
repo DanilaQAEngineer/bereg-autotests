@@ -1,10 +1,11 @@
+import pytest
 from config.settings import settings
 from utils.logger import get_logger
 
 
 log = get_logger()
 
-
+@pytest.mark.smoke    # добавил декоратор/маркировку, что этот тест относится к смоукам
 def test_open_homepage(driver):
     log.info("Открываю главную")
     driver.get(settings.base_url)
