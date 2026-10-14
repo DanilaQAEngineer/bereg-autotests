@@ -1,4 +1,7 @@
-name: Tests    # Название workflow
+# В этом файле описываем workflow
+
+
+name: Tests run    # Название workflow
 
 on:    # Триггеры — когда запускать
   push:    # Триггеры — когда запускать
