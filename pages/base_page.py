@@ -1,16 +1,17 @@
-from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webdriver import WebDriver
-from selenium.common.exceptions import TimeoutException
-from utils.logger import get_logger
-from utils.waits import wait_clickable, wait_present, wait_visible
+from selenium.webdriver.common.by import By    # импортировали «способ поиска»: говорим Selenium, как искать элемент: == By.CSS_SELECTOR.XPATH.ID
+from selenium.webdriver.remote.webdriver import WebDriver    # импортировали з селениума WebDriver (подсказывает методы)
+from selenium.common.exceptions import TimeoutException    # импортировали исключения таймаута: нужен для is_visible: если элемента нет — Selenium бросает именно это, мы его ловим и возвращаем False
+from utils.logger import get_logger    # импортировали функцию логгера, прописанную в utils/logger.py: добавили логи внутри POM
+from utils.waits import wait_clickable, wait_present, wait_visible    # импортировали функции-обёртки ожидания, прописанные в utils/waits.py: использовать wait_visible/wait_clickable/wait_present вместо прямого WebDriverWait
 
 
-log = get_logger()
+log = get_logger()    # создали или взяли уже созданный логгер: один логгер на модуль. Если убрать: в open() придётся каждый раз писать get_logger().info(...)
 
 
 class BasePage:
-    """Базовый класс для всех Page Object.
-    Все POM наследуются от него и НЕ вызывают driver.find_element напрямую  — ВСЁ ЧЕРЕЗ waits.py
+    """
+       Базовый класс для всех Page Object.
+       Все POM наследуются от него и НЕ вызывают driver.find_element напрямую  — ВСЁ ЧЕРЕЗ waits.py
     """
 
     def __init__(self, driver: WebDriver):

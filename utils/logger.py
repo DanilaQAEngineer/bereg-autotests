@@ -10,7 +10,7 @@ from config.settings import settings
 def get_logger(name: str = "autotests") -> logging.Logger:
     logger = logging.getLogger(name)
     if logger.handlers:
-        return logger  # уже настроен
+        return logger    # уже настроен
 
     logger.setLevel(logging.INFO)
 
