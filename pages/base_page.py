@@ -5,7 +5,7 @@ from utils.logger import get_logger    # импортировали функци
 from utils.waits import wait_clickable, wait_present, wait_visible    # импортировали функции-обёртки ожидания, прописанные в utils/waits.py: использовать wait_visible/wait_clickable/wait_present вместо прямого WebDriverWait
 
 
-log = get_logger()    # создали или взяли уже созданный логгер: один логгер на модуль. Если убрать: в open() придётся каждый раз писать get_logger().info(...)
+log = get_logger()    # создали/взяли уже созданный логгер: один логгер на модуль. Если убрать: в open() придётся каждый раз писать get_logger().info(...), а так мы взяли готовый в utils\logger.py
 
 
 class BasePage:
