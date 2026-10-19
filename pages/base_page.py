@@ -31,35 +31,36 @@ class BasePage:    # Объявляем класс, который будет ш
         return self.driver.title    # Значение из драйвера
 
     # ---------- 2) Работа с элементами ----------
-    def find(self, locator: tuple[By, str]):    # Ищем элементы: принимаем локатор — кортеж (By.XXX, "селектор"), например: (By.ID, "username")  // tuple[By, str] -- то тип-аннотация кортежа из двух элементов. By — тип константы, str — тип селектора. Python не проверяет это в рантайме, только IDE и читатель видят структуру
+    def find(self, locator: tuple[By, str]):    # Ищем ОДИН элемент по локатору — кортеж (By.XXX, "селектор"), например: (By.ID, "username")  // tuple[By, str] -- то тип-аннотация кортежа из двух элементов. By — тип константы, str — тип селектора. Python не проверяет это в рантайме, только IDE и читатель видят структуру
         """Найти видимый элемент (с ожиданием)."""
         return wait_visible(self.driver, locator)    # ждём видимости и возвращаем элемент: позволит не падать сразу, если элемент появится только через 1–2 сек  // Почему не self.driver.find_element(*locator)? Потому что find_element ищет сразу и падает, если элемента нет, а wait_visible даёт время
 
-    def find_all(self, locator: tuple[By, str]):
+    def find_all(self, locator: tuple[By, str]):    # Ищем ВСЕ элементы по локатору: для списков карточек, ссылок, опций
         """Найти все элементы (без ожидания)."""
-        return self.driver.find_elements(*locator)
+        return self.driver.find_elements(*locator)    # Распаковываем кортеж в позиционные аргументы: (By.CSS_SELECTOR, ".item") → find_elements(By.CSS_SELECTOR, ".item")
 
     # open/click/type возвращает self → можно строить цепочки: page.open(url).click(btn).type(field, "text")
-    def click(self, locator: tuple[By, str]) -> "BasePage":    #
+    def click(self, locator: tuple[By, str]) -> "BasePage":    # Добавил метод клика с такой же распаковкой локатора на поз.аргументы: ищем на странице локатор и обращаемся к нему
         """Клик с ожиданием кликабельности."""
-        wait_clickable(self.driver, locator).click()
-        return self
+        wait_clickable(self.driver, locator).click()    # Жду, когда элемент станет кликабельным (кнопка может быть видимой, но заблокированной → клик упадёт) + Добавил метод клика  // Разница между wait_visible и wait_clickable: visible — элемент в DOM и не скрыт CSS, clickable — элемент и видимый и не задизейбленный, до него можно доскроллить
+        return self    # Возвращаю страницу
 
     # open/click/type возвращает self → можно строить цепочки: page.open(url).click(btn).type(field, "text")
-    def type(self, locator: tuple[By, str], text: str) -> "BasePage":    #
+    def type(self, locator: tuple[By, str], text: str) -> "BasePage":    # Добавил метод ввода данных в поля с такой же распаковкой локатора на поз.аргументы: ищем на странице локатор и обращаемся к нему
         """Очистить и ввести текст."""
-        el = self.find(locator)
-        el.clear()
-        el.send_keys(text)
-        return self
+        el = self.find(locator)    # Ищу на странице видимый элемент
+        el.clear()    # Предварительно очищаю инпут-поле от данных (текст может добавиться к старому (в поле может быть placeholder/автозаполнение))  // без очищения повторный запуск теста может «склеить» данные: "user1user2"
+        el.send_keys(text)    # Ввожу свои данные
+        return self    # Возврат цепочки
 
-    def get_text(self, locator: tuple[By, str]) -> str:    #
-        return self.find(locator).text.strip()
+    def get_text(self, locator: tuple[By, str]) -> str:    # Добавил метод получения/взятия текста на странице
+        return self.find(locator).text.strip()    # Ищу элемент по локатору + Добавил метод видимого текста элемента (.text) + Убираю возможные пробелы и переносы по краям (.strip()): иначе " Палатка " != "Палатка" в ассерте
 
-    def is_visible(self, locator: tuple[By, str], timeout: int = 5) -> bool:    # is_visible возвращает bool, не падает с исключением
+    # Добавляю метод проверки видимости элемента без падения
+    def is_visible(self, locator: tuple[By, str], timeout: int = 5) -> bool:    # Добавил метод проверки видимости элемента на странице + В аргументах распаковываю кортеж локатора в поз.аргументы + Выставляю время ожидания 5 сек
         """Проверка видимости без падения."""
-        try:
-            wait_visible(self.driver, locator, timeout=timeout)
-            return True
-        except TimeoutException:
-            return False
+        try:    # Говорю "жди"
+            wait_visible(self.driver, locator, timeout=timeout)    # Жду, когда искомый элемент станет видимым на странице
+            return True    # Элемент найден!
+        except TimeoutException:    # Ловлю тип исключения "TimeoutException": не глушу все ошибки, а только «не дождались» (если тест стопарится на "ищу элемент Nсек и не могу найти его на странице")
+            return False    # Элемент НЕ найден!
