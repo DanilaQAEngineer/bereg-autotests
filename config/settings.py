@@ -22,7 +22,7 @@ class Settings(BaseSettings):
 
     base_url: str = Field(default="https://pfbereg.ru", alias="BASE_URL")
     browser: str = Field(default="chrome", alias="BROWSER")
-    headless: bool = Field(default=True, alias="HEADLESS")
+    headless: bool = Field(default=False, alias="HEADLESS")    # вернуть Тру, если не хочу, чтоб браузер при прогоне открывался
     timeout: int = Field(default=10, alias="DEFAULT_TIMEOUT")
 
     # пути
