@@ -27,7 +27,7 @@ def pytest_addoption(parser):
 
 
 @pytest.fixture(scope="function")
-def driver(request):
+def browser(request):
     browser = request.config.getoption("--browser")
     headless = request.config.getoption("--headless").lower() == "true"
 

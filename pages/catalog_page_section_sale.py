@@ -16,29 +16,32 @@ fake = Faker("ru_RU")
 class SectionSaleInCatalogPage(BasePage):
     """Раздел "Распродажа" в меню каталога"""
 
-
-    #    1. Локаторы основной страницы раздела "Распродажа"
     CATALOG_BUTTON = (By.XPATH, '(//*[@class="header-menu__link--only-catalog fill-use-fff btn btn-default btn--no-rippple btn-lg"])[1]')
+
+    #    1. Локаторы основной страницы каталога:
     CATEGORY_SALE = (By.XPATH, '(//*[@class="font_16 font_weight--500 dark_link switcher-title header-menu__wide-child-link fill-theme-hover"])[12]')
+
+    #    2. Локаторы страницы раздела "Распродажа":
     TITLE_PAGE = (By.CSS_SELECTOR, '.topic .switcher-title')
     COUNT_TOVAROV = (By.CSS_SELECTOR, '.topic .element-count-wrapper')
     KROSHKI = (By.CSS_SELECTOR, '.cowl .breadcrumbs.swipeignore')
 
     PEREHOD_V_KARTOCHKU_TOVARA = (By.XPATH, '(//*[@class="catalog-block__info-title linecamp-3 height-auto-t600 font_15 font_14--to-600"])[1]')
 
-    #    2. Локаторы фильтров и сортировки
+    #    3. Локаторы сортировки и фильтров:
     SORT_1 = (By.CSS_SELECTOR, '.line-block__item .dropdown-select__title.font_14.font_large.fill-dark-light.bordered.rounded-x.shadow-hovered.shadow-no-border-hovered')    # Сортировка по: алфавиту, цене, популярности
     SORT_ALPHABET = (By.XPATH, '(//*[text()="С начала алфавита"])')
     SORT_2 = (By.CSS_SELECTOR, '.filter-panel__part-right .toggle-panel.hide-600')    # Сортировка по: количеству карточек на странице
 
+    FILTERS_MENU = (By.CSS_SELECTOR, '.left_block.visible-by-block-presence .sticky-block.sticky-block--show-N')
     FILTERS_MIN_PRICE = (By.CSS_SELECTOR, '.bx_filter_block #MAX_SMART_FILTER_P1_MIN')
     FILTERS_MAX_PRICE = (By.CSS_SELECTOR, '.bx_filter_block #MAX_SMART_FILTER_P1_MAX')
     MESSAGE_BEZ_RESULTATOV = (By.CSS_SELECTOR, '.no_products .big_text.font_24')
 
-    #    3. Локаторы карточки товара
+    #    4. Локаторы карточки товара:
     NAME_KARTOCHKI = (By.CSS_SELECTOR, '.catalog-detail__main .font_32.switcher-title.js-popup-title.font_20--to-600')
 
-    #    Методы
+    #    Методы:
     @allure.step('Открываю главную страницу + Клик по кнопке "Каталог"')
     def open_catalog_menu(self):    # 1. Метод раскрытия каталога с категориями товаров
         self.driver.get(settings.base_url)
@@ -52,6 +55,7 @@ class SectionSaleInCatalogPage(BasePage):
         WebDriverWait(self.driver, 10).until(EC.url_changes(settings.base_url))
         return self
 
+    #    Методы страницы "Распродажа":
     @allure.step('Ищу на странице заголовок "Распродажа"')
     def get_title(self) -> str:    # 3) Метод получения заголовка на странице
         return self.get_text(self.TITLE_PAGE)
@@ -82,14 +86,19 @@ class SectionSaleInCatalogPage(BasePage):
         self.find(self.SORT_ALPHABET).click()
         return self
 
+    @allure.step('Ищу на странице меню фильтров')
+    def is_filtres_visible(self) -> bool:    # 8) Метод проверки того, что на странице есть элемент/блок "Фильтры"
+        return self.is_visible(self.FILTERS_MENU)    # Использую метод is_visible из BasePage, который возвращает True/False без падения
+
     @allure.step('Ищу поле с минимальной ценой + Ввожу в неё минимальную стоимость')
     def search_and_input_min_price(self):
-        self.find(self.FILTERS_MIN_PRICE).send_keys("7000")
+        self.find(self.FILTERS_MIN_PRICE).send_keys("7000")    # УБРАТЬ ХАРДКОД (возможно, фэйкером данные генерить)
         return self
+
 
     @allure.step('Ищу поле с максимальной ценой + Ввожу в неё максимальную стоимость')
     def search_and_input_max_price(self):
-        self.find(self.FILTERS_MAX_PRICE).send_keys("1000")
+        self.find(self.FILTERS_MAX_PRICE).send_keys("1000")    # УБРАТЬ ХАРДКОД (возможно, фэйкером данные генерить)
         return self
 
     @allure.step('Ищу на странице сообщение об отсутствии результатов')
@@ -100,15 +109,13 @@ class SectionSaleInCatalogPage(BasePage):
     def is_sort_2_visible(self) -> bool:    # 7) Метод проверки того, что на странице есть элемент "Сортировка" ()
         return self.is_visible(self.SORT_2)    # Использую метод is_visible из BasePage, который возвращает True/False без падения
 
-    @allure.step('Ищу на странице меню фильтров')
-    def is_filtres_visible(self) -> bool:    # 8) Метод проверки того, что на странице есть элемент "Хлебные крошки"
-        return self.is_visible(self.FILTRES)    # Использую метод is_visible из BasePage, который возвращает True/False без падения
 
     @allure.step('Клик по названию карточки (переход внутрь)')
     def click_first_product(self):
         self.find(self.PEREHOD_V_KARTOCHKU_TOVARA).click()
         return self
 
+    #    Методы страницы карточки товара:
     @allure.step('Ищу на странице карточки её название')
     def get_title_card(self) -> str:
         return self.get_text(self.NAME_KARTOCHKI)
