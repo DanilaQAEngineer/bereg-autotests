@@ -1,6 +1,4 @@
 import pytest
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 
 from pages.catalog_page_section_sale import SectionSaleInCatalogPage
@@ -16,7 +14,7 @@ def test_open_section_sale_in_catalog_page(browser):
 
     page.open_catalog_menu()    # Метод открытия страницы + Клик на кнопку "Каталог"
 
-    url_before_click_section_sale = page.current_url()    # Создал переменную "УРЛа до перехода в раздел "Распродажа"" + Вызываю метод получения текущей УРЛы (сохраняю URL, которая была до перехода в раздел "Распродажа")
+    url_before_click_section_sale = page.current_url()    # Создал переменную "УРЛа до перехода в раздел "Распродажа"" + Вызываю метод получения текущей УРЛы: сохраняю URL, которая была до перехода в раздел "Распродажа"
 
     page.go_to_sale_category()    # Метод клика по разделу меню каталога "Распрадажа"
 
@@ -57,7 +55,7 @@ def test_sort_and_filters(browser):
     assert page.get_message_bez_resultatov() != "", "Сообщение != К сожалению, раздел пуст"
 
 @pytest.mark.smoke
-def test_kartochka_tovara(browser):
+def test_click_first_product(browser):
     """
     3) Проверка карточки товара
     """
@@ -68,7 +66,7 @@ def test_kartochka_tovara(browser):
         .go_to_sale_category()
     )
 
-    url_before_click_first_product = page.current_url()  # Создал переменную "УРЛа до перехода в карточку товара" + Вызываю метод получения текущей УРЛы (сохраняю URL, которая была до перехода в карточку товара)
+    url_before_click_first_product = page.current_url()  # Создал переменную "УРЛа до перехода в карточку товара" + Вызываю метод получения текущей УРЛы: сохраняю URL, которая была ДО перехода в карточку товара
 
     page.click_first_product()    # Метод клика по названию карточки (переход в карточку товара)
 
