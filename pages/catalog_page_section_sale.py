@@ -9,7 +9,7 @@ from config.settings import settings
 from pages.base_page import BasePage
 
 
-fake = Faker("ru_RU")
+# fake = Faker("ru_RU")
 
 
 @allure.description("добавить описание страницы")
