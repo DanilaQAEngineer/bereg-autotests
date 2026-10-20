@@ -1,11 +1,15 @@
+import allure
+from faker import Faker
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import allure
 
 
 from config.settings import settings
 from pages.base_page import BasePage
+
+
+fake = Faker("ru_RU")
 
 
 @allure.description("добавить описание страницы")
@@ -19,12 +23,19 @@ class SectionSaleInCatalogPage(BasePage):
     TITLE_PAGE = (By.CSS_SELECTOR, '.topic .switcher-title')
     COUNT_TOVAROV = (By.CSS_SELECTOR, '.topic .element-count-wrapper')
     KROSHKI = (By.CSS_SELECTOR, '.cowl .breadcrumbs.swipeignore')
-    SORT_1 = (By.CSS_SELECTOR, '.line-block__item .dropdown-select__title.font_14.font_large.fill-dark-light.bordered.rounded-x.shadow-hovered.shadow-no-border-hovered')
-    SORT_2 = (By.CSS_SELECTOR, '.filter-panel__part-right .toggle-panel.hide-600')
-    FILTRES = (By.CSS_SELECTOR, '.left_block.visible-by-block-presence .sticky-block.sticky-block--show-N')
+
     PEREHOD_V_KARTOCHKU_TOVARA = (By.XPATH, '(//*[@class="catalog-block__info-title linecamp-3 height-auto-t600 font_15 font_14--to-600"])[1]')
 
-    #    2. Локаторы карточки товара
+    #    2. Локаторы фильтров и сортировки
+    SORT_1 = (By.CSS_SELECTOR, '.line-block__item .dropdown-select__title.font_14.font_large.fill-dark-light.bordered.rounded-x.shadow-hovered.shadow-no-border-hovered')    # Сортировка по: алфавиту, цене, популярности
+    SORT_ALPHABET = (By.XPATH, '(//*[text()="С начала алфавита"])')
+    SORT_2 = (By.CSS_SELECTOR, '.filter-panel__part-right .toggle-panel.hide-600')    # Сортировка по: количеству карточек на странице
+
+    FILTERS_MIN_PRICE = (By.CSS_SELECTOR, '.bx_filter_block #MAX_SMART_FILTER_P1_MIN')
+    FILTERS_MAX_PRICE = (By.CSS_SELECTOR, '.bx_filter_block #MAX_SMART_FILTER_P1_MAX')
+    MESSAGE_BEZ_RESULTATOV = (By.CSS_SELECTOR, '.no_products .big_text.font_24')
+
+    #    3. Локаторы карточки товара
     NAME_KARTOCHKI = (By.CSS_SELECTOR, '.catalog-detail__main .font_32.switcher-title.js-popup-title.font_20--to-600')
 
     #    Методы
@@ -56,6 +67,34 @@ class SectionSaleInCatalogPage(BasePage):
     @allure.step('Ищу на странице сортировку по: алфавиту, цене, популярности')
     def is_sort_1_visible(self) -> bool:    # 6) Метод проверки того, что на странице есть элемент "Сортировка" ()
         return self.is_visible(self.SORT_1)    # Использую метод is_visible из BasePage, который возвращает True/False без падения
+
+    @allure.step("Кликаю на сортировку")
+    def click_on_sort_button(self):
+        self.find(self.SORT_1).click()
+        return self
+
+    @allure.step('Ищу на странице сортировку по: алфавиту, цене, популярности')
+    def is_new_sort(self) -> str:    # 6) Метод проверки того, что после применения сортировки отображается "По алфавиту"
+        return self.get_text(self.SORT_1)
+
+    @allure.step("Выбор новой сортировки по алфавиту")
+    def click_sort_alphabet(self):
+        self.find(self.SORT_ALPHABET).click()
+        return self
+
+    @allure.step('Ищу поле с минимальной ценой + Ввожу в неё минимальную стоимость')
+    def search_and_input_min_price(self):
+        self.find(self.FILTERS_MIN_PRICE).send_keys("7000")
+        return self
+
+    @allure.step('Ищу поле с максимальной ценой + Ввожу в неё максимальную стоимость')
+    def search_and_input_max_price(self):
+        self.find(self.FILTERS_MAX_PRICE).send_keys("1000")
+        return self
+
+    @allure.step('Ищу на странице сообщение об отсутствии результатов')
+    def get_message_bez_resultatov(self) -> str:
+        return self.get_text(self.MESSAGE_BEZ_RESULTATOV)
 
     @allure.step('Ищу на странице сортировку по: количеству карточек на странице')
     def is_sort_2_visible(self) -> bool:    # 7) Метод проверки того, что на странице есть элемент "Сортировка" ()

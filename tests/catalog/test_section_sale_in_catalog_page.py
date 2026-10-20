@@ -3,17 +3,19 @@ import pytest
 
 from pages.catalog_page_section_sale import SectionSaleInCatalogPage
 
+
 @pytest.mark.smoke
 def test_open_section_sale_in_catalog_page(driver):
     """
-    Проверка раздела каталога 'Распрадажа'
+    1) Проверка раздела каталога 'Распрадажа'
     """
 
     page = SectionSaleInCatalogPage(driver)
 
-
-    page.open_catalog_menu()    # Метод открытия страницы + Клик на кнопку "Каталог"
-    page.go_to_sale_category()    # Метод клика по разделу меню каталога "Распрадажа"
+    (
+        page.open_catalog_menu()    # Метод открытия страницы + Клик на кнопку "Каталог"
+        .go_to_sale_category()    # Метод клика по разделу меню каталога "Распрадажа"
+    )
 
     #    Проверки на странице раздела "Распродажа":
     assert page.get_title() == "Распродажа", "Заголовок каталога != Распродажа"    # Проверяю, что заголовок не пустой
@@ -25,17 +27,43 @@ def test_open_section_sale_in_catalog_page(driver):
 
 
 #    Добавить тесты на работу сортировки и фильтров
-# @pytest.mark.smoke
-# def test_filters_and_sort(driver):
+@pytest.mark.smoke
+def test_sort_and_filters(driver):
+    """
+    2) Проверка работы сортировки и фильтров
+    """
+    page = SectionSaleInCatalogPage(driver)
+
+    (
+        page.open_catalog_menu()  # Метод открытия страницы + Клик на кнопку "Каталог"
+        .go_to_sale_category()
+        .click_on_sort_button()
+        .click_sort_alphabet()
+     )
+
+    #    2.1 Проверки работы сортировки:
+    assert page.is_new_sort() == 'С начала алфавита', "В кнопке сортировки != С начала алфавита"
+
+    (
+        page.search_and_input_min_price()
+        .search_and_input_max_price()
+    )
+
+    #    2.2 Проверки работы фильтров:
+    assert page.get_message_bez_resultatov() == 'К сожалению, раздел пуст', "Сообщение != К сожалению, раздел пуст"
 
 @pytest.mark.smoke
 def test_kartochka_tovara(driver):
     """
-    Проверка карточки товара
+    3) Проверка карточки товара
     """
     page = SectionSaleInCatalogPage(driver)
 
-    page.click_first_product()    # Метод клика по названию карточки (переход в карточку товара)
+    (
+        page.open_catalog_menu()  # Метод открытия страницы + Клик на кнопку "Каталог"
+        .go_to_sale_category()
+        .click_first_product()    # Метод клика по названию карточки (переход в карточку товара)
+    )
 
     #    Проверки на странице карточки товара:
     assert page.get_title_card() == 'Арт. 377 Теплый пол Секция 4,3х1,7 б/у', "Название карточки != Арт. 377 Теплый пол Секция 4,3х1,7 б/у"
