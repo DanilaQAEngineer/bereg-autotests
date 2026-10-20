@@ -1,4 +1,6 @@
 import pytest
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 from pages.catalog_page_section_sale import SectionSaleInCatalogPage
@@ -12,15 +14,17 @@ def test_open_section_sale_in_catalog_page(browser):
 
     page = SectionSaleInCatalogPage(browser)
 
-    (
-        page.open_catalog_menu()    # Метод открытия страницы + Клик на кнопку "Каталог"
-        .go_to_sale_category()    # Метод клика по разделу меню каталога "Распрадажа"
-    )
+    page.open_catalog_menu()    # Метод открытия страницы + Клик на кнопку "Каталог"
+
+    url_before_click_section_sale = page.current_url()    # Создал переменную "УРЛа до перехода в раздел "Распродажа"" + Вызываю метод получения текущей УРЛы (сохраняю URL, которая была до перехода в раздел "Распродажа")
+
+    page.go_to_sale_category()    # Метод клика по разделу меню каталога "Распрадажа"
 
     #    Проверки на странице раздела "Распродажа":
-    assert page.get_title() != "", "Заголовок каталога != Распродажа"    # Проверяю, что заголовок не пустой
-    assert page.get_product_count() > 0, "В блоке с количеством товаров пусто"
-    assert page.is_breadcrumbs_visible(), "Хлебных крошек нет на странице"    # Проверка на то, есть ли на странице элемент "Хлебные крошки"
+    assert page.current_url() != url_before_click_section_sale, "URL один и тот же: перехода в раздел не произошло"    # Добавил проверку, что текущая URL != той, что была до перехода (что это не одна и та же страница)
+    assert page.get_title() != "", "В разделе 'Распродажа' нет заголовка"    # Проверяю, что заголовок не пустой
+    assert page.get_product_count() > 0, "В разделе 'Распродажа' нет количества товаров"
+    assert page.is_breadcrumbs_visible(), "В разделе 'Распродажа' нет хлебных крошек"    # Проверка на то, есть ли на странице элемент "Хлебные крошки"
     assert page.is_sort_1_visible(), "Сортировки по популярности/цене/алфавиту нет на странице"  # Проверка на то, есть ли на странице элемент "Сортировка"
     assert page.is_sort_2_visible(), "Сортировки отображения карточек нет на странице"  # Проверка на то, есть ли на странице элемент "Сортировка"
     assert page.is_filtres_visible(), "Меню фильтров нет на странице"  # Проверка на то, есть ли на странице элемент "Фильтры"
@@ -62,8 +66,13 @@ def test_kartochka_tovara(browser):
     (
         page.open_catalog_menu()  # Метод открытия страницы + Клик на кнопку "Каталог"
         .go_to_sale_category()
-        .click_first_product()    # Метод клика по названию карточки (переход в карточку товара)
     )
 
+    url_before_click_first_product = page.current_url()  # Создал переменную "УРЛа до перехода в карточку товара" + Вызываю метод получения текущей УРЛы (сохраняю URL, которая была до перехода в карточку товара)
+
+    page.click_first_product()    # Метод клика по названию карточки (переход в карточку товара)
+
+
     #    Проверки на странице карточки товара:
+    assert page.current_url() != url_before_click_first_product, "URL один и тот же: перехода в карточку не произошло"
     assert page.get_title_card() != "", "Название карточки != Арт. 377 Теплый пол Секция 4,3х1,7 б/у"
