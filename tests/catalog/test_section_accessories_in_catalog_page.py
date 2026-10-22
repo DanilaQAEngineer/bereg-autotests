@@ -7,7 +7,7 @@ from pages.catalog_page_section_accessories import SectionAccessoriesInCatalogPa
 @pytest.mark.smoke
 def test_open_section_accessories_in_catalog_page(browser):
     """
-    1) Проверка раздела каталога 'Аксессуары'
+    1) Проверка раздела каталога 'Аксессуары': Переход в раздел "Гл.страница > Каталог > Аксессуары"
     """
 
     accessories_page = SectionAccessoriesInCatalogPage(browser)
@@ -32,7 +32,7 @@ def test_open_section_accessories_in_catalog_page(browser):
 @pytest.mark.smoke
 def test_sort_and_filters(browser):
     """
-    2) Проверка работы сортировки и фильтров
+    2) Проверка работы сортировки по стоимости 'Сначала дорогие': "Гл.страница > Каталог > 'Аксессуары' > Клик по дропдауну 'Сортировка' > Выбор 'Сначала дорогие'"
     """
     accessories_page = SectionAccessoriesInCatalogPage(browser)
 
