@@ -22,12 +22,17 @@ class LocatorsForCatalogPageSectionAccessories:
     ACTUAL_PRICE_IN_CARD = (By.CSS_SELECTOR, '.js-popup-price .price__new')
 
     #    3. Локаторы сортировки и фильтров:
-    SORT_DROPDOWN = (By.CSS_SELECTOR, '.line-block__item .dropdown-select__title.font_14.font_large.fill-dark-light.bordered.rounded-x.shadow-hovered.shadow-no-border-hovered')    # Кнопка выбора сортировки по: алфавиту, цене, популярности
+    #SORT_DROPDOWN = (By.CSS_SELECTOR, '.line-block__item .dropdown-select__title.font_14.font_large.fill-dark-light.bordered.rounded-x.shadow-hovered.shadow-no-border-hovered')    # Кнопка выбора сортировки по: алфавиту, цене, популярности
+    SORT_DROPDOWN = (By.CSS_SELECTOR, '.filter-panel__part-left .line-block.filter-panel__main-info')    # Кнопка выбора сортировки по: алфавиту, цене, популярности
     ASC_SORT_BY_ALPHABET = (By.XPATH, '(//*[text()="С начала алфавита"])')
     DESC_SORT_BY_ALPHABET = (By.XPATH, '(//*[text()="С конца алфавита"])')
     ASC_SORT_BY_PRICE = (By.XPATH, '(//*[text()="Сначала дешевые"])')    # Эта сортировка на странице по умолчанию !!!
     DESC_SORT_BY_PRICE = (By.XPATH, '(//*[text()="Сначала дорогие"])')
-    SORT_2 = (By.CSS_SELECTOR, '.filter-panel__part-right .toggle-panel.hide-600')    # Кнопка выбора сортировки по: количеству карточек на странице
+
+    VIEW_MODE = (By.CSS_SELECTOR, '.filter-panel__part-right .toggle-panel.hide-600')    # Кнопка выбора отображения по: количеству карточек на странице
+    VIEW_MODE_TILE = (By.CSS_SELECTOR, '.filter-panel__part-right [title="Плиточное отображение"]')    # Отображение карточек на странице раздела в виде плиток (по 3 карточки на одной строке)
+    VIEW_MODE_LINE = (By.CSS_SELECTOR, '.filter-panel__part-right [title="Строчный вывод"]')  # Отображение карточек на странице раздела в виде строк (каждая карточка на отдельной строке)
+    VIEW_MODE_PRICE = (By.CSS_SELECTOR, '.filter-panel__part-right [title="Вывод прайсом"]')  # Отображение карточек на странице раздела в виде строк (каждая карточка на отдельной строке в виде таблицы)
 
     FILTERS_MENU = (By.CSS_SELECTOR, '.left_block.visible-by-block-presence .sticky-block.sticky-block--show-N')
     FILTERS_MIN_PRICE = (By.CSS_SELECTOR, '.bx_filter_block #MAX_SMART_FILTER_P1_MIN')

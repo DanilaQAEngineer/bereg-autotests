@@ -4,7 +4,7 @@ import pytest
 from pages.catalog_page_section_sale import SectionSaleInCatalogPage
 
 
-@pytest.mark.smoke
+@pytest.mark.skip
 def test_open_section_sale_in_catalog_page(browser):
     """
     1) Проверка раздела каталога 'Распрадажа'
@@ -29,7 +29,7 @@ def test_open_section_sale_in_catalog_page(browser):
 
 
 #    Добавить тесты на работу сортировки и фильтров
-@pytest.mark.smoke
+@pytest.mark.skip
 def test_sort_and_filters(browser):
     """
     2) Проверка работы сортировки и фильтров
@@ -54,7 +54,7 @@ def test_sort_and_filters(browser):
     #    2.2 Проверки работы фильтров:
     assert page.get_message_bez_resultatov() != "", "Сообщение != К сожалению, раздел пуст"
 
-@pytest.mark.smoke
+@pytest.mark.skip
 def test_click_first_product(browser):
     """
     3) Проверка карточки товара

@@ -79,8 +79,8 @@ class SectionAccessoriesInCatalogPage(BasePage):
                                                     # Теперь у нас есть список чисел, с которыми умеет работать математика
         return prices    # Возврат результата: итог метода -- отдаём готовый список полученных со страницы чисел/ценников в карточках, например: [15999.5, 12500.0, 8000.0]
 
-    @allure.step('Ищу на странице сортировку по: алфавиту, цене, популярности + Проверяю её новое значение')
-    def is_new_sort_value(self) -> str:  # 6) Метод проверки того, что после применения сортировки отображается "По алфавиту"
+    @allure.step('Ищу на странице кнопку_дропдаун сортировки по: алфавиту, цене, популярности + Проверяю её значение')
+    def get_sort_value(self) -> str:  # 6) Метод проверки того, что после применения сортировки отображается "По алфавиту"
         return self.get_text(LocatorsForCatalogPageSectionAccessories.SORT_DROPDOWN)
 
     @allure.step('Ищу на странице меню фильтров')
@@ -104,6 +104,11 @@ class SectionAccessoriesInCatalogPage(BasePage):
     @allure.step('Ищу на странице сортировку по: количеству карточек на странице')
     def is_sort_2_visible(self) -> bool:  # 7) Метод проверки того, что на странице есть элемент "Сортировка" ()
         return self.is_visible(LocatorsForCatalogPageSectionAccessories.SORT_2)  # Использую метод is_visible из BasePage, который возвращает True/False без падения
+
+    @allure.step("Кликаю на раскладку странице 'Строчный вывод'")
+    def click_on_view_by_line(self):
+        self.find(LocatorsForCatalogPageSectionAccessories.VIEW_MODE_LINE).click()
+        return self
 
     @allure.step('Клик по названию карточки (переход внутрь)')
     def click_first_product(self):
