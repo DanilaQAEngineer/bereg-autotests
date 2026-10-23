@@ -19,6 +19,7 @@ class LocatorsForCatalogPageSectionAccessories:
     SUBCATEGORY_DLYA_MEBELI = (By.CSS_SELECTOR, '.top-content-block [href="/catalog/aksessuary1/dlya-mebeli/"]')
     SUBCATEGORY_DLYA_AEROLODOK = (By.CSS_SELECTOR, '.top-content-block [href="/catalog/aksessuary1/dlya-aerolodok/""]')
     BUTTON_NAVERH = (By.CSS_SELECTOR, '.scroll-to-top.ROUND_COLOR.PADDING.animated.visible.rotateIn#scrollToTop')
+    ACTUAL_PRICE_IN_CARD = (By.CSS_SELECTOR, '.js-popup-price .price__new')
 
     #    3. Локаторы сортировки и фильтров:
     SORT_DROPDOWN = (By.CSS_SELECTOR, '.line-block__item .dropdown-select__title.font_14.font_large.fill-dark-light.bordered.rounded-x.shadow-hovered.shadow-no-border-hovered')    # Кнопка выбора сортировки по: алфавиту, цене, популярности

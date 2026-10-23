@@ -30,29 +30,37 @@ def test_open_section_accessories_in_catalog_page(browser):
 
 #    Добавить тесты на работу сортировки и фильтров
 @pytest.mark.smoke
-def test_sort_and_filters(browser):
+def test_desc_sort_by_price(browser):
     """
     2) Проверка работы сортировки по стоимости 'Сначала дорогие': "Гл.страница > Каталог > 'Аксессуары' > Клик по дропдауну 'Сортировка' > Выбор 'Сначала дорогие'"
     """
     accessories_page = SectionAccessoriesInCatalogPage(browser)
 
     (
-        accessories_page.open_catalog_menu()  # Метод открытия страницы + Клик на кнопку "Каталог"
+        accessories_page.open_catalog_menu()    # Метод открытия страницы + Клик на кнопку "Каталог"
         .go_to_sale_category()
-        .click_on_sort_button()
-        .click_sort_alphabet()
-     )
-
-    #    2.1 Проверки работы сортировки:
-    assert accessories_page.is_new_sort() == 'С начала алфавита', "В кнопке сортировки != С начала алфавита"
-
-    (
-        accessories_page.search_and_input_min_price()
-        .search_and_input_max_price()
+        .click_on_sort_button()    # Клик по кнопке-дропдауну "Сортировка"
     )
 
-    #    2.2 Проверки работы фильтров:
-    assert accessories_page.get_message_bez_resultatov() != "", "Сообщение != К сожалению, раздел пуст"
+    url_before_can_sort = accessories_page.current_url()  # Создал переменную "УРЛа ДО применения сортировки" + Вызываю метод получения текущей УРЛы: записываю URL, которая была ДО применения сортировки
+    print(f'До применения сортировки: {url_before_can_sort}')
+
+    (
+        accessories_page.click_desc_sort_by_price()    # Выбор сортировки "По убыванию" в выпадающем списке
+        .get_all_prices_as_floats()    # Метод получения страницы с новой сортировкой по убыванию
+    )
+
+    url_after_can_sort = accessories_page.current_url()  # Создал переменную "УРЛа ПОСЛЕ применения сортировки" + Вызываю метод получения текущей УРЛы: записываю URL, которая была ПОСЛЕ применения сортировки
+    print(f'После применения сортировки: {url_after_can_sort}')
+
+    final_prices = accessories_page.get_all_prices_as_floats()    # Собираем все цены со страницы
+
+    #    2.1 Проверки работы сортировки:
+    assert url_after_can_sort != url_before_can_sort, "URL один и тот же: сортировка не применилась"
+    assert accessories_page.is_new_sort_value() == 'Сначала дорогие', "Новое значение в кнопке сортировки != Сначала дорогие"
+    assert len(final_prices) > 1, "На странице недостаточно товаров для проверки сортировки"    #
+    assert final_prices == sorted(final_prices, reverse=True), \
+        f"Сортировка по убыванию не работает! Цены на странице: {final_prices}"
 
 
 @pytest.mark.smoke

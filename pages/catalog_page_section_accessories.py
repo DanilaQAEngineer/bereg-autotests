@@ -1,6 +1,6 @@
+import re
 import allure
 from faker import Faker
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -12,7 +12,7 @@ from locators.locators_for_catalog_page_section_accessories import LocatorsForCa
 
 @allure.description("добавить описание страницы")
 class SectionAccessoriesInCatalogPage(BasePage):
-    """Раздел "Аксессуары" в меню каталога"""
+    """ Методы раздела "Аксессуары" в меню каталога """
 
 
     #    Методы ДО перехода в раздел "Аксессуары":
@@ -48,18 +48,32 @@ class SectionAccessoriesInCatalogPage(BasePage):
     def is_sort_1_visible(self) -> bool:  # 6) Метод проверки того, что на странице есть элемент "Сортировка" ()
         return self.is_visible(LocatorsForCatalogPageSectionAccessories.SORT_DROPDOWN)  # Использую метод is_visible из BasePage, который возвращает True/False без падения
 
-    @allure.step("Кликаю на сортировку")
+    @allure.step("Кликаю на кнопку_дропдаун сортировки")
     def click_on_sort_button(self):
         self.find(LocatorsForCatalogPageSectionAccessories.SORT_DROPDOWN).click()
         return self
 
-    @allure.step("Выбор новой сортировки по алфавиту")
-    def click_sort_alphabet(self):
-        self.find(LocatorsForCatalogPageSectionAccessories.SORT_ALPHABET).click()
+    @allure.step("Выбор новой сортировки: по убыванию цены (DESC-сортировка)")
+    def click_desc_sort_by_price(self):
+        self.find(LocatorsForCatalogPageSectionAccessories.DESC_SORT_BY_PRICE).click()
         return self
 
+    @allure.step("Проверяю, действительно ли карточки на странице отображаются от самой дорогой, к самой дешёвой")
+    def get_all_prices_as_floats(self) -> list[float]:
+        """ Собираем актуальные цены со страницы и возвращает список чисел """
+        # Ждем, пока цены отрисуются после сортировки (можно добавить явное ожидание, если нужно)
+        elements = self.find_all(LocatorsForCatalogPageSectionAccessories.ACTUAL_PRICE_IN_CARD)
+        prices = []
+        for el in elements:
+            # Убираем всё, кроме цифр (пробелы, знаки валют, запятые)
+            text = el.text.replace(',', '.')
+            clean_text = re.sub(r'[^\d.]', '', text)
+            if clean_text:
+                prices.append(float(clean_text))
+        return prices
+
     @allure.step('Ищу на странице сортировку по: алфавиту, цене, популярности + Проверяю её новое значение')
-    def is_new_sort(self) -> str:  # 6) Метод проверки того, что после применения сортировки отображается "По алфавиту"
+    def is_new_sort_value(self) -> str:  # 6) Метод проверки того, что после применения сортировки отображается "По алфавиту"
         return self.get_text(LocatorsForCatalogPageSectionAccessories.SORT_DROPDOWN)
 
     @allure.step('Ищу на странице меню фильтров')
