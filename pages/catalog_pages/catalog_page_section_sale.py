@@ -31,7 +31,7 @@ class SectionSaleInCatalogPage(BasePage):
     #    3. Локаторы сортировки и фильтров:
     SORT_1 = (By.CSS_SELECTOR, '.line-block__item .dropdown-select__title.font_14.font_large.fill-dark-light.bordered.rounded-x.shadow-hovered.shadow-no-border-hovered')    # Сортировка по: алфавиту, цене, популярности
     SORT_ALPHABET = (By.XPATH, '(//*[text()="С начала алфавита"])')
-    SORT_2 = (By.CSS_SELECTOR, '.filter-panel__part-right .toggle-panel.hide-600')    # Сортировка по: количеству карточек на странице
+    VIEW_MODE = (By.CSS_SELECTOR, '.filter-panel__part-right .toggle-panel.hide-600')    # Сортировка по: количеству карточек на странице
 
     FILTERS_MENU = (By.CSS_SELECTOR, '.left_block.visible-by-block-presence .sticky-block.sticky-block--show-N')
     FILTERS_MIN_PRICE = (By.CSS_SELECTOR, '.bx_filter_block #MAX_SMART_FILTER_P1_MIN')
@@ -107,7 +107,7 @@ class SectionSaleInCatalogPage(BasePage):
 
     @allure.step('Ищу на странице сортировку по: количеству карточек на странице')
     def is_sort_2_visible(self) -> bool:    # 7) Метод проверки того, что на странице есть элемент "Сортировка" ()
-        return self.is_visible(self.SORT_2)    # Использую метод is_visible из BasePage, который возвращает True/False без падения
+        return self.is_visible(self.VIEW_MODE)    # Использую метод is_visible из BasePage, который возвращает True/False без падения
 
 
     @allure.step('Клик по названию карточки (переход внутрь)')
