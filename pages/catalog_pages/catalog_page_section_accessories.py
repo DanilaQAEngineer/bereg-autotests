@@ -103,7 +103,7 @@ class SectionAccessoriesInCatalogPage(BasePage):
 
     @allure.step('Ищу на странице сортировку по: количеству карточек на странице')
     def is_sort_2_visible(self) -> bool:  # 7) Метод проверки того, что на странице есть элемент "Сортировка" ()
-        return self.is_visible(LocatorsForCatalogPageSectionAccessories.SORT_2)  # Использую метод is_visible из BasePage, который возвращает True/False без падения
+        return self.is_visible(LocatorsForCatalogPageSectionAccessories.VIEW_MODE)  # Использую метод is_visible из BasePage, который возвращает True/False без падения
 
     @allure.step("Кликаю на раскладку странице 'Строчный вывод'")
     def click_on_view_by_line(self):
