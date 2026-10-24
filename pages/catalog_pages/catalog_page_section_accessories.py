@@ -110,6 +110,11 @@ class SectionAccessoriesInCatalogPage(BasePage):
         self.find(LocatorsForCatalogPageSectionAccessories.VIEW_MODE_LINE).click()
         return self
 
+    @allure.step("Кликаю на раскладку странице 'Вывод прайсом'")
+    def click_on_view_by_prcie(self):
+        self.find(LocatorsForCatalogPageSectionAccessories.VIEW_MODE_PRICE).click()
+        return self
+
     @allure.step('Клик по названию карточки (переход внутрь)')
     def click_first_product(self):
         self.find(LocatorsForCatalogPageSectionAccessories.PEREHOD_V_KARTOCHKU_TOVARA).click()

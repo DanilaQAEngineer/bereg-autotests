@@ -1,7 +1,7 @@
 import pytest
 
 
-from pages.catalog_page_section_sale import SectionSaleInCatalogPage
+from pages.catalog_pages.catalog_page_section_sale import SectionSaleInCatalogPage
 
 
 @pytest.mark.skip
