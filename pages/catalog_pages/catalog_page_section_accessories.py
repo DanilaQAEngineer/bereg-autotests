@@ -1,13 +1,12 @@
 import re
 import allure
-from faker import Faker
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
 from config.settings import settings
 from pages.base_page import BasePage
-from locators.locators_for_catalog_page_section_accessories import LocatorsForCatalogPageSectionAccessories
+from locators.catalog.locators_for_accessories.locators_main_page_section_accessories import LocatorsForCatalogPageSectionAccessories
 
 
 @allure.description("добавить описание страницы")
