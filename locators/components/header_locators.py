@@ -17,4 +17,11 @@ class LocatorsForHeader:
 
     # Глобальный поиск (строка и иконка)
     SEARCH_INPUT = (By.CSS_SELECTOR, '.search-input-div .search-input.font_16.banner-light-text.form-control[id="title-search-input"]')    # Поле ввода поиска
-    SEARCH_BUTTON = (By.CSS_SELECTOR, '')    # Кнопка лупы
+    SEARCH_BUTTON = (By.XPATH, '(//*[@class="btn btn-search btn--no-rippple fill-dark-light-block banner-light-icon-fill light-opacity-hover"])[1]')    # Кнопка лупы
+
+    # Виджеты (иконки в шапке)
+    LK_WIDGET_ICON = (By.CSS_SELECTOR, '.line-block__item[data-ajax-load-block="HEADER_TOGGLE_CABINET"]')    # Кнопка_иконка "Войти"
+    COMPARE_WIDGET_ICON = (By.CSS_SELECTOR, '.line-block__item[data-ajax-load-block="HEADER_TOGGLE_COMPARE"]')    # Кнопка_иконка "Список сравниваемых элементов"
+    FAVORITES_WIDGET_ICON = (By.CSS_SELECTOR, '.line-block__item[data-ajax-load-block="HEADER_TOGGLE_FAVORITE"]')    # Кнопка_иконка "Избранные товары"
+    BASKET_WIDGET_ICON = (By.CSS_SELECTOR, '.line-block__item[data-ajax-load-block="HEADER_TOGGLE_BASKET"]')    # Кнопка_иконка "Корзина"
+
