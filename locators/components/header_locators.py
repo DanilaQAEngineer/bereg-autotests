@@ -11,18 +11,20 @@ class LocatorsForHeader:
 
     # Город (слева сверху + его модалка)
     CITY_BUTTON = (By.XPATH, '(//*[@data-name="city_chooser"])[1]')
-    CITY_MODAL = (By.CSS_SELECTOR, '.city_chooser_frame.jqmWindow.popup.jqm-init.show')    # Модалка выбора города
+    CITY_MODAL = (By.CSS_SELECTOR, 'div.city_chooser_frame')    # Модалка выбора города
 
     # Контакты в шапке сайта:
-    PHONE_ICON = (By.CSS_SELECTOR, 'div.phones__inner.phones__inner--big.fill-theme-parent')    # Иконка/блок наведения на телефон
+    PHONE_ICON = (By.CSS_SELECTOR, '.header__top-item[data-ajax-load-block="HEADER_TOGGLE_PHONE"]')    # Иконка/блок наведения на телефон
     CALL_REQUEST_BUTTON = (By.XPATH, '(//*[@class="phones__dropdown-item callback-item"])[1]')    # Кнопка в выпадашке
 
     # Виджеты (иконки в шапке)
     LK_WIDGET_ICON = (By.CSS_SELECTOR, '.line-block__item[data-ajax-load-block="HEADER_TOGGLE_CABINET"]')    # Кнопка_иконка "Войти"
     COMPARE_WIDGET_ICON = (By.CSS_SELECTOR, '.line-block__item[data-ajax-load-block="HEADER_TOGGLE_COMPARE"]')    # Кнопка_иконка "Список сравниваемых элементов"
+    COMPARE_COUNTER = (By.CSS_SELECTOR, 'span.icon-count--compare')  # Иконка с количеством товаров в сравнении
     FAVORITES_WIDGET_ICON = (By.CSS_SELECTOR, '.line-block__item[data-ajax-load-block="HEADER_TOGGLE_FAVORITE"]')    # Кнопка_иконка "Избранные товары"
+    FAVORITE_COUNTER = (By.CSS_SELECTOR, 'span.icon-count--favorite')  # Иконка с количеством товаров в избранном
     BASKET_WIDGET_ICON = (By.CSS_SELECTOR, '.line-block__item[data-ajax-load-block="HEADER_TOGGLE_BASKET"]')    # Кнопка_иконка "Корзина"
-    BASKET_COUNTER = (By.CSS_SELECTOR, 'span.header-cart__count')    # Иконка с количеством товаров в корзину
+    BASKET_COUNTER = (By.CSS_SELECTOR, 'span.header-cart__count')    # Иконка с количеством товаров в корзине
 
     # Глобальный поиск
     SEARCH_INPUT = (By.ID, 'title-search-input')    # Поле ввода поиска

@@ -13,19 +13,29 @@ class ProductCardComponent(BasePage):
     IN_COMPARE_BUTTON = (By.CSS_SELECTOR, 'div.item-action--compare')  # Локатор кнопки добавления товара в сравнение
     IN_BASKET_BUTTON = (By.CSS_SELECTOR, 'span.item-action--basket')    # Локатор кнопки добавления товара в корзину
 
-    NOTIFICATION_AFTER_ADDED_IN_BASKET = (By.CSS_SELECTOR, 'div.notice-surface--right')    # Уведомление после успешного добавления товара в корзину (сам его див)
+    NOTIFICATION_AFTER_ADDED_IN_COMPARE = (By.CSS_SELECTOR, 'div.notice--link')    # Уведомление после успешного добавления товара в сравнение (сам его див)
+    NOTIFICATION_AFTER_ADDED_IN_FAVORITE = (By.CSS_SELECTOR, 'div.notice__inner')    # Уведомление после успешного добавления товара в избранное (сам его див)
+    NOTIFICATION_AFTER_ADDED_IN_BASKET = (By.CSS_SELECTOR, 'div.notice__inner')    # Уведомление после успешного добавления товара в корзину (сам его див)
 
 
+    @allure.step('Метод клика по кнопке "В сравнение" в карточке товара')
+    def click_button_add_cart_in_compare(self):
+        self.click(self.IN_COMPARE_BUTTON)
+        return self
+
+    @allure.step('Метод проверки появления на странице уведомления после успешного добавления товара в сравнение')
+    def check_notification_after_added_in_compare(self) -> bool:
+        return self.is_visible(self.NOTIFICATION_AFTER_ADDED_IN_COMPARE)
 
     @allure.step('Метод клика по кнопке "В избранное" в карточке товара')
     def click_button_add_cart_in_favorite(self):
         self.click(self.IN_FAVORITE_BUTTON)
         return self
 
-    @allure.step('Метод клика по кнопке "В сравнение" в карточке товара')
-    def click_button_add_cart_in_compare(self):
-        self.click(self.IN_COMPARE_BUTTON)
-        return self
+    @allure.step('Метод проверки появления на странице уведомления после успешного добавления товара в избранное')
+    def check_notification_after_added_in_favorite(self) -> bool:
+        return self.is_visible(self.NOTIFICATION_AFTER_ADDED_IN_FAVORITE)
+
 
     @allure.step('Метод клика по кнопке "В корзину" в карточке товара')
     def click_button_add_cart_in_basket(self):

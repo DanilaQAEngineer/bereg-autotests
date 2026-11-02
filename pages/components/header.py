@@ -39,11 +39,12 @@ class HeaderComponents(BasePage):
     def is_call_request_visible(self) -> bool:
         return self.is_visible(LocatorsForHeader.CALL_REQUEST_BUTTON)
 
-    #    Методы работы с поиском в хедере:
+    #                                    Методы работы с поиском в хедере:
+
     @allure.step('Метод ввода запроса в поисковую строку в хедере: {query}')
     def search_input(self, query: str):
         self.type(LocatorsForHeader.SEARCH_INPUT, query)
-        # Жду пока JS сайта отрисует выпадашку с результатами поиска
+        #    Жду, когда JS отрисует выпадашку с результатами поиска
         self.find(LocatorsForHeader.SEARCH_DROPDOWN)
         return self
 
@@ -54,9 +55,9 @@ class HeaderComponents(BasePage):
     @allure.step('Метод проверки наличия карточек в результирующем списке (в выпадашке)')
     def get_search_results_count(self) -> int:
         """Возвращает количество найденных элементов в выпадашке"""
-        # 1) Жду, когда хотя бы один элемент появится в списке (на случай долгой загрузки)
+        #    1) Жду, когда хотя бы один элемент появится в списке (на случай долгой загрузки)
         self.find(LocatorsForHeader.SEARCH_RESULT_ITEMS)
-        # 2) Возвращаю длину полученного списка
+        #    2) Возвращаю длину полученного списка
         return len(self.find_all(LocatorsForHeader.SEARCH_RESULT_ITEMS))
 
     @allure.step('Метод проверки значения в поисковой строке (что она не пустая)')
@@ -73,7 +74,19 @@ class HeaderComponents(BasePage):
         self.click(LocatorsForHeader.SEARCH_CLEAR_BTN)
         return self
 
+    #                                    Методы работы с виджетами (иконки "Сравнение/Избранное/Корзина"):
+
+    @allure.step('Метод получения количества товаров в сравнении')
+    def get_compare_counter_value(self) -> str:
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element(LocatorsForHeader.COMPARE_COUNTER, '1'))    # Жду, когда там появится хотя бы 1
+        return self.get_text(LocatorsForHeader.COMPARE_COUNTER)
+
+    @allure.step('Метод получения количества товаров в сравнении')
+    def get_favorite_counter_value(self) -> str:
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element(LocatorsForHeader.FAVORITE_COUNTER, '1'))    # Жду, когда там появится хотя бы 1
+        return self.get_text(LocatorsForHeader.FAVORITE_COUNTER)
+
     @allure.step('Метод получения количества товаров в корзине')
-    def get_cart_counter_value(self) -> str:
+    def get_basket_counter_value(self) -> str:
         WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element(LocatorsForHeader.BASKET_COUNTER, '1'))    # Жду, когда там появится хотя бы 1
         return self.get_text(LocatorsForHeader.BASKET_COUNTER)
