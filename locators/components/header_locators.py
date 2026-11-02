@@ -4,20 +4,18 @@ from selenium.webdriver.common.by import By
 class LocatorsForHeader:
     """Локаторы элементов хедера"""
 
+    BASE_PAGE = 'https://pfbereg.ru/'
+
     # Логотип
-    LOGO = (By.CSS_SELECTOR, '.header__main-part.header__main-part--long.part-with-search .header__main-item .logo.line-block__item.no-shrinked')
+    LOGO = (By.CSS_SELECTOR, 'a.menu-light-icon-fill.banner-light-icon-fill')
 
     # Город (слева сверху + его модалка)
     CITY_BUTTON = (By.XPATH, '(//*[@data-name="city_chooser"])[1]')
     CITY_MODAL = (By.CSS_SELECTOR, '.city_chooser_frame.jqmWindow.popup.jqm-init.show')    # Модалка выбора города
 
-    # Контакты
-    PHONE_ICON = (By.XPATH, '(//*[@class="phones__inner phones__inner--big fill-theme-parent"])[1]')    # Иконка/блок наведения на телефон
-    CALL_REQUEST_BUTTON = (By.CSS_SELECTOR, '.animate-load.btn.btn-default.btn-wide.btn-sm.has-ripple')    # Кнопка в выпадашке
-
-    # Глобальный поиск (строка и иконка)
-    SEARCH_INPUT = (By.CSS_SELECTOR, '.search-input-div .search-input.font_16.banner-light-text.form-control[id="title-search-input"]')    # Поле ввода поиска
-    SEARCH_BUTTON = (By.XPATH, '(//*[@class="btn btn-search btn--no-rippple fill-dark-light-block banner-light-icon-fill light-opacity-hover"])[1]')    # Кнопка лупы
+    # Контакты в шапке сайта:
+    PHONE_ICON = (By.CSS_SELECTOR, 'div.phones__inner.phones__inner--big.fill-theme-parent')    # Иконка/блок наведения на телефон
+    CALL_REQUEST_BUTTON = (By.XPATH, '(//*[@class="phones__dropdown-item callback-item"])[1]')    # Кнопка в выпадашке
 
     # Виджеты (иконки в шапке)
     LK_WIDGET_ICON = (By.CSS_SELECTOR, '.line-block__item[data-ajax-load-block="HEADER_TOGGLE_CABINET"]')    # Кнопка_иконка "Войти"
@@ -25,3 +23,9 @@ class LocatorsForHeader:
     FAVORITES_WIDGET_ICON = (By.CSS_SELECTOR, '.line-block__item[data-ajax-load-block="HEADER_TOGGLE_FAVORITE"]')    # Кнопка_иконка "Избранные товары"
     BASKET_WIDGET_ICON = (By.CSS_SELECTOR, '.line-block__item[data-ajax-load-block="HEADER_TOGGLE_BASKET"]')    # Кнопка_иконка "Корзина"
 
+    # Глобальный поиск
+    SEARCH_INPUT = (By.ID, 'title-search-input')    # Поле ввода поиска
+    SEARCH_BUTTON = (By.CSS_SELECTOR, '.search-button-div')    # Кнопка поиска (лупа)
+    SEARCH_CLEAR_BTN = (By.CSS_SELECTOR, 'button.btn-clear-search')    # Кнопка удаления запроса из поля (х)
+    SEARCH_DROPDOWN = (By.CSS_SELECTOR, 'div.searche-result.scrollbar')    # Выпадающий список с результатами поиска
+    SEARCH_RESULT_ITEMS = (By.CSS_SELECTOR, 'a.bx_item_block')    # Карточка товара в результирующем списке (в выпадашке)
