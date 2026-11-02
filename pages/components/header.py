@@ -1,4 +1,6 @@
 import allure
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.action_chains import ActionChains
 
 
@@ -70,3 +72,8 @@ class HeaderComponents(BasePage):
     def click_clear_button(self):
         self.click(LocatorsForHeader.SEARCH_CLEAR_BTN)
         return self
+
+    @allure.step('Метод получения количества товаров в корзине')
+    def get_cart_counter_value(self) -> str:
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element(LocatorsForHeader.BASKET_COUNTER, '1'))    # Жду, когда там появится хотя бы 1
+        return self.get_text(LocatorsForHeader.BASKET_COUNTER)

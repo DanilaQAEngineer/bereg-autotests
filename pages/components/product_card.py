@@ -13,6 +13,9 @@ class ProductCardComponent(BasePage):
     IN_COMPARE_BUTTON = (By.CSS_SELECTOR, 'div.item-action--compare')  # Локатор кнопки добавления товара в сравнение
     IN_BASKET_BUTTON = (By.CSS_SELECTOR, 'span.item-action--basket')    # Локатор кнопки добавления товара в корзину
 
+    NOTIFICATION_AFTER_ADDED_IN_BASKET = (By.CSS_SELECTOR, 'div.notice-surface--right')    # Уведомление после успешного добавления товара в корзину (сам его див)
+
+
 
     @allure.step('Метод клика по кнопке "В избранное" в карточке товара')
     def click_button_add_cart_in_favorite(self):
@@ -20,11 +23,16 @@ class ProductCardComponent(BasePage):
         return self
 
     @allure.step('Метод клика по кнопке "В сравнение" в карточке товара')
-    def click_button_add_cart_in_favorite(self):
+    def click_button_add_cart_in_compare(self):
         self.click(self.IN_COMPARE_BUTTON)
         return self
 
     @allure.step('Метод клика по кнопке "В корзину" в карточке товара')
-    def click_button_add_cart_in_favorite(self):
+    def click_button_add_cart_in_basket(self):
         self.click(self.IN_BASKET_BUTTON)
         return self
+
+    @allure.step('Метод проверки появления на странице уведомления после успешного добавления товара в корзину')
+    def check_notification_after_added_in_basket(self) -> bool:
+        return self.is_visible(self.NOTIFICATION_AFTER_ADDED_IN_BASKET)
+

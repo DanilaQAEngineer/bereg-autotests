@@ -22,6 +22,7 @@ class LocatorsForHeader:
     COMPARE_WIDGET_ICON = (By.CSS_SELECTOR, '.line-block__item[data-ajax-load-block="HEADER_TOGGLE_COMPARE"]')    # Кнопка_иконка "Список сравниваемых элементов"
     FAVORITES_WIDGET_ICON = (By.CSS_SELECTOR, '.line-block__item[data-ajax-load-block="HEADER_TOGGLE_FAVORITE"]')    # Кнопка_иконка "Избранные товары"
     BASKET_WIDGET_ICON = (By.CSS_SELECTOR, '.line-block__item[data-ajax-load-block="HEADER_TOGGLE_BASKET"]')    # Кнопка_иконка "Корзина"
+    BASKET_COUNTER = (By.CSS_SELECTOR, 'span.header-cart__count')    # Иконка с количеством товаров в корзину
 
     # Глобальный поиск
     SEARCH_INPUT = (By.ID, 'title-search-input')    # Поле ввода поиска

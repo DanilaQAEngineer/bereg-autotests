@@ -34,4 +34,3 @@ class SortPanelComponent(BasePage):
             if clean_text:
                 prices.append(float(clean_text))
         return prices
-
