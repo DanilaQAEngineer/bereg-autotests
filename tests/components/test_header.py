@@ -84,7 +84,7 @@ def test_check_search_dropdown(browser):
     assert header.is_search_dropdown_result_visible(), 'Выпадающий список с результатами поиска отсутствует'
 
     #    2. Проверяю, что в выпадающем_результирующем списке действительно есть карточки товаров
-    count_tovarov = header.get_search_results_count(); print(f"\nВ выпадающем_результирующем списке {count_tovarov} карточек товаров") # Выведется при запуске с флагом -s
+    count_tovarov = header.get_search_results_count()#; print(f"В выпадающем_результирующем списке {count_tovarov} карточек товаров")    # Выведется при запуске с флагом -s
     assert count_tovarov > 0, 'В выпадающем_результирующем списке нет карточек товаров'
 
 
