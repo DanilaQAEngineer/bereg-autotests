@@ -5,6 +5,7 @@ from config.settings import settings
 from pages.base_page import BasePage
 from pages.components.sort_panel import SortPanelComponent
 from pages.components.product_card import ProductCardComponent
+from pages.components.filter_panel import FilterPanelComponent
 from locators.catalog.listing_locators import LocatorsForListing
 
 
@@ -13,13 +14,13 @@ class ListingPage(BasePage):
 
     def __init__(self, driver):
         super().__init__(driver)
-        #     Внедряю компоненты:
+        #     Внедряю повторяющиеся компоненты:
         self.sort_panel = SortPanelComponent(driver)
         self.product_card = ProductCardComponent(driver)
+        self.filter_panel = FilterPanelComponent(driver)
 
-
-    @allure.step('Метод открытия какой-нибудь дефолтной страницы раздела, на которой есть сортировка и карточки товара: {category_url}')
-    def open_page_category_with_sort_and_cart(self, category_url: str = '/catalog/aksessuary1/'):
+    @allure.step('Метод открытия какой-нибудь дефолтной страницы раздела, на которой есть сортировка, фильтры и карточки товара: {category_url}')
+    def open_page_category_with_sorting_filters(self, category_url: str = '/catalog/aksessuary1/dlya-palatok/'):
         self.driver.get(f'{settings.base_url}{category_url}')
         return self
 

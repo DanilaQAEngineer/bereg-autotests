@@ -16,7 +16,7 @@ def test_add_first_product_to_compare(browser):
     page = ListingPage(browser)
     header = HeaderComponents(browser)
 
-    page.open_page_category_with_sort_and_cart()
+    page.open_page_category_with_sorting_filters()
 
     #    1. Проверяю, что на странице раздела есть карточки товаров:
     assert page.get_product_count() > 0, 'На странице раздела нет карточек товаров'
@@ -43,7 +43,7 @@ def test_add_first_product_to_favorite(browser):
     page = ListingPage(browser)
     header = HeaderComponents(browser)
 
-    page.open_page_category_with_sort_and_cart()
+    page.open_page_category_with_sorting_filters()
 
     #    1. Проверяю, что на странице раздела есть карточки товаров:
     assert page.get_product_count() > 0, 'На странице раздела нет карточек товаров'
@@ -70,7 +70,7 @@ def test_add_first_product_to_basket(browser):
     page = ListingPage(browser)
     header = HeaderComponents(browser)
 
-    page.open_page_category_with_sort_and_cart()
+    page.open_page_category_with_sorting_filters()
 
     #    1. Проверяю, что на странице раздела есть карточки товаров:
     assert page.get_product_count() > 0, 'На странице раздела нет карточек товаров'

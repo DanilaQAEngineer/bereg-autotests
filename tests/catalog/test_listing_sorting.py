@@ -14,14 +14,14 @@ def test_asc_sort_by_price(browser):
     page = ListingPage(browser)
 
     (
-        page.open_page_category_with_sort_and_cart()
+        page.open_page_category_with_sorting_filters()
     )
 
     #    1. Проверяю, что на странице раздела есть карточки товаров:
     assert page.get_product_count() > 0, 'На странице раздела нет карточек товаров'
 
     #    2. Собираю цены на странице и убеждаюсь, что карточки на странице отображаются от самой дешёвой к самой дорогой:
-    prices = page.sort_panel.get_all_actual_prices_as_floats#; print(f'\nЦены товаров на странице: {prices}')
+    prices = page.sort_panel.get_all_prices_as_floats()#; print(f'\nЦены товаров на странице: {prices}')
     assert prices == sorted(prices, reverse=False), 'ASC-сортировка "Сначала дешёвые" не работает'
 
 @pytest.mark.smoke
@@ -34,7 +34,7 @@ def test_desc_sort_by_price(browser):
     page = ListingPage(browser)
 
     (
-        page.open_page_category_with_sort_and_cart()
+        page.open_page_category_with_sorting_filters()
     )
 
     #    1. Проверяю, что на странице раздела есть карточки товаров:
@@ -48,5 +48,5 @@ def test_desc_sort_by_price(browser):
     )
 
     #    3. Собираю цены на странице и убеждаюсь, что карточки на странице отображаются от самой дорогой к самой дешёвой:
-    prices = page.sort_panel.get_all_actual_prices_as_floats#; print(f'\nЦены товаров на странице: {prices}')
+    prices = page.sort_panel.get_all_prices_as_floats()#; print(f'\nЦены товаров на странице: {prices}')
     assert prices == sorted(prices, reverse=True), 'DESC-сортировка "Сначала дорогие" не работает'

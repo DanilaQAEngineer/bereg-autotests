@@ -8,8 +8,8 @@ class LocatorsForListing:
 
     # Сортировка на странице каталога
     SORT_DROPDOWN = (By.CSS_SELECTOR, 'div.filter-panel__sort')    # Кнопка выбора сортировки на странице
-    ASC_SORT_PRICE = (By.XPATH, '(//*[text() = "Сначала дешевые"])[2]')  # Выбор в выпадающем списке сортировки "Сначала дешевые"
-    DESC_SORT_PRICE = (By.XPATH, '(//*[text() = "Сначала дорогие"])[2]')    # Выбор в выпадающем списке сортировки "Сначала дорогие"
+    ASC_SORT_PRICE = (By.XPATH, '(//*[text()="Сначала дешевые"])[2]')  # Выбор в выпадающем списке сортировки "Сначала дешевые"
+    DESC_SORT_PRICE = (By.CSS_SELECTOR, 'a[data-url="/catalog/aksessuary1/dlya-palatok/?sort=CATALOG_PRICE_1&order=desc"]')    # Выбор в выпадающем списке сортировки "Сначала дорогие"
 
     # Сортировка на странице с результатами поиска
     SORT_DROPDOWN_ON_RESULT_SEARCH_PAGE = (By.XPATH, '(//*[text()="По релевантности"])[3]')  # Кнопка выбора сортировки на странице
