@@ -16,4 +16,5 @@ class LocatorsForListing:
 
     # Карточки товаров
     PRODUCT_CARDS = (By.CSS_SELECTOR, 'div.catalog-item')  # Общий класс карточки
-    PRICE_ELEMENTS = (By.CSS_SELECTOR, 'span.price__new-val')  # Класс цены
+    PRICE_NEW = (By.CSS_SELECTOR, 'span.price__new-val')  # Актуальная цена в карточке товара
+    PRICE_OLD = (By.CSS_SELECTOR, 'span.price__old-val')  # Старая цена в карточке товара (зачёркнутая)
