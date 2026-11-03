@@ -26,3 +26,8 @@ class ListingPage(BasePage):
     @allure.step('Метод получения количества карточек на странице раздела')
     def get_product_count(self) -> int:
         return len(self.find_all(LocatorsForListing.PRODUCT_CARDS))
+
+    @allure.step('Метод перехода на страницу поиска с нужным запросом_результатами (имитирую переход по ссылке: ввёл запрос в поиск + нажал "Найти/Все результаты")')
+    def open_search_results_page(self, query: str = "Палатка"):
+        self.driver.get(f'{settings.base_url}/catalog/?q={query}')
+        return self
