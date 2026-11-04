@@ -16,6 +16,11 @@ class HeaderComponents(BasePage):
         self.open(LocatorsForHeader.BASE_PAGE)
         return self
 
+    @allure.step('Метод закрытия модалки подтверждения города')
+    def close_modal_verifid_city(self):
+        self.click(LocatorsForHeader.CLOSE_MODAL_VERIFID_CITY)
+        return self
+
     @allure.step('Метод клика по лого в хедере')
     def click_logo(self):
         self.click(LocatorsForHeader.LOGO)

@@ -5,6 +5,7 @@ class LocatorsForHeader:
     """Локаторы элементов хедера"""
 
     BASE_PAGE = 'https://pfbereg.ru/'
+    CLOSE_MODAL_VERIFID_CITY = (By.XPATH, '(//*[@title="Закрыть"])[2]')
 
     # Логотип
     LOGO = (By.CSS_SELECTOR, 'a.menu-light-icon-fill.banner-light-icon-fill')

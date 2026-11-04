@@ -21,7 +21,10 @@ def test_header_logo_navigation(browser):
 
     url_before_click_logo = browser.current_url#; print(f'\nURL`а до клика по лого: {url_before_click_logo}')
 
-    header.click_logo()
+    (
+        header.close_modal_verifid_city()    # Закрываю модалку подтверждения города (она сейчас перекрывает сам логотип)
+        .click_logo()
+    )
 
     url_after_click_logo = browser.current_url#; print(f'URL`а после клика по лого: {url_after_click_logo}')
 
