@@ -15,6 +15,7 @@ class LocatorsForListing:
     SORT_DROPDOWN_ON_RESULT_SEARCH_PAGE = (By.XPATH, '(//*[text()="По релевантности"])[3]')  # Кнопка выбора сортировки на странице
 
     # Карточки товаров
-    PRODUCT_CARDS = (By.CSS_SELECTOR, 'div.catalog-item')  # Общий класс карточки
+    PRODUCT_CARDS = (By.CSS_SELECTOR, 'div.catalog-item')  # Общий класс карточки товара на странице каталога
+    PRODUCT_NAME = (By.CSS_SELECTOR, 'div.catalog-item a.dark_link')  # Локатор названия карточки (для дальнейшего перехода карточку товара)
     PRICE_NEW = (By.CSS_SELECTOR, 'span.price__new-val')  # Актуальная цена в карточке товара
     PRICE_OLD = (By.CSS_SELECTOR, 'span.price__old-val')  # Старая цена в карточке товара (зачёркнутая)

@@ -37,8 +37,7 @@ def test_add_card_in_basket(browser):
             по клику кнопки "+" добавляется ещё один товар
     """
 
-    listing = ListingPage(browser)
-    cart = Basket(browser)
+    listing = ListingPage(browser); cart = Basket(browser)
 
     (
         listing.open_page_category_with_sorting_filters()
