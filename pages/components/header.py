@@ -4,6 +4,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.action_chains import ActionChains
 
 
+from config.settings import settings
 from pages.base_page import BasePage
 from locators.components.header_locators import LocatorsForHeader
 
@@ -13,7 +14,7 @@ class HeaderComponents(BasePage):
 
     @allure.step('Метод перехода на главную страницу')
     def open_main_page(self):
-        self.open(LocatorsForHeader.BASE_PAGE)
+        self.open(settings.base_url)
         return self
 
     @allure.step('Метод закрытия модалки подтверждения города')
@@ -95,3 +96,9 @@ class HeaderComponents(BasePage):
     def get_basket_counter_value(self) -> str:
         WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element(LocatorsForHeader.BASKET_COUNTER, '1'))    # Жду, когда там появится хотя бы 1
         return self.get_text(LocatorsForHeader.BASKET_COUNTER)
+
+    #                                    Методы для авторизации/регистрации на сайте:
+    @allure.step('Метод клика кнопки "Войти"')
+    def click_voity_button(self):
+        self.click(LocatorsForHeader.LK_WIDGET_ICON)
+        return self

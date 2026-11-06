@@ -73,7 +73,7 @@ def test_add_card_in_basket(browser):
 
     product.click_button_in_basket()    # Добавление товара в корзину
 
-    assert product.check_notification_after_added_card_in_basket(), 'Уведомления о добавлении товара в корзину отсутствует'
+    assert product.check_notification_after_added_card_in_basket(), 'Уведомление о добавлении товара в корзину отсутствует'
 
     title_notification = product.check_title_in_notification()
     #print(f'\nУведомление заголовка: {title_notification}')
