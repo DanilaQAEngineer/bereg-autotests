@@ -36,6 +36,18 @@ class AuthModalComponent(BasePage):
         self.click(LocatorsForAuthModal.BTN_VITY)
         return self
 
+    @allure.step('Метод проверки уведомления об успешной авторизации на сайте')
+    def check_notification_after_auth(self) -> bool:
+        return self.is_visible(LocatorsForAuthModal.AFTER_AUTH_NOTIFICATION)
+
+    @allure.step('Метод проверки заголовка в уведомлении об успешной авторизации на сайте')
+    def check_title_notification_after_auth(self) -> str:
+        return self.get_text(LocatorsForAuthModal.TITLE_AFTER_AUTH_NOTIFICATION)
+
+    @allure.step('Метод проверки логина в уведомлении об успешной авторизации на сайте')
+    def check_email_notification_after_auth(self) -> str:
+        return self.get_text(LocatorsForAuthModal.EMAIL_AFTER_AUTH_NOTIFICATION)
+
     @allure.step('Метод проверки уведомления об ошибке при авторизации с недействительными данными')
     def check_error_notification(self) -> bool:
         return self.is_visible(LocatorsForAuthModal.ERROR_NOTIFICATION)

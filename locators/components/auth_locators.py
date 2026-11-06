@@ -15,4 +15,8 @@ class LocatorsForAuthModal:
     ERROR_MSG_LOGIN = (By.XPATH, '(//*[@class="error"])[1]')    # Ошибка под полем логина: "Заполните это поле!"
     ERROR_MSG_PASSWORD = (By.XPATH, '(//*[@class="error"])[2]')  # Ошибка под полем пароля: "Заполните это поле!"
 
+    #    Уведомления:
+    AFTER_AUTH_NOTIFICATION = (By.CSS_SELECTOR, 'div.notice__inner')    # Уведомление после успешной авторизации
+    TITLE_AFTER_AUTH_NOTIFICATION = (By.CSS_SELECTOR, 'div.notice__title ')  # Заголовок уведомления после успешной авторизации: "Вы успешно авторизовались"
+    EMAIL_AFTER_AUTH_NOTIFICATION = (By.CSS_SELECTOR,'div.notice__detail')    # Почта, под которой залогинились в системе (должна быть = логину)
     ERROR_NOTIFICATION = (By.CSS_SELECTOR, 'div.alert-danger')    # Ошибка под заголовком (когда логинимся с недействительными данными)
