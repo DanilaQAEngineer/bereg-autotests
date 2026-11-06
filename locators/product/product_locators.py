@@ -9,12 +9,16 @@ class ProductLocators:
     TITLE_CARD = (By.CSS_SELECTOR, 'h1.switcher-title')
 
     #    Локаторы табов на странице карточки:
-    TAB_DESCRIPTION = (By.XPATH, '(//*[@data-toggle="tab"])[1]')
+    TAB_DESCRIPTION = (By.XPATH, '(//*[contains(text(), "Описание")])[1]')
     CONTENT_TAB_DESCRIPTION = (By.CSS_SELECTOR, 'div.js-detail-description')
-    TAB_OTZ = (By.XPATH, '(//*[@data-toggle="tab"])[5]')
+    TAB_OTZ = (By.XPATH, '(//*[contains(text(), "Отзывы")])[2]')
     CONTENT_TAB_OTZ = (By.CSS_SELECTOR, 'div.blog-comment__container')
-    TAB_DOST = (By.XPATH, '(//*[@data-toggle="tab"])[7]')
+    TAB_OPL = (By.XPATH, '(//*[contains(text(), "Оплата")])[1]')
+    CONTENT_TAB_OPL = (By.CSS_SELECTOR, 'div.tab-pane#payment')
+    TAB_DOST = (By.XPATH, '(//*[contains(text(), "Доставка")])[1]')
     CONTENT_TAB_DOST = (By.CSS_SELECTOR, 'div.tab-pane#delivery')
+    TAB_VOPR = (By.XPATH, '(//*[contains(text(), "Вопросы о товаре")])[1]')
+    CONTENT_TAB_VOPR = (By.CSS_SELECTOR, 'div.red-comments-module')
 
     #    Кнопки действий на странице карточки товара
     BTN_IN_BASKET = (By.XPATH, '(//*[@data-action="basket"])[1]')

@@ -15,7 +15,6 @@ class ProductCardComponent(BasePage):
 
     PRODUCT_NAME = (By.CSS_SELECTOR, 'div.catalog-item a.dark_link')  # Локатор названия карточки (для дальнейшего перехода карточку товара)
 
-
     NOTIFICATION_AFTER_ADDED_IN_COMPARE = (By.CSS_SELECTOR, 'div.notice--link')    # Уведомление после успешного добавления товара в сравнение (сам его див)
     NOTIFICATION_AFTER_ADDED_IN_FAVORITE = (By.CSS_SELECTOR, 'div.notice__inner')    # Уведомление после успешного добавления товара в избранное (сам его див)
     NOTIFICATION_AFTER_ADDED_IN_BASKET = (By.CSS_SELECTOR, 'div.notice__inner')    # Уведомление после успешного добавления товара в корзину (сам его див)
@@ -48,7 +47,7 @@ class ProductCardComponent(BasePage):
     def check_notification_after_added_in_basket(self) -> bool:
         return self.is_visible(self.NOTIFICATION_AFTER_ADDED_IN_BASKET)
 
-    # МЕТОД ДЛЯ ТЕСТИРОВАНИЯ СТРАНИЦЫ КАРТОЧКИ ТОВАРА (СМЕЖНЫЙ МЕТОД ДЛЯ СКВОЗНОГО ТЕСТИРОВАНИЯ (ПЕРЕХОД В КАРТОЧКУ ЧЕРЕЗ КАТАЛОГ))
+    # МЕТОД ДЛЯ ТЕСТИРОВАНИЯ СТРАНИЦЫ КАРТОЧКИ ТОВАРА (СМЕЖНЫЙ МЕТОД ДЛЯ СКВОЗНОГО ТЕСТИРОВАНИЯ = ПЕРЕХОД В КАРТОЧКУ ЧЕРЕЗ КАТАЛОГ)
     @allure.step('Метод перехода в карточку первого товара на странице каталога')
     def open_first_card(self):
         self.click(self.PRODUCT_NAME)
