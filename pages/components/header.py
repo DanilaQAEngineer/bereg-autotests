@@ -36,7 +36,7 @@ class HeaderComponents(BasePage):
 
     @allure.step('Метод открытия выпадающего меню "Номер телефона" в хедере')
     def hover_phone(self):
-        # Selenium не имеет встроенного hover, поэтому используем ActionChains
+        # Selenium не имеет встроенного hover, поэтому для наведения курсора на номер телефона (чтоб появилась выпадашка) используем ActionChains
         element = self.find(LocatorsForHeader.PHONE_ICON)
         ActionChains(self.driver).move_to_element(element).perform()
         return self
