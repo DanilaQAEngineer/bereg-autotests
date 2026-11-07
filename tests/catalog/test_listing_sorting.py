@@ -1,9 +1,12 @@
 import pytest
+import allure
 
 
 from pages.catalog.listing_page import ListingPage
 
 
+@allure.feature('Сортировка на странице раздела каталога')
+@allure.story('Проверить, что ASC-сортировка по параметру "Сначала дешёвые" работает корректно -- эта сортировка применяется на странице по умолчанию, ничего выбирать не нужно (просто убедиться, что она работает корректно)')
 @pytest.mark.smoke
 def test_asc_sort_by_price(browser):
     """
@@ -24,6 +27,8 @@ def test_asc_sort_by_price(browser):
     prices = page.sort_panel.get_all_prices_as_floats()#; print(f'\nЦены товаров на странице: {prices}')
     assert prices == sorted(prices, reverse=False), 'ASC-сортировка "Сначала дешёвые" не работает'
 
+@allure.feature('Сортировка на странице раздела каталога')
+@allure.story('Проверить, что DESC-сортировка по параметру "Сначала дорогие" работает корректно')
 @pytest.mark.smoke
 def test_desc_sort_by_price(browser):
     """

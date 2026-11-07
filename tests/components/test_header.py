@@ -1,4 +1,5 @@
 import pytest
+import allure
 import time
 
 
@@ -8,6 +9,8 @@ from pages.components.header import HeaderComponents
 
 
 #    smoke-тесты для функционала хедера:
+@allure.feature('Хедер')
+@allure.story('Проверить, что по клику на лого в хедере открывается главная страница сайта https://pfbereg.ru/')
 @pytest.mark.smoke
 def test_header_logo_navigation(browser):
     """
@@ -22,8 +25,8 @@ def test_header_logo_navigation(browser):
     url_before_click_logo = browser.current_url#; print(f'\nURL`а до клика по лого: {url_before_click_logo}')
 
     (
-        header.close_modal_verifid_city()    # Закрываю модалку подтверждения города (она сейчас перекрывает сам логотип)
-        .click_logo()
+        #header.close_modal_verifid_city()    # Закрываю модалку подтверждения города (она сейчас перекрывает сам логотип)
+        header.click_logo()
     )
 
     url_after_click_logo = browser.current_url#; print(f'URL`а после клика по лого: {url_after_click_logo}')
@@ -31,6 +34,8 @@ def test_header_logo_navigation(browser):
     assert url_before_click_logo != url_after_click_logo, "URL`а не изменилась"
 
 
+@allure.feature('Хедер')
+@allure.story('Проверить, что по клику "Выбрать город" в хедере открывается модалка выбора города')
 @pytest.mark.smoke
 def test_header_city_modal(browser):
     """
@@ -48,6 +53,8 @@ def test_header_city_modal(browser):
     assert header.is_visible(LocatorsForHeader.CITY_MODAL), "Модалка выбора города не открылась"
 
 
+@allure.feature('Хедер')
+@allure.story('Проверить, что при наведении курсора на номер в хедере открывается выпадашка, в которой есть кнопка "Заказать звонок"')
 @pytest.mark.smoke
 def test_header_call_request_hover(browser):
     """
@@ -68,6 +75,8 @@ def test_header_call_request_hover(browser):
     assert header.is_call_request_visible(), "Кнопка 'Заказать звонок' не появилась"
 
 
+@allure.feature('Хедер')
+@allure.story('Проверить, что: 1) при вводе действительного значения в поисковую строку появляется выпадающий список с результатами поиска; 2) в выпадающем_результирующем списке действительно есть карточки товаров')
 @pytest.mark.smoke
 def test_check_search_dropdown(browser):
     """
@@ -91,6 +100,8 @@ def test_check_search_dropdown(browser):
     assert count_tovarov > 0, 'В выпадающем_результирующем списке нет карточек товаров'
 
 
+@allure.feature('Хедер')
+@allure.story('Проверить, что запрос из поисковой строки удаляется по клику кнопки "х" (очистить поле)')
 @pytest.mark.smoke
 def test_click_clear_button_in_search(browser):
     """

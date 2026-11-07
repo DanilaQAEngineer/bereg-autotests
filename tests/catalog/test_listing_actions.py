@@ -1,10 +1,13 @@
 import pytest
+import allure
 
 
 from pages.catalog.listing_page import ListingPage
 from pages.components.header import HeaderComponents
 
 
+@allure.feature('Страница раздела каталога')
+@allure.story('Проверить, что: 1) после добавления товара в сравнение на странице появляется уведомление об успешности добавления; 2) количество товаров в сравнении меняется (появляется иконка с количеством)')
 @pytest.mark.smoke
 def test_add_first_product_to_compare(browser):
     """
@@ -32,6 +35,8 @@ def test_add_first_product_to_compare(browser):
     assert int(counter_value) > 0, f'Счетчик сравнения не увеличился, сейчас: {counter_value}'
 
 
+@allure.feature('Страница раздела каталога')
+@allure.story('Проверить, что: 1) после добавления товара в избранное на странице появляется уведомление об успешности добавления; 2) количество товаров в избранном меняется (появляется иконка с количеством)')
 @pytest.mark.smoke
 def test_add_first_product_to_favorite(browser):
     """
@@ -59,6 +64,8 @@ def test_add_first_product_to_favorite(browser):
     assert int(counter_value) > 0, f'Счетчик избранного не увеличился, сейчас: {counter_value}'
 
 
+@allure.feature('Страница раздела каталога')
+@allure.story('Проверить, что: 1) после добавления товара в корзину на странице появляется уведомление об успешности добавления; 2) количество товаров в корзине меняется (появляется иконка с количеством)')
 @pytest.mark.smoke
 def test_add_first_product_to_basket(browser):
     """

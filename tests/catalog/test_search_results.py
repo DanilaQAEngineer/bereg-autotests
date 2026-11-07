@@ -1,10 +1,13 @@
 import pytest
+import allure
 
 
 from pages.catalog.listing_page import ListingPage
 from pages.components.header import HeaderComponents
 
 
+@allure.feature('Страница с результатами поиска по сайту')
+@allure.story('Проверить, что на странице с результатами поиска действительно есть карточки товаров')
 @pytest.mark.smoke
 def test_search_results_page_has_products(browser):
     """
@@ -20,6 +23,8 @@ def test_search_results_page_has_products(browser):
     assert count > 0, 'На странице с результатами нет карточек товаров'
 
 
+@allure.feature('Страница с результатами поиска по сайту')
+@allure.story('Проверить, что на странице с результатами поиска корректно работает ASC-сортировка "Сначала дешёвые" (дешёвые > дорогие)')
 @pytest.mark.smoke
 def test_search_results_asc_sorting_by_price(browser):
     """
@@ -40,6 +45,8 @@ def test_search_results_asc_sorting_by_price(browser):
     assert prices == sorted(prices, reverse=False), 'ASC-сортировка "Сначала дешёвые" не работает'
 
 
+@allure.feature('Страница с результатами поиска по сайту')
+@allure.story('Проверить, что на странице с результатами поиска корректно работает DESC-сортировка "Сначала дорогие" (дорогие > дешёвые)')
 @pytest.mark.skip
 def test_search_results_desc_sorting_by_price(browser):    # ТЕСТ ПАДАЕТ В ОШИБКУ, Т.К. У ОДНОГО ТОВАРА ЕСТЬ СКИДКА И ФИЛЬТРУЕМ, ВИДИМО, ПО СТАРОЙ ЦЕНЕ
     """

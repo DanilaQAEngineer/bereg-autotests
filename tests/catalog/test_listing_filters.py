@@ -1,4 +1,5 @@
 import pytest
+import allure
 from time import sleep
 
 
@@ -7,6 +8,8 @@ from pages.components.header import HeaderComponents
 from locators.catalog.listing_locators import LocatorsForListing
 
 
+@allure.feature('Фильтры на странице раздела каталога')
+@allure.story('Проверить, что фильтрация по диапазону цен "от 1000 до 5000" работает корректно')
 @pytest.mark.smoke
 def test_filter_by_price_range(browser):
     """

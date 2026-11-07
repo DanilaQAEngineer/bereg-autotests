@@ -1,5 +1,6 @@
 import os
 import pytest
+import allure
 from dotenv import load_dotenv
 
 
@@ -10,6 +11,8 @@ from pages.components.auth_modal import AuthModalComponent
 load_dotenv()    # Функция, позволяющая читать файлы .env (по умолчанию Python не видит их) и добавлять все пары КЛЮЧ=ЗНАЧЕНИЕ в системные переменные окружения процесса
 
 
+@allure.feature('Авторизация на сайте')
+@allure.story('Проверить, что при вводе действительных данных происходит авторизация на сайте')
 @pytest.mark.smoke
 def test_correct_authorization(browser):
     """
@@ -43,6 +46,8 @@ def test_correct_authorization(browser):
     assert auth_modal.check_email_notification_after_auth() == true_login, 'Почта в уведомлении != логину, указанному при авторизации'
 
 
+@allure.feature('Авторизация на сайте')
+@allure.story('Проверить, что при авторизации с недействительными данными в модалке авторизации отображается уведомление: "Неверный логин или пароль."')
 @pytest.mark.smoke
 @pytest.mark.parametrize(
     'login, password', [
@@ -74,6 +79,8 @@ def test_authorization_with_invalid_data(browser, login, password):
     assert auth_modal.check_error_notification(), 'Уведомление о не успешности авторизации отсутствует'
 
 
+@allure.feature('Авторизация на сайте')
+@allure.story('Проверить, что авторизация недоступна, если обязательные поля не заполнены: под пустыми полями есть сообщение: "Заполните это поле!"')
 @pytest.mark.smoke
 def test_authorization_with_empty_required_fields(browser):
     """
@@ -93,4 +100,3 @@ def test_authorization_with_empty_required_fields(browser):
 
     assert auth_modal.check_error_message_login(), 'Под полем "Логин" отсутствует сообщение об ошибке'
     assert auth_modal.check_error_message_password(), 'Под полем "Пароль" отсутствует сообщение об ошибке'
-

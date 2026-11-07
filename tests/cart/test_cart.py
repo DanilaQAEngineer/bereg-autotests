@@ -1,4 +1,5 @@
 import pytest
+import allure
 from time import sleep
 
 
@@ -6,6 +7,8 @@ from pages.cart.cart_page import Basket
 from pages.catalog.listing_page import ListingPage
 
 #    СЮДА ЕЩЁ НУЖНО БУДЕТ ДОБАВИТЬ ТЕСТОВ ДЛЯ УДАЛЕНИЯ/ВОССТАНОВЛЕНИЯ КАРТОЧКИ ИЗ/В КОРЗИНЕ + ПОЛНОЕ ОЧИЩЕНИЕ КОРЗИНЫ
+@allure.feature('Корзина')
+@allure.story('Проверить, что товар, добавленный со страницы каталога действительно появляется в корзине')
 @pytest.mark.smoke
 def test_add_check_card_in_basket(browser):
     """
@@ -30,6 +33,8 @@ def test_add_check_card_in_basket(browser):
     assert cart.get_title_first_card() != '', 'Названия карточки отсутствует';#print(f'\nНазвание карточки первого товара: {title_card}')
 
 
+@allure.feature('Корзина')
+@allure.story('Проверить, что по клику кнопки "+" добавляется ещё один товар')
 @pytest.mark.smoke
 def test_add_card_in_basket(browser):
     """
@@ -63,6 +68,8 @@ def test_add_card_in_basket(browser):
     assert final_price_before_click_button_plus != final_price_after_click_button_plus, 'Цена в блоке "Итого" не изменилась'
 
 
+@allure.feature('Корзина')
+@allure.story('Проверить, что: 1) по клику кнопки "урна" (удалить) карточка удаляется из корзины; 2) под полем "Промокод" появляется текстовка')
 @pytest.mark.smoke
 def test_delete_card_in_basket(browser):
     """

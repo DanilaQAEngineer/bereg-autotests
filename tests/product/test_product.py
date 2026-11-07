@@ -1,10 +1,13 @@
 import pytest
+import allure
 
 
 from pages.catalog.listing_page import ListingPage
 from pages.product.product_page import ProductPage
 
 
+@allure.feature('Страница карточки товара')
+@allure.story('Проверить, что базовый UI карточки товара отображается корректно: есть ХК, есть заголовок')
 @pytest.mark.smoke
 def test_product_page_ui(browser):
     """
@@ -26,6 +29,8 @@ def test_product_page_ui(browser):
     assert title_card != '', 'Название товара отсутствует'; print(f'\nНазвание карточки товара: {title_card}')
 
 
+@allure.feature('Страница карточки товара')
+@allure.story('Проверить, что табы в карточке товара корректно переключаются')
 @pytest.mark.smoke
 def test_product_tabs_switch(browser):
     """
@@ -56,6 +61,8 @@ def test_product_tabs_switch(browser):
     assert product.check_text_in_tab_vopr(), 'В табе "Вопросы о товаре" отсутствует содержание'
 
 
+@allure.feature('Страница карточки товара')
+@allure.story('Проверить, что по клику кнопки "Добавить в корзину" товар добавляется в корзину')
 @pytest.mark.smoke
 def test_add_card_in_basket(browser):
     """
