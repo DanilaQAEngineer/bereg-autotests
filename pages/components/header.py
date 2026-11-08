@@ -6,11 +6,51 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 from config.settings import settings
 from pages.base_page import BasePage
+from pages.components.mini_widget import MiniWidgetComponent
 from locators.components.header_locators import LocatorsForHeader
+from locators.components.widgets_locators import LocatorsForWidgets
 
 
 class HeaderComponents(BasePage):
     """Компонент шапки сайта. Доступен на любой странице."""
+    def __init__(self, driver):
+        # 1. ОБЯЗАТЕЛЬНО вызываем конструктор родителя (BasePage), чтобы появился self.driver
+        super().__init__(driver)
+        #    Инициализирую виджеты, передавая им действительные локаторы:
+        #        Локаторы виджета "В сравнение":
+        self.compare_widget = MiniWidgetComponent(
+            driver,
+            LocatorsForWidgets.COUNT_ICON_IN_COMPARE,
+            LocatorsForWidgets.ICON_WIDGET_COMPARE,
+            LocatorsForWidgets.DROPDOWN_MINICOMPARE,
+            LocatorsForWidgets.FIRST_CARD_IN_DROPDOWN_COMPARE,
+            LocatorsForWidgets.TITLE_FIRST_CARD_IN_COMPARE,
+            LocatorsForWidgets.BTN_REMOVE_FIRST_CARD_IN_COMPARE,
+            LocatorsForWidgets.BTN_IN_COMPARE
+        )
+        #        Локаторы виджета "В избранное":
+        self.favorite_widget = MiniWidgetComponent(
+            driver,
+            LocatorsForWidgets.ICON_COUNT_IN_FAVORITE,
+            LocatorsForWidgets.ICON_WIDGET_FAVORITE,
+            LocatorsForWidgets.DROPDOWN_MINIFAVORITE,
+            LocatorsForWidgets.FIRST_CARD_IN_DROPDOWN_FAVORITE,
+            LocatorsForWidgets.TITLE_FIRST_CARD_IN_FAVORITE,
+            LocatorsForWidgets.BTN_REMOVE_FIRST_CARD_IN_FAVORITE,
+            LocatorsForWidgets.BTN_IN_FAVORITE
+        )
+        #        Локаторы виджета "В корзину":
+        self.basket_widget = MiniWidgetComponent(
+            driver,
+            LocatorsForWidgets.ICON_COUNT_IN_BASKET,
+            LocatorsForWidgets.ICON_WIDGET_BASKET,
+            LocatorsForWidgets.DROPDOWN_MINIBASKET,
+            LocatorsForWidgets.FIRST_CARD_IN_DROPDOWN_BASKET,
+            LocatorsForWidgets.TITLE_FIRST_CARD_IN_BASKET,
+            LocatorsForWidgets.BTN_REMOVE_FIRST_CARD_IN_BASKET,
+            LocatorsForWidgets.BTN_IN_BASKET
+        )
+
 
     @allure.step('Метод перехода на главную страницу')
     def open_main_page(self):
