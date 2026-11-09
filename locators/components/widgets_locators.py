@@ -9,10 +9,10 @@ class LocatorsForWidgets:
     COUNT_ICON_IN_COMPARE = (By.XPATH, '(//*[@class="icon-count icon-count--compare bg-more-theme count"])[1]')  # Иконка с количеством товаров в разделе
     DROPDOWN_MINICOMPARE = (By.XPATH, '(//*[@class="compare-dropdown product-dropdown-hover-block loaded"])[1]')  # Выпадающее меню при наведении курсора на иконку "Сравнение"
     FIRST_CARD_IN_DROPDOWN_COMPARE = (By.XPATH, '(//*[@class="dropdown-product__item js-popup-block"])[1]')  # Первый товар в выпадашке
-    TITLE_FIRST_CARD_IN_COMPARE = (By.XPATH, '(//*[@class="dark_link"])[1]')  # аголовок/название первого товара в разделе (по клику редиректит на его страницу)
+    TITLE_FIRST_CARD_IN_COMPARE = (By.XPATH, '(//*[@class="dark_link"])[3]')  # Заголовок/название первого товара в разделе (по клику редиректит на его страницу)
     BTN_REMOVE_FIRST_CARD_IN_COMPARE = (By.XPATH, '(//*[@class="svg inline remove  inline "])[1]')  # Кнопка удаления первого товара из сравнения/выпадашки
     DROPDOWN_WITH_BTN_IN_COMPARE = (By.XPATH, '(//*[@class="foot dropdown dropdown--relative dropdown-product-foot dropdown-product-foot--one-btn"])[1]')  # Блок_див выпадашки с кнопкой "В сравнение"
-    BTN_IN_COMPARE = (By.XPATH, '(//*[@class="btn btn-default btn-wide has-ripple"])[1]')  # Кнопка "В сравнение" (переход в раздел сравнения товаров)
+    BTN_IN_COMPARE = (By.XPATH, '(//*[@href="/catalog/compare.php"])[2]')  # Кнопка "В сравнение" (переход в раздел сравнения товаров)
 
     # --- Мини-Избранное (виджет) ---
     ICON_WIDGET_FAVORITE = (By.CSS_SELECTOR, 'div[data-ajax-load-block="HEADER_TOGGLE_FAVORITE"]')  # Иконка "Избранное" в хедере

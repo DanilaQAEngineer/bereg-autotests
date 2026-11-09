@@ -1,6 +1,9 @@
 from selenium.webdriver.common.by import By    # импортировали «способ поиска»: говорим Selenium, как искать элемент: == By.CSS_SELECTOR.XPATH.ID
 from selenium.webdriver.remote.webdriver import WebDriver    # импортировали з селениума WebDriver (подсказывает методы)
 from selenium.common.exceptions import TimeoutException    # импортировали исключения таймаута: нужен для is_visible: если элемента нет — Selenium бросает именно это, мы его ловим и возвращаем False
+
+
+from utils.waits import wait_page_loaded, wait_invisible
 from utils.logger import get_logger    # импортировали функцию логгера, прописанную в utils/logger.py: добавили логи внутри POM
 from utils.waits import wait_clickable, wait_present, wait_visible    # импортировали функции-обёртки ожидания, прописанные в utils/waits.py: использовать wait_visible/wait_clickable/wait_present вместо прямого WebDriverWait
 
@@ -22,6 +25,8 @@ class BasePage:    # Объявляем класс, который будет ш
     def open(self, url: str) -> "BasePage":    # Метод-обёртка над driver.get (единая точка «открыть страницу», логируется) + "BasePage" -- Аннотация возвращаемого типа (возвращаем self — можно строить цепочки) // BasePage в кавычках из-за того, что в момент определения класса сам класс ещё не полностью создан, и Python не знает тип BasePage
         log.info(f"Открываю: {url}")    # Логируем URL (в отчёте будет видно, куда/на какую страницу заходили)
         self.driver.get(url)    # Открываем страницу
+        # 08.11: (ЗАКОММЕНТИТЬ, V ЕСЛИ БУДЕТ ПАДАТЬ) ДОБАВИЛ СТРОКУ (метод ожидания полной загрузки страницы)
+        wait_page_loaded(self.driver)
         return self    # Возвращаем сам объект страницы (можно: page.open(url).click(...))
 
     def current_url(self) -> str:    # Возвращаем текущий URL: будет полезно для ассертов: assert page.current_url() == "..."
@@ -42,6 +47,8 @@ class BasePage:    # Объявляем класс, который будет ш
     # open/click/type возвращает self → можно строить цепочки: page.open(url).click(btn).type(field, "text")
     def click(self, locator: tuple[By, str]) -> "BasePage":    # Добавил метод клика с такой же распаковкой локатора на поз.аргументы: ищем на странице локатор и обращаемся к нему
         """Клик с ожиданием кликабельности."""
+        # 08.11: (ЗАКОММЕНТИТЬ, V ЕСЛИ БУДЕТ ПАДАТЬ) ДОБАВИЛ СТРОКУ ДЛЯ ЛОГИРОВАНИЯ КАЖДОГО ШАГА (Если тест упадет, ты должен видеть в логах, на каком именно шаге это произошло)
+        log.info(f"Кликаю по элементу: {locator[1]}")
         wait_clickable(self.driver, locator).click()    # Жду, когда элемент станет кликабельным (кнопка может быть видимой, но заблокированной → клик упадёт) + Добавил метод клика  // Разница между wait_visible и wait_clickable: visible — элемент в DOM и не скрыт CSS, clickable — элемент и видимый и не задизейбленный, до него можно доскроллить
         return self    # Возвращаю страницу
 
@@ -64,3 +71,9 @@ class BasePage:    # Объявляем класс, который будет ш
             return True    # Элемент найден!
         except TimeoutException:    # Ловлю тип исключения "TimeoutException": не глушу все ошибки, а только «не дождались» (если тест стопарится на "ищу элемент Nсек и не могу найти его на странице")
             return False    # Элемент НЕ найден!
+
+    # 08.11: (ЗАКОММЕНТИТЬ, V ЕСЛИ БУДЕТ ПАДАТЬ) Добавил ожидание "исчезновения" лоадеров (Часто на сайтах после клика появляется спиннер/лоадер. Нужно ждать его исчезновения.)
+    def wait_element_invisible(self, locator, timeout=10):
+        """Жду исчезновения элемента (например, лоадера)."""
+        wait_invisible(self.driver, locator, timeout)
+        return self
