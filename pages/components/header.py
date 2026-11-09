@@ -36,8 +36,8 @@ class HeaderComponents(BasePage):
             dropdown=LocatorsForWidgets.DROPDOWN_MINIFAVORITE,
             first_card=LocatorsForWidgets.FIRST_CARD_IN_DROPDOWN_FAVORITE,
             title_first_card=LocatorsForWidgets.TITLE_FIRST_CARD_IN_FAVORITE,
-            btn_in_widget=LocatorsForWidgets.BTN_REMOVE_FIRST_CARD_IN_FAVORITE,
-            remove_btn=LocatorsForWidgets.BTN_IN_FAVORITE
+            btn_in_widget=LocatorsForWidgets.BTN_IN_FAVORITE,
+            remove_btn=LocatorsForWidgets.BTN_REMOVE_FIRST_CARD_IN_FAVORITE
         )
         #        Локаторы виджета "В корзину":
         self.basket_widget = MiniWidgetComponent(
@@ -45,6 +45,7 @@ class HeaderComponents(BasePage):
             count=LocatorsForWidgets.ICON_COUNT_IN_BASKET,
             widget=LocatorsForWidgets.ICON_WIDGET_BASKET,
             dropdown=LocatorsForWidgets.DROPDOWN_MINIBASKET,
+            price=LocatorsForWidgets.FINAL_SUM_CARDS_IN_BASKET,
             first_card=LocatorsForWidgets.FIRST_CARD_IN_DROPDOWN_BASKET,
             title_first_card=LocatorsForWidgets.TITLE_FIRST_CARD_IN_BASKET,
             btn_in_widget=LocatorsForWidgets.BTN_IN_BASKET,
@@ -123,18 +124,21 @@ class HeaderComponents(BasePage):
     #                                    Методы работы с виджетами (иконки "Сравнение/Избранное/Корзина"):
 
     @allure.step('Метод получения количества товаров в сравнении')
-    def get_compare_counter_value(self) -> str:
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element(LocatorsForHeader.COMPARE_COUNTER, '1'))    # Жду, когда там появится хотя бы 1
+    def get_compare_counter_value(self, expected_value: str = '1', timeout: int = 10) -> str:
+        # Значение '1' здесь только для удобства, можно передать любое другое значение
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element(LocatorsForHeader.COMPARE_COUNTER, expected_value))    # Жду, когда там появится хотя бы 1
         return self.get_text(LocatorsForHeader.COMPARE_COUNTER)
 
-    @allure.step('Метод получения количества товаров в сравнении')
-    def get_favorite_counter_value(self) -> str:
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element(LocatorsForHeader.FAVORITE_COUNTER, '1'))    # Жду, когда там появится хотя бы 1
+    @allure.step('Метод получения количества товаров в избранном')
+    def get_favorite_counter_value(self, expected_value: str = '1', timeout: int = 10) -> str:
+        # Значение '1' здесь только для удобства, можно передать любое другое значение
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element(LocatorsForHeader.FAVORITE_COUNTER, expected_value))    # Жду, когда там появится хотя бы 1
         return self.get_text(LocatorsForHeader.FAVORITE_COUNTER)
 
     @allure.step('Метод получения количества товаров в корзине')
-    def get_basket_counter_value(self) -> str:
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element(LocatorsForHeader.BASKET_COUNTER, '1'))    # Жду, когда там появится хотя бы 1
+    def get_basket_counter_value(self, expected_value: str = '1', timeout: int = 10) -> str:
+        # Значение '1' здесь только для удобства, можно передать любое другое значение
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element(LocatorsForHeader.BASKET_COUNTER, expected_value))    # Жду, когда там появится хотя бы 1
         return self.get_text(LocatorsForHeader.BASKET_COUNTER)
 
     #                                    Методы для авторизации/регистрации на сайте:

@@ -12,7 +12,7 @@ from locators.components.widgets_locators import LocatorsForWidgets
 class MiniWidgetComponent(BasePage):
     """ Универсальный компонент для выпадающих виджетов в шапке: принимает локаторы (иконка, дропдаун, карточка, кнопка удаления). """
 
-    def __init__(self, driver, count, widget, dropdown, first_card, title_first_card, btn_in_widget, remove_btn):
+    def __init__(self, driver, count, widget, dropdown, first_card, title_first_card, btn_in_widget, remove_btn, price=None):
         super().__init__(driver)
         self.count = count  # Локатор иконки с количеством добавленных товаров
         self.widget = widget    # Локатор виджета раздела "В сравнение/избранное/корзину"
@@ -21,6 +21,7 @@ class MiniWidgetComponent(BasePage):
         self.title = title_first_card    # Локатор названия карточки добавленного товара (по клику мы переходим на страницу карточки этого товара)
         self.btn_in_widget = btn_in_widget     # Локатор кнопки "В сравнение/избранное/корзину" (переход в раздел)
         self.remove_btn = remove_btn  # Локатор кнопки "Удалить товар из выпадающего списка"
+        self.price = price  # Локатор стоимости товара для корзины (для сравнения/избранного аргумент необязательный)
 
     ### Добавить метод, который бы чекал количество добавленных товаров (в иконке в правом верхнем углу)
     @allure.step('Метод проверки_получения количества товаров в иконке над виджетом')
@@ -28,7 +29,7 @@ class MiniWidgetComponent(BasePage):
         return self.get_text(self.count)
 
     @allure.step('Метод ожидания исчезновения карточек товаров после удаления (проверка того, что виджет сравнения пуст)')
-    def is_compare_empty(self) -> bool:
+    def is_empty(self) -> bool:
         """Безопасно проверяет отсутствие товаров после удаления."""
         #    Даём сайту время на AJAX (можно заменить на умное ожидание изменения DOM)
         time.sleep(1)    # ТУТ НУЖНО БУДЕТ ПОМЕНЯТЬ НА УМНОЕ ОЖИДАНИЕ КАКОЕ-НИБУДЬ
@@ -72,3 +73,7 @@ class MiniWidgetComponent(BasePage):
     def click_remove_button_in_dropdown(self):
         self.click(self.remove_btn)
         return self
+
+    @allure.step('Метод получения стоимости товара в дропдауне корзины')
+    def get_sum_card(self) -> str:
+        return self.get_text(self.price)
