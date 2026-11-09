@@ -20,35 +20,35 @@ class HeaderComponents(BasePage):
         #        Локаторы виджета "В сравнение":
         self.compare_widget = MiniWidgetComponent(
             driver,
-            LocatorsForWidgets.COUNT_ICON_IN_COMPARE,
-            LocatorsForWidgets.ICON_WIDGET_COMPARE,
-            LocatorsForWidgets.DROPDOWN_MINICOMPARE,
-            LocatorsForWidgets.FIRST_CARD_IN_DROPDOWN_COMPARE,
-            LocatorsForWidgets.TITLE_FIRST_CARD_IN_COMPARE,
-            LocatorsForWidgets.BTN_REMOVE_FIRST_CARD_IN_COMPARE,
-            LocatorsForWidgets.BTN_IN_COMPARE
+            count=LocatorsForWidgets.COUNT_ICON_IN_COMPARE,    # 1. count (иконка с количеством товаров)
+            widget=LocatorsForWidgets.ICON_WIDGET_COMPARE,    # 2. widget (сама иконка раздела "В сравнение" в хедере)
+            dropdown=LocatorsForWidgets.DROPDOWN_MINICOMPARE,    # 3. dropdown (выпадающий список после наведения курсора на виджет)
+            first_card=LocatorsForWidgets.FIRST_CARD_IN_DROPDOWN_COMPARE,    # 4. first_card (первая карточка товара в выпадающем списке)
+            title_first_card=LocatorsForWidgets.TITLE_FIRST_CARD_IN_COMPARE,    # 5. title_card (название товара)
+            btn_in_widget=LocatorsForWidgets.BTN_IN_COMPARE,    # 6. btn_in_widget (кнопка "В сравнение" в выпадающем списке)
+            remove_btn=LocatorsForWidgets.BTN_REMOVE_FIRST_CARD_IN_COMPARE    # 7. remove_btn (кнопка "Удалить" первый товар в выпадающем списке)
         )
         #        Локаторы виджета "В избранное":
         self.favorite_widget = MiniWidgetComponent(
             driver,
-            LocatorsForWidgets.ICON_COUNT_IN_FAVORITE,
-            LocatorsForWidgets.ICON_WIDGET_FAVORITE,
-            LocatorsForWidgets.DROPDOWN_MINIFAVORITE,
-            LocatorsForWidgets.FIRST_CARD_IN_DROPDOWN_FAVORITE,
-            LocatorsForWidgets.TITLE_FIRST_CARD_IN_FAVORITE,
-            LocatorsForWidgets.BTN_REMOVE_FIRST_CARD_IN_FAVORITE,
-            LocatorsForWidgets.BTN_IN_FAVORITE
+            count=LocatorsForWidgets.ICON_COUNT_IN_FAVORITE,
+            widget=LocatorsForWidgets.ICON_WIDGET_FAVORITE,
+            dropdown=LocatorsForWidgets.DROPDOWN_MINIFAVORITE,
+            first_card=LocatorsForWidgets.FIRST_CARD_IN_DROPDOWN_FAVORITE,
+            title_first_card=LocatorsForWidgets.TITLE_FIRST_CARD_IN_FAVORITE,
+            btn_in_widget=LocatorsForWidgets.BTN_REMOVE_FIRST_CARD_IN_FAVORITE,
+            remove_btn=LocatorsForWidgets.BTN_IN_FAVORITE
         )
         #        Локаторы виджета "В корзину":
         self.basket_widget = MiniWidgetComponent(
             driver,
-            LocatorsForWidgets.ICON_COUNT_IN_BASKET,
-            LocatorsForWidgets.ICON_WIDGET_BASKET,
-            LocatorsForWidgets.DROPDOWN_MINIBASKET,
-            LocatorsForWidgets.FIRST_CARD_IN_DROPDOWN_BASKET,
-            LocatorsForWidgets.TITLE_FIRST_CARD_IN_BASKET,
-            LocatorsForWidgets.BTN_REMOVE_FIRST_CARD_IN_BASKET,
-            LocatorsForWidgets.BTN_IN_BASKET
+            count=LocatorsForWidgets.ICON_COUNT_IN_BASKET,
+            widget=LocatorsForWidgets.ICON_WIDGET_BASKET,
+            dropdown=LocatorsForWidgets.DROPDOWN_MINIBASKET,
+            first_card=LocatorsForWidgets.FIRST_CARD_IN_DROPDOWN_BASKET,
+            title_first_card=LocatorsForWidgets.TITLE_FIRST_CARD_IN_BASKET,
+            btn_in_widget=LocatorsForWidgets.BTN_IN_BASKET,
+            remove_btn=LocatorsForWidgets.BTN_REMOVE_FIRST_CARD_IN_BASKET
         )
 
 

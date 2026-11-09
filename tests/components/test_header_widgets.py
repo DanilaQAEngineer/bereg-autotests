@@ -1,6 +1,5 @@
 import pytest
 import allure
-import time
 
 
 from config.settings import settings
@@ -9,7 +8,7 @@ from pages.catalog.listing_page import ListingPage
 
 
 @allure.feature('Виджеты: "В сравнение/избранное/корзину"')
-@allure.story('Проверить, что виджет "В сравнение" работает корректно: При добавлении товара в сравнение появляется иконка "1"; При наведении курсора на иконку открывается выпадающий список с добавленными в сравнение товарами; По клику на название товара редиректит на страницу карточки этого товара; По клику "удалить" товар удаляется из списка добавленных; По клику "В сравнение" редиректит на страницу раздела "В сравнение"')
+@allure.story('Проверить, что виджет "В сравнение" работает корректно: При добавлении товара в сравнение появляется иконка "1"; При наведении курсора на иконку открывается выпадающий список с добавленными в сравнение товарами; По клику на название товара редиректит на страницу карточки этого товара; По клику "В сравнение" редиректит на страницу раздела "В сравнение"; По клику "удалить" товар удаляется из списка добавленных')
 @pytest.mark.smoke
 def test_compare_widget(browser):
     """
@@ -42,14 +41,14 @@ def test_compare_widget(browser):
     assert header.compare_widget.check_card_in_widget(), 'В выпадающем списке нет товаров'    # Проверка_3
 
     url_before_click_title_card = browser.current_url; print(f'\nURL до клика по названию товара: {url_before_click_title_card}')
-    header.compare_widget.click_title_card_in_dropdown()
+    header.compare_widget.click_title_card_in_dropdown()    # Кликаю по название товара
     url_after_click_title_card = browser.current_url; print(f'\nURL до клика по названию товара: {url_after_click_title_card}')
     assert url_before_click_title_card != url_after_click_title_card, 'URL после перехода в карточку товара не изменился'    # Проверка_4
 
     url_before_click_button_in_compare = browser.current_url; print(f'\nURL до клика кнопки "В сравнение": {url_before_click_button_in_compare}')
     (
-        header.compare_widget.hover_icon()    # Повторно проваливаюсь в дропдаун виджета "В сравнении"
-        .click_inside_button_in_dropdown()    # Кликаю кнопку "В сравнение"
+        header.compare_widget.hover_icon()    # Повторно навожу курсор на виджет "В сравнении"
+        .click_btn_in_widget()    # Кликаю кнопку "В сравнение"
     )
     url_after_click_button_in_compare = browser.current_url; print(f'\nURL после клика кнопки "В сравнение": {url_after_click_button_in_compare}')
     assert url_before_click_button_in_compare != url_after_click_button_in_compare, 'URL после клика кнопки "В сравнение" не изменился'    # Проверка_5
@@ -58,4 +57,4 @@ def test_compare_widget(browser):
         header.compare_widget.hover_icon()  # Повторно проваливаюсь в дропдаун виджета "В сравнении"
         .click_remove_button_in_dropdown()  # Кликаю кнопку "Удалить" у первого товара в выпадающем списке
     )
-    #assert
+    assert header.compare_widget.is_compare_empty(), 'Товар не удалился из виджета сравнения!'    # Проверка_6: Вызываю метод ожидания исчезновения карточек товаров после удаления (проверка того, что виджет сравнения пуст)

@@ -12,7 +12,7 @@ class LocatorsForWidgets:
     TITLE_FIRST_CARD_IN_COMPARE = (By.XPATH, '(//*[@class="dark_link"])[3]')  # Заголовок/название первого товара в разделе (по клику редиректит на его страницу)
     BTN_REMOVE_FIRST_CARD_IN_COMPARE = (By.XPATH, '(//*[@class="svg inline remove  inline "])[1]')  # Кнопка удаления первого товара из сравнения/выпадашки
     DROPDOWN_WITH_BTN_IN_COMPARE = (By.XPATH, '(//*[@class="foot dropdown dropdown--relative dropdown-product-foot dropdown-product-foot--one-btn"])[1]')  # Блок_див выпадашки с кнопкой "В сравнение"
-    BTN_IN_COMPARE = (By.XPATH, '(//*[@href="/catalog/compare.php"])[2]')  # Кнопка "В сравнение" (переход в раздел сравнения товаров)
+    BTN_IN_COMPARE = (By.XPATH, '(//div[contains(@class, "dropdown-product-foot")]//a[.//span[text()="В сравнение"]])[1]')  # Кнопка "В сравнение" (переход в раздел сравнения товаров)
 
     # --- Мини-Избранное (виджет) ---
     ICON_WIDGET_FAVORITE = (By.CSS_SELECTOR, 'div[data-ajax-load-block="HEADER_TOGGLE_FAVORITE"]')  # Иконка "Избранное" в хедере
