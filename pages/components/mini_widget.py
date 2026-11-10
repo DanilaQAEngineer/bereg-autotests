@@ -38,7 +38,7 @@ class MiniWidgetComponent(BasePage):
             self.hover_icon()
             # Если карточек нет - check_card_in_widget вернет False
             return not self.check_card_in_widget()
-        except Exception:
+        except Exception:    # НА БУДУЩЕЕ: ЛУЧШЕ ЛОВИТЬ КОНКРЕТНЫЕ ОЖИДАЕМЫЕ ОШИБКИ, А НЕ ВСЕ-ВСЕ, ЧТОБЫ БАГ НЕ ПРОПУСКАТЬ
             # Если дропдаун даже не открывается или счетчик исчез - считаем, что пусто
             return True
 
