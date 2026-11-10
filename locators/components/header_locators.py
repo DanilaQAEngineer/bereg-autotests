@@ -16,7 +16,7 @@ class LocatorsForHeader:
 
     # Контакты в шапке сайта:
     PHONE_ICON = (By.CSS_SELECTOR, '.header__top-item[data-ajax-load-block="HEADER_TOGGLE_PHONE"]')    # Иконка/блок наведения на телефон
-    CALL_REQUEST_BUTTON = (By.XPATH, '(//*[@class="phones__dropdown-item callback-item"])[1]')    # Кнопка в выпадашке
+    BTN_CALL_ME = (By.XPATH, '(//*[text()="Заказать звонок"])[1]')    # Кнопка "Заказать звонок" в выпадашке
 
     # Виджеты (иконки в шапке)
     LK_WIDGET_ICON = (By.CSS_SELECTOR, '.line-block__item[data-ajax-load-block="HEADER_TOGGLE_CABINET"]')    # Кнопка_иконка "Войти"

@@ -17,5 +17,6 @@ class LocatorsForListing:
     # Карточки товаров
     PRODUCT_CARDS = (By.CSS_SELECTOR, 'div.catalog-item')  # Общий класс карточки товара на странице каталога
     PRODUCT_NAME = (By.CSS_SELECTOR, 'div.catalog-item a.dark_link')  # Локатор названия карточки (для дальнейшего перехода карточку товара)
+    BTN_FAST_WATCH = (By.CSS_SELECTOR, 'div.btn-default[data-name="fast_view"]')  # Кнопка "Быстрый просмотр"
     PRICE_NEW = (By.CSS_SELECTOR, 'span.price__new-val')  # Актуальная цена в карточке товара
     PRICE_OLD = (By.CSS_SELECTOR, 'span.price__old-val')  # Старая цена в карточке товара (зачёркнутая)

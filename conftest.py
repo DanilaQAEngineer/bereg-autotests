@@ -35,6 +35,7 @@ def browser(request):
 
     if browser == "chrome":
         options = ChromeOptions()
+        options.add_argument("--incognito")
         if headless:
             options.add_argument("--headless=new")
         options.add_argument("--window-size=1920,1080")
@@ -73,3 +74,19 @@ def pytest_runtest_makereport(item, call):
                 log.error(f"Скриншот падения: {path}")
             except Exception as e:
                 log.error(f"Не удалось сохранить скриншот: {e}")
+
+
+@pytest.fixture(autouse=True)
+def clean_browser_state(browser):
+    """
+    Автоматически очищает localStorage и sessionStorage
+    после завершения каждого теста.
+    """
+    yield  # Выполняем тест
+
+    try:
+        browser.execute_script("window.localStorage.clear();")
+        browser.execute_script("window.sessionStorage.clear();")
+        browser.delete_all_cookies()
+    except Exception as e:
+        log.warning(f"Не удалось очистить состояние браузера: {e}")

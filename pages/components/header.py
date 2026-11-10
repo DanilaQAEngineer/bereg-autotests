@@ -84,7 +84,12 @@ class HeaderComponents(BasePage):
 
     @allure.step('Метод проверки наличия кнопки в выпадающем меню "Номер телефона"')
     def is_call_request_visible(self) -> bool:
-        return self.is_visible(LocatorsForHeader.CALL_REQUEST_BUTTON)
+        return self.is_visible(LocatorsForHeader.BTN_CALL_ME)
+
+    @allure.step('Метод клика по кнопке "Заказать звонок"')
+    def click_call_request(self):
+        self.click(LocatorsForHeader.BTN_CALL_ME)
+        return self
 
     #                                    Методы работы с поиском в хедере:
 
