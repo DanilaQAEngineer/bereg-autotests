@@ -28,10 +28,16 @@ class LocatorsForModals:
     ERROR_MSG_COFIDENTIONAL = (By.CSS_SELECTOR, 'label[id="licenses_popup-error"]')  # Сообщение под пустым полем "Политика сайта": Согласитесь с условиями
 
     # --- Модалка "Быстрый просмотр" --- (добавить также локаторых других элементов модалки, чтоб +- всё проверить можно было)
+    BTN_DETAILED_QUICK_VIEW = (By.CSS_SELECTOR, 'div.scrollbar a[title="Подробнее о товаре"]')  # Кнопка "Подробнее о товаре"
     MODAL_QUICK_VIEW = (By.CSS_SELECTOR, 'div[class="fast_view_frame jqmWindow popup jqm-init show"]')  # Контейнер модалки (сама модалка_div)
-    TITLE_QUICK_VIEW = (By.CSS_SELECTOR, 'a.catalog-detail__title')  # Название товара
-    BTN_QUICK_VIEW_ADD_TO_CART = (By.XPATH, '(//div[contains(@class, "line-block__item item-action-container")]//span[@data-title="В корзину"])[9]')  # Кнопка "В корзину"
-    BTN_QUICK_VIEW_BYE_IN_ONE_CLICK = (By.CSS_SELECTOR, 'span[data-param-form_id="ocb"]')  # Кнопка "Купить в 1 клик"
+    TITLE_QUICK_VIEW = (By.CSS_SELECTOR, 'a.catalog-detail__title')  # Заголовок_название товара
+    BTN_QUICK_VIEW_IN_FAVORITE = (By.CSS_SELECTOR, '.line-block__item .item-action--favorite')  # Кнопка "В избранное"
+    BTN_QUICK_VIEW_IN_COMPARE = (By.CSS_SELECTOR, '.line-block__item .item-action--compare')  # Кнопка "В сравнение"
+    BTN_QUICK_VIEW_IN_BASKET = (By.CSS_SELECTOR, 'div.scrollbar span[data-action="basket"]')  # Кнопка "В корзину"
+    BTN_QUICK_VIEW_BYE_IN_ONE_CLICK = (By.CSS_SELECTOR, 'div.scrollbar span[data-event="jqm"]')  # Кнопка "Купить в 1 клик"
+    BTN_QUICK_VIEW_CLOSE = (By.CSS_SELECTOR, 'span.jqmClose i.svg.inline')  # Кнопка закрытия модалки
+    BTN_PREV_CARD = (By.CSS_SELECTOR, 'div.fast-view-nav[data-fast-nav="prev"]')  # Кнопка "Предыдущий товар"
+    BTN_NEXT_CARD = (By.CSS_SELECTOR, 'div.fast-view-nav[data-fast-nav="next"]')  # Кнопка "Слудующий товар"
     MODAL_BYE_IN_ONE_CLICK = (By.CSS_SELECTOR, '.scrollbar#one_click_buy')  # Контейнер модалки "Купить в 1 клик" (сама модалка_div)
     TITLE_MODAL_BYE_IN_ONE_CLICK = (By.XPATH, '(//div[text()="Купить в 1 клик"])')
     #    этот локатор будет падать 100%, т.к. если я обращусь к нему где-нибудь в другом месте по индексу, где другое количество этих кнопок - он упадёт

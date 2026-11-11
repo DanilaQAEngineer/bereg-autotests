@@ -91,7 +91,10 @@ class ModalsComponent(BasePage):
 
 
     #    --- 2) Методы для модалки "Быстрый просмотр" ---
-    ### Метод наведения курсора на фото карточки товара и клик по кнопке "Быстрый просмотор" берём/описан в ProductCardComponent
+
+    ### ВАЖНО: Метод наведения курсора на фото карточки товара и клик по кнопке "Быстрый просмотор" берём/описан в ProductCardComponent
+
+    ###    2.1) Методы проверки отображения элементов на странице
 
     @allure.step('Метод проверки открытия_отображения модалки "Быстрый просмотр"')
     def is_quick_view_modal_visible(self) -> bool:
@@ -101,20 +104,37 @@ class ModalsComponent(BasePage):
     def check_title_in_modal_quick_view(self) -> str:
         return self.get_text(LocatorsForModals.TITLE_QUICK_VIEW)
 
-    @allure.step('Метод клика по названию/заголовку товара в модалке "Быстрый просмотр"')
-    def click_title_in_modal_quick_view(self):
-        self.click(LocatorsForModals.TITLE_QUICK_VIEW)
-        return self
+    @allure.step('Метод получения кнопки "В избранное"')
+    def check_button_in_favorite_in_modal_quick_view(self) -> bool:
+        return self.is_visible(LocatorsForModals.BTN_QUICK_VIEW_IN_FAVORITE)
 
-    @allure.step('Метод клика по кнопке "В корзину"')
-    def click_btn_in_basket_in_modal_quick_view(self):
-        self.click(LocatorsForModals.BTN_QUICK_VIEW_ADD_TO_CART)
-        return self
+    @allure.step('Метод получения кнопки "В сравнение"')
+    def check_button_in_compare_in_modal_quick_view(self) -> bool:
+        return self.is_visible(LocatorsForModals.BTN_QUICK_VIEW_IN_COMPARE)
 
-    @allure.step('Метод клика по кнопке "Купить в 1 клик"')
-    def click_btn_bye_in_one_click_in_modal_quick_view(self):
-        self.click(LocatorsForModals.BTN_QUICK_VIEW_BYE_IN_ONE_CLICK)
-        return self
+    @allure.step('Метод получения кнопки "В корзину"')
+    def check_button_in_basket_in_modal_quick_view(self) -> bool:
+        return self.is_visible(LocatorsForModals.BTN_QUICK_VIEW_IN_BASKET)
+
+    @allure.step('Метод получения кнопки "х"')
+    def check_button_close_modal_quick_view(self) -> bool:
+        return self.is_visible(LocatorsForModals.BTN_QUICK_VIEW_CLOSE)
+
+    @allure.step('Метод получения кнопки "Купить в 1 клик"')
+    def check_button_bye_in_one_click_in_modal_quick_view(self) -> bool:
+        return self.is_visible(LocatorsForModals.BTN_QUICK_VIEW_BYE_IN_ONE_CLICK)
+
+    @allure.step('Метод проверки наличия кнопки "Подробнее о товаре"')
+    def is_button_detailed_visible(self) -> bool:
+        return self.is_visible(LocatorsForModals.BTN_DETAILED_QUICK_VIEW)
+
+    @allure.step('Метод проверки наличия кнопки "Предыдущий товар"')
+    def is_button_prev_btn_visible(self) -> bool:
+        return self.is_visible(LocatorsForModals.BTN_PREV_CARD)
+
+    @allure.step('Метод проверки наличия кнопки "Следующий товар"')
+    def is_button_next_btn_visible(self) -> bool:
+        return self.is_visible(LocatorsForModals.BTN_NEXT_CARD)
 
     @allure.step('Метод проверки открытия_отображения модалки "Купить в 1 клик"')
     def is_bye_in_one_click_modal_visible(self) -> bool:
@@ -123,5 +143,29 @@ class ModalsComponent(BasePage):
     @allure.step('Метод получения названия товара/заголовка в модалке "Купить в 1 клик"')
     def check_title_in_modal(self) -> str:
         return self.get_text(LocatorsForModals.TITLE_MODAL_BYE_IN_ONE_CLICK)
+
+    ###    2.2) Методы действий с элементами
+
+    @allure.step('Метод клика по названию/заголовку товара в модалке "Быстрый просмотр"')
+    def click_title_in_modal_quick_view(self):
+        self.click(LocatorsForModals.TITLE_QUICK_VIEW)
+        return self
+
+    ###    2.2) Методы действий с элементами
+
+    @allure.step('Метод клика по кнопке "В корзину"')
+    def click_btn_in_basket_in_modal_quick_view(self):
+        self.click(LocatorsForModals.BTN_QUICK_VIEW_IN_BASKET)
+        return self
+
+    @allure.step('Метод клика по кнопке "Купить в 1 клик"')
+    def click_btn_bye_in_one_click_in_modal_quick_view(self):
+        self.click(LocatorsForModals.BTN_QUICK_VIEW_BYE_IN_ONE_CLICK)
+        return self
+
+    @allure.step('Метод клика по кнопке "Подробнее о товаре"')
+    def click_btn_detailed_in_modal_quick_view(self):
+        self.click(LocatorsForModals.BTN_DETAILED_QUICK_VIEW)
+        return self
 
     ### добавить методы для переключения фото в карточке, добавление/удаление в сравнение/избранное, клик по кнопке "Купить в 1 клик", переход в карточку ###
