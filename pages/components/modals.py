@@ -13,13 +13,17 @@ from locators.components.modals_locators import LocatorsForModals
 class ModalsComponent(BasePage):
     """ Компонент для работы с модальными окнами: Заказать звонок, Быстрый просмотр, Задать вопрос """
 
-    #    --- Методы для "Заказать звонок" ---
+    #    --- 1) Методы для модалки "Заказать звонок" ---
     @allure.step('Метод проверки открытия_отображения модалки "Заказать звонок"')
     def is_callback_modal_visible(self) -> bool:
-        return self.is_visible(LocatorsForModals.CALLBACK_MODAL)
+        return self.is_visible(LocatorsForModals.MODAL_CALLBACK)
 
     @allure.step('Метод клика по кнопке "Отправить"')  # КЛИКАЕМ ПО НЕЙ ОТДЕЛЬНЫМ КЕЙСОМ: ТОЛЬКО КОГДА МОДАЛКА ПУСТАЯ (чтоб ошибки глянуть)
     def click_submit_button(self):
+        #    Жду, когда на странице полностью подгрузится капча:
+        #        иначе Селениум кликает "Отправить" сразу и там какие-то левые ошибки появляются
+        #            UPD: пока без ожидания работает, но если будет падать -- раскомментить строку ниже
+        # WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(LocatorsForModals.CAPTCHA_IFRAME))
         self.click(LocatorsForModals.BTN_CALLBACK_SUBMIT)
         return self
 
@@ -41,12 +45,12 @@ class ModalsComponent(BasePage):
 
     @allure.step('Метод ввода данных в поле "Ваше имя"')
     def enter_name(self, name: str):
-        self.type(LocatorsForModals.CALLBACK_NAME_INPUT, name)
+        self.type(LocatorsForModals.INPUT_CALLBACK_NAME, name)
         return self
 
     @allure.step('Метод ввода данных в поле "Телефон"')
     def enter_phone(self, phone: str):
-        self.type(LocatorsForModals.CALLBACK_PHONE_INPUT, phone)
+        self.type(LocatorsForModals.INPUT_CALLBACK_PHONE, phone)
         return self
 
     @allure.step('Метод ввода капчи')
@@ -84,3 +88,40 @@ class ModalsComponent(BasePage):
         return self
 
     ### добавить методы для ввода капчи и согласия с политикой сайта (они инпуты, но я не помню как их заполнять) ###
+
+
+    #    --- 2) Методы для модалки "Быстрый просмотр" ---
+    ### Метод наведения курсора на фото карточки товара и клик по кнопке "Быстрый просмотор" берём/описан в ProductCardComponent
+
+    @allure.step('Метод проверки открытия_отображения модалки "Быстрый просмотр"')
+    def is_quick_view_modal_visible(self) -> bool:
+        return self.is_visible(LocatorsForModals.MODAL_QUICK_VIEW)
+
+    @allure.step('Метод получения названия/заголовка товара в модалке "Быстрый просмотр"')
+    def check_title_in_modal_quick_view(self) -> str:
+        return self.get_text(LocatorsForModals.TITLE_QUICK_VIEW)
+
+    @allure.step('Метод клика по названию/заголовку товара в модалке "Быстрый просмотр"')
+    def click_title_in_modal_quick_view(self):
+        self.click(LocatorsForModals.TITLE_QUICK_VIEW)
+        return self
+
+    @allure.step('Метод клика по кнопке "В корзину"')
+    def click_btn_in_basket_in_modal_quick_view(self):
+        self.click(LocatorsForModals.BTN_QUICK_VIEW_ADD_TO_CART)
+        return self
+
+    @allure.step('Метод клика по кнопке "Купить в 1 клик"')
+    def click_btn_bye_in_one_click_in_modal_quick_view(self):
+        self.click(LocatorsForModals.BTN_QUICK_VIEW_BYE_IN_ONE_CLICK)
+        return self
+
+    @allure.step('Метод проверки открытия_отображения модалки "Купить в 1 клик"')
+    def is_bye_in_one_click_modal_visible(self) -> bool:
+        return self.is_visible(LocatorsForModals.MODAL_BYE_IN_ONE_CLICK)
+
+    @allure.step('Метод получения названия товара/заголовка в модалке "Купить в 1 клик"')
+    def check_title_in_modal(self) -> str:
+        return self.get_text(LocatorsForModals.TITLE_MODAL_BYE_IN_ONE_CLICK)
+
+    ### добавить методы для переключения фото в карточке, добавление/удаление в сравнение/избранное, клик по кнопке "Купить в 1 клик", переход в карточку ###

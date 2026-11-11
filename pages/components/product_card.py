@@ -1,5 +1,8 @@
 import allure
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 from pages.base_page import BasePage
@@ -35,6 +38,12 @@ class ProductCardComponent(BasePage):
     @allure.step('Метод проверки появления на странице уведомления после успешного добавления товара в корзину')
     def check_notification_after_added_in_basket(self) -> bool:
         return self.is_visible(LocatorsForProductCard.NOTIFICATION_AFTER_ADDED_IN_BASKET)
+
+    @allure.step('Метод наведения курсора на фото карточки в листинге (нужно для получения кнопки "Быстрый просмотр")')
+    def hover_img_for_get_quick_view_btn(self):
+        element = self.find(LocatorsForProductCard.IMG_CARD)
+        ActionChains(self.driver).move_to_element(element).perform()
+        return self
 
     @allure.step('Метод клика по кнопке "Быстрый просмотр"')
     def click_quick_view(self):

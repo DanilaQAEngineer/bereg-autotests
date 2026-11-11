@@ -9,6 +9,7 @@ class LocatorsForProductCard:
     IN_BASKET_BUTTON = (By.CSS_SELECTOR, 'span.item-action--basket')  # Локатор кнопки добавления товара в корзину
 
     PRODUCT_NAME = (By.CSS_SELECTOR, 'div.catalog-item a.dark_link')  # Локатор названия карточки (для дальнейшего перехода карточку товара)
+    IMG_CARD = (By.CSS_SELECTOR, 'div.sticker--upper')  # Фото карточки товара на странице (чтобы попасть на кнопку - надо навести курсор на фото)
     BTN_FAST_WATCH = (By.CSS_SELECTOR, 'div.btn-default[data-name="fast_view"]')  # Кнопка "Быстрый просмотр"
 
     NOTIFICATION_AFTER_ADDED_IN_COMPARE = (
@@ -17,3 +18,4 @@ class LocatorsForProductCard:
     By.CSS_SELECTOR, 'div.notice__inner')  # Уведомление после успешного добавления товара в избранное (сам его див)
     NOTIFICATION_AFTER_ADDED_IN_BASKET = (
     By.CSS_SELECTOR, 'div.notice__inner')  # Уведомление после успешного добавления товара в корзину (сам его див)
+
