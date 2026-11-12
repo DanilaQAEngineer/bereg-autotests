@@ -14,7 +14,7 @@ class LocatorsForModals:
     #     --- IFrame и элементы капчи ---
     CAPTCHA_IFRAME = (By.CSS_SELECTOR, 'iframe[data-testid="checkbox-iframe"]')  # Капча "Я не робот" (её контейнер)
     CAPTCHA_CHECKBOX = (By.CSS_SELECTOR, 'div.CheckboxCaptcha-Checkbox')  # Галочка внутри капчи "Я не робот"
-    CHECKBOX_COFIDENTIONAL = (By.XPATH, '(//div[@class="CheckboxCaptcha-Checkbox"])[1]')  # Чекбокс согласия с политикой сайта
+    CHECKBOX_COFIDENTIONAL = (By.CSS_SELECTOR, 'div.form-body span.form-checkbox__box')  # Чекбокс согласия с политикой сайта
 
 
     # --- Модалка "Заказать звонок" ---
@@ -29,11 +29,12 @@ class LocatorsForModals:
 
     # --- Модалка "Быстрый просмотр" --- (добавить также локаторых других элементов модалки, чтоб +- всё проверить можно было)
     BTN_DETAILED_QUICK_VIEW = (By.CSS_SELECTOR, 'div.scrollbar a[title="Подробнее о товаре"]')  # Кнопка "Подробнее о товаре"
-    MODAL_QUICK_VIEW = (By.CSS_SELECTOR, 'div[class="fast_view_frame jqmWindow popup jqm-init show"]')  # Контейнер модалки (сама модалка_div)
+    MODAL_QUICK_VIEW = (By.CSS_SELECTOR, 'div.catalog-detail')  # Контейнер модалки (сама модалка_div)
     TITLE_QUICK_VIEW = (By.CSS_SELECTOR, 'a.catalog-detail__title')  # Заголовок_название товара
     BTN_QUICK_VIEW_IN_FAVORITE = (By.CSS_SELECTOR, '.line-block__item .item-action--favorite')  # Кнопка "В избранное"
-    BTN_QUICK_VIEW_IN_COMPARE = (By.CSS_SELECTOR, '.line-block__item .item-action--compare')  # Кнопка "В сравнение"
+    BTN_QUICK_VIEW_IN_COMPARE = (By.CSS_SELECTOR, 'div#fast_view_item button[data-action="compare"]')  # Кнопка "В сравнение"
     BTN_QUICK_VIEW_IN_BASKET = (By.CSS_SELECTOR, 'div.scrollbar span[data-action="basket"]')  # Кнопка "В корзину"
+    BTN_AFTER_ADDED_CARD_IN_BASKET = (By.CSS_SELECTOR, 'div.scrollbar div.btn-default.in_cart')  # Кнопка "- 1 +" (после добавления товара в корзину)
     BTN_QUICK_VIEW_BYE_IN_ONE_CLICK = (By.CSS_SELECTOR, 'div.scrollbar span[data-event="jqm"]')  # Кнопка "Купить в 1 клик"
     BTN_QUICK_VIEW_CLOSE = (By.CSS_SELECTOR, 'span.jqmClose i.svg.inline')  # Кнопка закрытия модалки
     BTN_PREV_CARD = (By.CSS_SELECTOR, 'div.fast-view-nav[data-fast-nav="prev"]')  # Кнопка "Предыдущий товар"

@@ -87,7 +87,10 @@ class ModalsComponent(BasePage):
         sleep(3)
         return self
 
-    ### добавить методы для ввода капчи и согласия с политикой сайта (они инпуты, но я не помню как их заполнять) ###
+    @allure.step('Метод клика по чекбоксу "Продолжая, вы соглашаетесь с "')  # КЛИКАЕМ ПО НЕЙ ОТДЕЛЬНЫМ КЕЙСОМ: ТОЛЬКО КОГДА МОДАЛКА ПУСТАЯ (чтоб ошибки глянуть)
+    def click_confidential_checkbox(self):
+        self.click(LocatorsForModals.CHECKBOX_COFIDENTIONAL)
+        return self
 
 
     #    --- 2) Методы для модалки "Быстрый просмотр" ---
@@ -116,6 +119,10 @@ class ModalsComponent(BasePage):
     def check_button_in_basket_in_modal_quick_view(self) -> bool:
         return self.is_visible(LocatorsForModals.BTN_QUICK_VIEW_IN_BASKET)
 
+    @allure.step('Метод получения кнопки_контейнера "- 1 +" (после добавления товара в корзину)')
+    def check_button_after_added_card_in_basket(self) -> bool:
+        return self.is_visible(LocatorsForModals.BTN_AFTER_ADDED_CARD_IN_BASKET)
+
     @allure.step('Метод получения кнопки "х"')
     def check_button_close_modal_quick_view(self) -> bool:
         return self.is_visible(LocatorsForModals.BTN_QUICK_VIEW_CLOSE)
@@ -141,8 +148,8 @@ class ModalsComponent(BasePage):
         return self.is_visible(LocatorsForModals.MODAL_BYE_IN_ONE_CLICK)
 
     @allure.step('Метод получения названия товара/заголовка в модалке "Купить в 1 клик"')
-    def check_title_in_modal(self) -> str:
-        return self.get_text(LocatorsForModals.TITLE_MODAL_BYE_IN_ONE_CLICK)
+    def check_title_in_modal_bye_in_one_click(self) -> bool:
+        return self.is_visible(LocatorsForModals.TITLE_MODAL_BYE_IN_ONE_CLICK)
 
     ###    2.2) Методы действий с элементами
 
@@ -151,7 +158,20 @@ class ModalsComponent(BasePage):
         self.click(LocatorsForModals.TITLE_QUICK_VIEW)
         return self
 
-    ###    2.2) Методы действий с элементами
+    @allure.step('Метод клика по кнопке "Подробнее о товаре"')
+    def click_btn_detailed_in_modal_quick_view(self):
+        self.click(LocatorsForModals.BTN_DETAILED_QUICK_VIEW)
+        return self
+
+    @allure.step('Метод клика по кнопке "В сравнение"')
+    def click_btn_in_compare_in_modal_quick_view(self):
+        self.click(LocatorsForModals.BTN_QUICK_VIEW_IN_COMPARE)
+        return self
+
+    @allure.step('Метод клика по кнопке "В избранное"')
+    def click_btn_in_favorite_in_modal_quick_view(self):
+        self.click(LocatorsForModals.BTN_QUICK_VIEW_IN_FAVORITE)
+        return self
 
     @allure.step('Метод клика по кнопке "В корзину"')
     def click_btn_in_basket_in_modal_quick_view(self):
@@ -163,9 +183,29 @@ class ModalsComponent(BasePage):
         self.click(LocatorsForModals.BTN_QUICK_VIEW_BYE_IN_ONE_CLICK)
         return self
 
-    @allure.step('Метод клика по кнопке "Подробнее о товаре"')
-    def click_btn_detailed_in_modal_quick_view(self):
-        self.click(LocatorsForModals.BTN_DETAILED_QUICK_VIEW)
+    @allure.step('Метод клика по кнопке "x"')
+    def click_btn_close_in_modal_quick_view(self):
+        locator = LocatorsForModals.BTN_QUICK_VIEW_CLOSE
+        # Находим элемент через BasePage (с ожиданием видимости)
+        element = self.find(locator)
+        # Кликаем через JS, чтобы обойти перекрытие оверлеем
+        self.driver.execute_script("arguments[0].click();", element)
+        return self
+
+    @allure.step('Метод ожидания закрытия модалки быстрого просмотра после клика "х"')
+    def wait_for_quick_view_modal_to_close(self, timeout=5):
+        """Ждём, когда модалка станет невидимой"""
+        WebDriverWait(self.driver, timeout).until(EC.invisibility_of_element_located(LocatorsForModals.MODAL_QUICK_VIEW))
+        return self
+
+    @allure.step('Метод клика по кнопке "Следующий товар"')
+    def click_btn_next_card_visible(self):
+        self.click(LocatorsForModals.BTN_NEXT_CARD)
+        return self
+
+    @allure.step('Метод клика по кнопке "Предыдущий товар"')
+    def click_btn_prev_card_visible(self):
+        self.click(LocatorsForModals.BTN_PREV_CARD)
         return self
 
     ### добавить методы для переключения фото в карточке, добавление/удаление в сравнение/избранное, клик по кнопке "Купить в 1 клик", переход в карточку ###
