@@ -1,9 +1,14 @@
 # Нужен для фикстуры driver + скриншот при падении + браузер через параметр
 
-
+import os
+from dotenv import load_dotenv
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
+
+
+from pages.components.header import HeaderComponents
+from pages.components.auth_modal import AuthModalComponent
 from config.settings import settings
 from utils.logger import get_logger
 
@@ -76,17 +81,42 @@ def pytest_runtest_makereport(item, call):
                 log.error(f"Не удалось сохранить скриншот: {e}")
 
 
-@pytest.fixture(autouse=True)
-def clean_browser_state(browser):
-    """
-    Автоматически очищает localStorage и sessionStorage
-    после завершения каждого теста.
-    """
-    yield  # Выполняем тест
+# @pytest.fixture(autouse=True)
+# def clean_browser_state(browser):
+#     """
+#     Автоматически очищает localStorage и sessionStorage
+#     после завершения каждого теста.
+#     """
+#     yield  # Выполняем тест
+#
+#     try:
+#         browser.execute_script("window.localStorage.clear();")
+#         browser.execute_script("window.sessionStorage.clear();")
+#         browser.delete_all_cookies()
+#     except Exception as e:
+#         log.warning(f"Не удалось очистить состояние браузера: {e}")
 
-    try:
-        browser.execute_script("window.localStorage.clear();")
-        browser.execute_script("window.sessionStorage.clear();")
-        browser.delete_all_cookies()
-    except Exception as e:
-        log.warning(f"Не удалось очистить состояние браузера: {e}")
+
+@pytest.fixture
+def authorized_user(browser):
+    """ Фикстура, возвращающая драйвер, в котором пользователь уже авторизован """
+    browser.get(settings.base_url)
+
+    header = HeaderComponents(browser)
+    auth = AuthModalComponent(browser)
+
+    email = os.getenv('TEST_USER_EMAIL')
+    password = os.getenv('TEST_USER_PASSWORD')
+
+    header.click_voity_button()
+    (
+        auth.enter_login(email)
+        .enter_password(password)
+        .click_auth_button()
+    )
+
+    # Ждем, пока кнопка "Войти" сменится на аватарку/ЛК (подтверждение успеха)
+    # ... здесь можно добавить WebDriverWait ...
+
+    yield browser  # Отдаем драйвер в тест
+    # (Здесь можно добавить разлогин, если нужно, но при закрытии браузера сессия и так сбросится)
