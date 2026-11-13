@@ -43,3 +43,22 @@ class LocatorsForModals:
     TITLE_MODAL_BYE_IN_ONE_CLICK = (By.XPATH, '(//div[text()="Купить в 1 клик"])')
     #    этот локатор будет падать 100%, т.к. если я обращусь к нему где-нибудь в другом месте по индексу, где другое количество этих кнопок - он упадёт
     #         нужно будет его уникальным сделать
+
+    # --- Модалка "Задать вопрос" ---
+    BTN_SEND_IN_ASK_QUESTION = (By.CSS_SELECTOR, 'div#popup_iframe_wrapper input[type="submit"]')  # Кнопка "Отправить"
+
+    TITLE_IN_MODAL_ASK_QUESTION = (By.CSS_SELECTOR, 'div#popup_iframe_wrapper div.switcher-title')  # Заголовок модалки
+    MODAL_ASK_QUESTION = (By.CSS_SELECTOR, 'div#popup_iframe_wrapper div.scrollbar')  # Сама модалка "Задать вопрос"
+    INPUT_NAME_IN_ASK_QUESTION = (By.CSS_SELECTOR, 'div#popup_iframe_wrapper input#POPUP_NAME')  # Поле "Ваше имя"
+    INPUT_PHONE_IN_ASK_QUESTION = (By.CSS_SELECTOR, 'div#popup_iframe_wrapper input#POPUP_PHONE')  # Поле "Телефон"
+    INPUT_EMAIL_IN_ASK_QUESTION = (By.CSS_SELECTOR, 'div#popup_iframe_wrapper input#POPUP_EMAIL')  # Поле "E-mail"
+    INPUT_INTERESTING_CARD_IN_ASK_QUESTION = (By.CSS_SELECTOR, 'div#popup_iframe_wrapper input#POPUP_NEED_PRODUCT')  # Поле "Интересующий товар/услуга"
+    INPUT_MESSAGE_IN_ASK_QUESTION = (By.CSS_SELECTOR, 'div#popup_iframe_wrapper textarea#POPUP_MESSAGE')  # Поле "Сообщение"
+    CHECKBOX_CAPTCHA_IN_ASK_QUESTION = (By.CSS_SELECTOR, 'iframe[data-testid="checkbox-iframe"]')  # Поле "Я не робот"
+    CHECKBOX_COFIDENTIONAL_IN_ASK_QUESTION = (By.CSS_SELECTOR, 'div.form-checkbox input#licenses_popup_4')  # Поле-чекбокс "Продолжая, вы соглашаетесь с "
+
+    ERROR_MSG_NAME_IN_ASK_QUESTION = (By.CSS_SELECTOR, 'div.form-body label#POPUP_NAME-error')  # Сообщение под пустым полем "Ваше имя": Заполните это поле!
+    ERROR_MSG_PHONE_IN_ASK_QUESTION = (By.CSS_SELECTOR, 'div.form-body label#POPUP_PHONE-error')  # Сообщение под пустым полем "Телефон": Заполните это поле!
+    ERROR_MSG_MESSAGE_IN_ASK_QUESTION = (By.CSS_SELECTOR, 'div.form-body label#POPUP_MESSAGE-error')  # Сообщение под пустым полем "Сообщение": Заполните это поле!
+    ERROR_MSG_CAPTCHA_IN_ASK_QUESTION = (By.CSS_SELECTOR, 'div.form-body label#-error')  # Сообщение под пустым полем "Капча": Пройдите проверку
+    ERROR_MSG_COFIDENTIONAL_IN_ASK_QUESTION = (By.CSS_SELECTOR, 'div.form-body label#licenses_popup-error')  # Сообщение под пустым полем "Политика сайта": Согласитесь с условиями

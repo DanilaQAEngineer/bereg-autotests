@@ -17,7 +17,7 @@ def test_account_tabs_navigation(authorized_user):
         переход по табам личного кабинета работает корректно
     """
     account = AccountPage(authorized_user)  # Прокидываю фикстуру, в которой уже прописали корректную авторизацию
-    account.open_account_page()
+    account.open_account_page()  # Открываем ЛК
 
     #    Проверяю, что при переходе в ЛК попадаем на таб "Личный кабинет"
     get_title_in_tab_my_cabinet = account.get_title()  # ; print(f'Заголовок в личном кабинете: {get_title_in_tab_my_cabinet}')
@@ -90,7 +90,7 @@ def test_account_logout(authorized_user):
     Проверить, что: по клику "Выйти" происходит разлогин
     """
     account = AccountPage(authorized_user)  # Прокидываю фикстуру, в которой уже прописали корректную авторизацию
-    account.open_account_page()
+    account.open_account_page()  # Открываем ЛК
 
     url_before_click_btn_exit = authorized_user.current_url#; print(f'URL до клика таба "Избранные товары": {url_before_click_btn_exit}')
     account.click_btn_exit()

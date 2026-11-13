@@ -65,6 +65,11 @@ class AccountPage(BasePage):
         self.click(LocatorsForAccount.TAB_HELP)
         return self
 
+    @allure.step('Метод клика по кнопке "Написать сообщение"')
+    def click_btn_write_message(self):
+        self.click(LocatorsForAccount.BTN_WRITE_MESSAGE)
+        return self
+
     @allure.step('Метод клика кнопки "Выйти"')
     def click_btn_exit(self):
         self.click(LocatorsForAccount.BTN_EXIT)

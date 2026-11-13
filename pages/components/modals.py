@@ -209,3 +209,110 @@ class ModalsComponent(BasePage):
         return self
 
     ### добавить методы для переключения фото в карточке, добавление/удаление в сравнение/избранное, клик по кнопке "Купить в 1 клик", переход в карточку ###
+
+    #    --- 3) Методы для модалки "Задать вопрос" ---
+
+    ###    3.1) Методы проверки отображения элементов на странице
+
+    @allure.step('Метод проверки открытия_отображения модалки "Задать вопрос"')
+    def is_ask_question_modal_visible(self) -> bool:
+        WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(LocatorsForModals.TITLE_IN_MODAL_ASK_QUESTION))
+        return self.is_visible(LocatorsForModals.MODAL_ASK_QUESTION)
+
+    @allure.step('Метод получения заголовка модалки "Задать вопрос"')
+    def check_title_in_ask_question_modal(self) -> str:
+        return self.get_text(LocatorsForModals.TITLE_IN_MODAL_ASK_QUESTION)
+
+    @allure.step('Метод проверки наличия сообщений об обязательнсти заполнения пустых полей: "Ваше имя"')
+    def is_error_message_name_in_ask_question_modal(self) -> bool:
+        return self.is_visible(LocatorsForModals.ERROR_MSG_NAME_IN_ASK_QUESTION)
+
+    @allure.step('Метод проверки наличия сообщений об обязательнсти заполнения пустых полей: "Телефон"')
+    def is_error_message_phone_in_ask_question_modal(self) -> bool:
+        return self.is_visible(LocatorsForModals.ERROR_MSG_PHONE_IN_ASK_QUESTION)
+
+    @allure.step('Метод проверки наличия сообщений об обязательнсти заполнения пустых полей: "Телефон"')
+    def is_error_message_msg_in_ask_question_modal(self) -> bool:
+        return self.is_visible(LocatorsForModals.ERROR_MSG_MESSAGE_IN_ASK_QUESTION)
+
+    @allure.step('Метод проверки наличия сообщений об обязательнсти заполнения пустых полей: "Капча')
+    def is_error_message_capcha_in_ask_question_modal(self) -> bool:
+        return self.is_visible(LocatorsForModals.ERROR_MSG_CAPTCHA_IN_ASK_QUESTION)
+
+    @allure.step('Метод проверки наличия сообщений об обязательнсти заполнения пустых полей: "Согласие с политикой сайта')
+    def is_error_message_confidencial_in_ask_question_modal(self) -> bool:
+        return self.is_visible(LocatorsForModals.ERROR_MSG_COFIDENTIONAL_IN_ASK_QUESTION)
+
+    ###    3.2) Методы действий с элементами
+    @allure.step('Метод клика по кнопке "Отправить"')  # КЛИКАЕМ ПО НЕЙ ОТДЕЛЬНЫМ КЕЙСОМ: ТОЛЬКО КОГДА МОДАЛКА ПУСТАЯ (чтоб ошибки глянуть)
+    def click_send_btn_in_ask_question_modal(self):
+        #    Жду, когда на странице полностью подгрузится капча:
+        #        иначе Селениум кликает "Отправить" сразу и там какие-то левые ошибки появляются
+        #            UPD: пока без ожидания работает, но если будет падать -- раскомментить строку ниже
+        # WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(LocatorsForModals.CHECKBOX_CAPTCHA_IN_ASK_QUESTION))
+        self.click(LocatorsForModals.BTN_SEND_IN_ASK_QUESTION)
+        return self
+
+    @allure.step('Метод ввода данных в поле "Ваше имя"')
+    def enter_name_in_ask_question_modal(self, name: str):
+        self.type(LocatorsForModals.INPUT_NAME_IN_ASK_QUESTION, name)
+        return self
+
+    @allure.step('Метод ввода данных в поле "Телефон"')
+    def enter_phone_in_ask_question_modal(self, phone: str):
+        self.type(LocatorsForModals.INPUT_PHONE_IN_ASK_QUESTION, phone)
+        return self
+
+    @allure.step('Метод ввода данных в поле "E-mail"')
+    def enter_email_in_ask_question_modal(self, email: str):
+        self.type(LocatorsForModals.INPUT_EMAIL_IN_ASK_QUESTION, email)
+        return self
+
+    @allure.step('Метод ввода данных в поле "E-mail"')
+    def enter_interesting_card_in_ask_question_modal(self, interesting_card: str):
+        self.type(LocatorsForModals.INPUT_INTERESTING_CARD_IN_ASK_QUESTION, interesting_card)
+        return self
+
+    @allure.step('Метод ввода данных в поле "Сообщение"')
+    def enter_message_in_ask_question_modal(self, message: str):
+        self.type(LocatorsForModals.INPUT_MESSAGE_IN_ASK_QUESTION, message)
+        return self
+
+    # @allure.step('Метод ввода капчи')
+    # def click_captcha_in_ask_question_modal(self):
+    #     #    1. Жду, когда на странице появится хотя бы один iframe капчи:
+    #     WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(LocatorsForModals.CAPTCHA_IFRAME))
+    #     #    2. Ищу ВСЕ iframe
+    #     iframes = self.driver.find_elements(*LocatorsForModals.CAPTCHA_IFRAME)
+    #     #    3. Ищу среди них видимый и переключаюсь на него
+    #     switched = False
+    #     for iframe in iframes:
+    #         if iframe.is_displayed():
+    #             self.driver.switch_to.frame(iframe)
+    #             switched = True
+    #             break
+    #     if not switched:
+    #         raise AssertionError("Не удалось найти видимый iframe капчи!")
+    #     #    4. Я внутри iframe, жду появления чекбокса
+    #     WebDriverWait(self.driver, 5).until(EC.presence_of_element_located(LocatorsForModals.CAPTCHA_CHECKBOX))
+    #     #    5. Ищем ВСЕ чекбоксы (отсекаем скрытые дубликаты)
+    #     checkboxes = self.driver.find_elements(*LocatorsForModals.CAPTCHA_CHECKBOX)
+    #     clicked = False
+    #     for cb in checkboxes:
+    #         if cb.is_displayed():
+    #             #    6. Кликаю через JS (обычный клик в Яндексе часто перехватывается невидимым слоем)
+    #             self.driver.execute_script("arguments[0].click();", cb)
+    #             clicked = True
+    #             break
+    #     if not clicked:
+    #         raise AssertionError("Не найден видимый чекбокс капчи!")
+    #     #    7. ОБЯЗАТЕЛЬНО возвращаюсь на основную страницу
+    #     self.driver.switch_to.default_content()
+    #     #    8. Жду, когда Яндекс обработает клик и появится  галочка вместо "Я не робот" (обычно это занимает 1-2 секунды)
+    #     sleep(3)
+    #     return self
+
+    @allure.step('Метод клика по чекбоксу "Продолжая, вы соглашаетесь с "')  # КЛИКАЕМ ПО НЕЙ ОТДЕЛЬНЫМ КЕЙСОМ: ТОЛЬКО КОГДА МОДАЛКА ПУСТАЯ (чтоб ошибки глянуть)
+    def click_confidential_checkbox_in_ask_question_modal(self):
+        self.click(LocatorsForModals.CHECKBOX_COFIDENTIONAL_IN_ASK_QUESTION)
+        return self
