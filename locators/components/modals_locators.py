@@ -55,7 +55,8 @@ class LocatorsForModals:
     INPUT_INTERESTING_CARD_IN_ASK_QUESTION = (By.CSS_SELECTOR, 'div#popup_iframe_wrapper input#POPUP_NEED_PRODUCT')  # Поле "Интересующий товар/услуга"
     INPUT_MESSAGE_IN_ASK_QUESTION = (By.CSS_SELECTOR, 'div#popup_iframe_wrapper textarea#POPUP_MESSAGE')  # Поле "Сообщение"
     CHECKBOX_CAPTCHA_IN_ASK_QUESTION = (By.CSS_SELECTOR, 'iframe[data-testid="checkbox-iframe"]')  # Поле "Я не робот"
-    CHECKBOX_COFIDENTIONAL_IN_ASK_QUESTION = (By.CSS_SELECTOR, 'div.form-checkbox input#licenses_popup_4')  # Поле-чекбокс "Продолжая, вы соглашаетесь с "
+    #CHECKBOX_COFIDENTIONAL_IN_ASK_QUESTION = (By.CSS_SELECTOR, 'div.form-checkbox input#licenses_popup_4')  # Поле-чекбокс "Продолжая, вы соглашаетесь с "
+    CHECKBOX_COFIDENTIONAL_IN_ASK_QUESTION = (By.CSS_SELECTOR, 'div.form-body span.form-checkbox__box')  # Поле-чекбокс "Продолжая, вы соглашаетесь с "
 
     ERROR_MSG_NAME_IN_ASK_QUESTION = (By.CSS_SELECTOR, 'div.form-body label#POPUP_NAME-error')  # Сообщение под пустым полем "Ваше имя": Заполните это поле!
     ERROR_MSG_PHONE_IN_ASK_QUESTION = (By.CSS_SELECTOR, 'div.form-body label#POPUP_PHONE-error')  # Сообщение под пустым полем "Телефон": Заполните это поле!
