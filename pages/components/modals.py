@@ -231,7 +231,7 @@ class ModalsComponent(BasePage):
     def is_error_message_phone_in_ask_question_modal(self) -> bool:
         return self.is_visible(LocatorsForModals.ERROR_MSG_PHONE_IN_ASK_QUESTION)
 
-    @allure.step('Метод проверки наличия сообщений об обязательнсти заполнения пустых полей: "Телефон"')
+    @allure.step('Метод проверки наличия сообщений об обязательнсти заполнения пустых полей: "Сообщение"')
     def is_error_message_msg_in_ask_question_modal(self) -> bool:
         return self.is_visible(LocatorsForModals.ERROR_MSG_MESSAGE_IN_ASK_QUESTION)
 
@@ -268,7 +268,7 @@ class ModalsComponent(BasePage):
         self.type(LocatorsForModals.INPUT_EMAIL_IN_ASK_QUESTION, email)
         return self
 
-    @allure.step('Метод ввода данных в поле "E-mail"')
+    @allure.step('Метод ввода данных в поле "Интересующий товар/услуга"')
     def enter_interesting_card_in_ask_question_modal(self, interesting_card: str):
         self.type(LocatorsForModals.INPUT_INTERESTING_CARD_IN_ASK_QUESTION, interesting_card)
         return self
@@ -315,4 +315,22 @@ class ModalsComponent(BasePage):
     @allure.step('Метод клика по чекбоксу "Продолжая, вы соглашаетесь с "')  # КЛИКАЕМ ПО НЕЙ ОТДЕЛЬНЫМ КЕЙСОМ: ТОЛЬКО КОГДА МОДАЛКА ПУСТАЯ (чтоб ошибки глянуть)
     def click_confidential_checkbox_in_ask_question_modal(self):
         self.click(LocatorsForModals.CHECKBOX_COFIDENTIONAL_IN_ASK_QUESTION)
+        return self
+
+    @allure.step('Метод очистки поля "Ваше имя"')
+    def clear_name_field_in_ask_question_modal(self):
+        element = self.find(LocatorsForModals.INPUT_NAME_IN_ASK_QUESTION)  # Твой локатор поля имени
+        element.clear()
+        return self
+
+    @allure.step('Метод очистки поля "Телефон"')
+    def clear_phone_field_in_ask_question_modal(self):
+        element = self.find(LocatorsForModals.INPUT_PHONE_IN_ASK_QUESTION)  # Твой локатор поля имени
+        element.clear()
+        return self
+
+    @allure.step('Метод очистки поля "E-mail"')
+    def clear_email_field_in_ask_question_modal(self):
+        element = self.find(LocatorsForModals.INPUT_EMAIL_IN_ASK_QUESTION)  # Твой локатор поля имени
+        element.clear()
         return self
