@@ -68,7 +68,7 @@ def test_check_errors_in_ask_question_modal_from_help(authorized_user):
     ]
 )
 @pytest.mark.smoke
-def test_check_input_field_in_ask_question_modal_from_help(authorized_user, name, phone, email, interesting_card, message):
+def test_enter_data_in_ask_question_modal_from_help(authorized_user, name, phone, email, interesting_card, message):
     """ Проверить возможность заполнения полей модалки "Задать вопрос" """
     account = AccountPage(authorized_user)
     modals = ModalsComponent(authorized_user)
@@ -101,5 +101,5 @@ def test_check_input_field_in_ask_question_modal_from_help(authorized_user, name
     assert modals.is_field_filled(LocatorsForModals.INPUT_EMAIL_IN_ASK_QUESTION), 'Поле "E-mail" пустое!'
     assert modals.is_field_filled(LocatorsForModals.INPUT_INTERESTING_CARD_IN_ASK_QUESTION), 'Поле "Интересующий товар/услуга" пустое!'
     assert modals.is_field_filled(LocatorsForModals.INPUT_MESSAGE_IN_ASK_QUESTION), 'Поле "Сообщение" пустое!'
-    #assert modals.is_checkbox_checked(LocatorsForModals.CHECKBOX_COFIDENTIONAL_IN_ASK_QUESTION), 'Чекбокс "Согласие с политикой" не отмечен!'
+    #assert modals.is_checkbox_checked(), 'Чекбокс "Согласие с политикой" не отмечен!'
     #    проверка чекбокса пока падает, допускаю, что из-за того, что забираем значения не из самого чекбокса, а из контейнера

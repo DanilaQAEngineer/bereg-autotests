@@ -302,11 +302,13 @@ class ModalsComponent(BasePage):
         return bool(value and value.strip())
 
     @allure.step('Метод проверки состояния чекбокса (появилась ли галочка в поле)')
-    def is_checkbox_checked(self, locator) -> bool:
+    def is_checkbox_checked(self) -> bool:
         """Метод проверяет, что чекбокс отмечен (галочка стоит)."""
-        element = self.find(locator)
-        #return element.is_selected()  # Selenium-метод специально для checkbox/radio
-        return element.get_attribute('checked') == 'true'  # альтернативный вариант
+        element = self.find(LocatorsForModals.CHECKED_CHECKBOX_COFIDENTIONAL_IN_ASK_QUESTION)
+        WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located(LocatorsForModals.CHECKED_CHECKBOX_COFIDENTIONAL_IN_ASK_QUESTION))
+        return element.is_selected()  # Selenium-метод специально для checkbox/radio
+        #return element.get_attribute('checked') == 'true'  # альтернативный вариант
 
     ###    3.2) Методы действий с элементами
     @allure.step('Метод клика по кнопке "Отправить"')  # КЛИКАЕМ ПО НЕЙ ОТДЕЛЬНЫМ КЕЙСОМ: ТОЛЬКО КОГДА МОДАЛКА ПУСТАЯ (чтоб ошибки глянуть)
@@ -389,8 +391,7 @@ class ModalsComponent(BasePage):
 
     @allure.step('Метод клика по чекбоксу "Продолжая, вы соглашаетесь с "')  # КЛИКАЕМ ПО НЕЙ ОТДЕЛЬНЫМ КЕЙСОМ: ТОЛЬКО КОГДА МОДАЛКА ПУСТАЯ (чтоб ошибки глянуть)
     def click_confidential_checkbox_in_ask_question_modal(self):
-        WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(LocatorsForModals.CHECKBOX_COFIDENTIONAL_IN_ASK_QUESTION))
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(LocatorsForModals.CHECKBOX_COFIDENTIONAL_IN_ASK_QUESTION))
         self.click(LocatorsForModals.CHECKBOX_COFIDENTIONAL_IN_ASK_QUESTION)
         return self
 

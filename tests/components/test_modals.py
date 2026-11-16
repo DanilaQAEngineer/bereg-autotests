@@ -9,6 +9,7 @@ from config.settings import settings
 from pages.components.header import HeaderComponents
 from pages.components.modals import ModalsComponent
 from pages.catalog.listing_page import ListingPage
+from locators.components.modals_locators import LocatorsForModals
 
 
 ### ВАЖНО: метод клика по капче не работает: возвращает 200 (тест проходит), но фактически она не прожимается
@@ -75,6 +76,9 @@ def test_enter_data_in_inputs_callback_modal(browser, name, phone):
         #.click_captcha()
         .click_confidential_checkbox()
     )
+
+    assert modals.is_field_filled(LocatorsForModals.INPUT_CALLBACK_NAME), 'Поле "Ваше имя" пустое!'
+    assert modals.is_field_filled(LocatorsForModals.INPUT_CALLBACK_PHONE), 'Поле "Телефон" пустое!'
 
 
 @allure.feature('')
