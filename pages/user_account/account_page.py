@@ -23,6 +23,14 @@ class AccountPage(BasePage):
     def get_title(self):
         return self.get_text(LocatorsForAccount.TITLE_IN_TAB)
 
+    @allure.step('Метод поиска текстовки о пустоте раздела "Избранные товары"')
+    def is_favorites_empty(self) -> bool:
+        return self.is_visible(LocatorsForAccount.TEXT_EMPTY_PAGE_FAVORITE)
+
+    @allure.step('Метод поиска текстовки о пустоте раздела "Заказы"')
+    def is_orders_empty(self) -> bool:
+        return self.is_visible(LocatorsForAccount.CHECK_MESSAGE_IN_EMPTY_PAGE)
+
 
     ###    2) Методы действий с элементами на странице:
     @allure.step('Метод клика по табу "Мой кабинет"')
@@ -45,6 +53,59 @@ class AccountPage(BasePage):
         self.click(LocatorsForAccount.TAB_ORDERS)
         return self
 
+    @allure.step('Метод клика по дропдауну "Статус заказа"')
+    def click_dropdown_order_status(self):
+        self.click(LocatorsForAccount.DROPDOWN_STATUS_ORDER)
+        return self
+
+    @allure.step('Метод выбора параметра "Отменен" в дропдауне "Статус заказа"')
+    # def select_otmena_in_dropdown_status_order(self, status_text: str):
+    #     # Ждем, пока дропдаун появится, и выбираем опцию по видимому тексту
+    #     element = self.find(LocatorsForAccount.FILTER_STATUS_ORDER)
+    #     Select(element).select_by_visible_text(status_text)
+    #     return self
+    def select_otmena_in_dropdown_status_order(self):
+        self.click(LocatorsForAccount.SELECT_STATUS_BY_OTMENA)
+        return self
+
+    @allure.step('Метод выбора параметра "Выполнен" в дропдауне "Статус заказа"')
+    # def select_otmena_in_dropdown_status_order(self, status_text: str):
+    #     # Ждем, пока дропдаун появится, и выбираем опцию по видимому тексту
+    #     element = self.find(LocatorsForAccount.FILTER_STATUS_ORDER)
+    #     Select(element).select_by_visible_text(status_text)
+    #     return self
+    def select_vypolnen_in_dropdown_status_order(self):
+        self.click(LocatorsForAccount.SELECT_STATUS_BY_VYPOLNEN)
+        return self
+
+    @allure.step('Метод клика по дропдауну "Статус оплаты"')
+    def click_dropdown_payment_status(self):
+        self.click(LocatorsForAccount.DROPDOWN_STATUS_PAYMENT)
+        return self
+
+    @allure.step('Метод выбора параметра "Не оплачен" в дропдауне "Статус оплаты"')
+    # def select_filter_status_payment(self, payment_text: str):
+    #     element = self.find(LocatorsForAccount.FILTER_STATUS_PAYMENT)
+    #     Select(element).select_by_visible_text(payment_text)
+    #     return self
+    def select_dont_payment_in_dropdown_status_payment(self):
+        self.click(LocatorsForAccount.SELECT_STATUS_BY_DONT_PAYMENT)
+        return self
+
+    @allure.step('Метод клика по дропдауну "Период"')
+    def click_dropdown_period(self):
+        self.click(LocatorsForAccount.DROPDOWN_PERIOD)
+        return self
+
+    @allure.step('Метод выбора параметра "2026" в дропдауне "Период"')
+    # def select_filter_status_payment(self, payment_text: str):
+    #     element = self.find(LocatorsForAccount.FILTER_STATUS_PAYMENT)
+    #     Select(element).select_by_visible_text(payment_text)
+    #     return self
+    def select_2026_in_dropdown_period(self):
+        self.click(LocatorsForAccount.SELECT_2026_PERIOD)
+        return self
+
     @allure.step('Метод клика по табу "Профили заказов"')
     def click_tab_profile_orders(self):
         self.click(LocatorsForAccount.TAB_PROFILE_ORDERS)
@@ -58,6 +119,11 @@ class AccountPage(BasePage):
     @allure.step('Метод клика по табу "Избранные товары"')
     def click_tab_favorite_cards(self):
         self.click(LocatorsForAccount.TAB_FAVORITE_CARDS)
+        return self
+
+    @allure.step('Метод клика кнопки "Очистить" (в разделе Избранные товары)')
+    def click_btn_clear(self):
+        self.click(LocatorsForAccount.BTN_CLEAR)
         return self
 
     @allure.step('Метод клика по табу "Помощь"')
