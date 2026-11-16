@@ -30,9 +30,12 @@ def test_orders_filters(authorized_user):
         .select_2026_in_dropdown_period()  # Выбираем параметр "2026"
     )
 
-    url_after_make_filters = authorized_user.current_url#; print(f"\nURL до применения фильтров: {url_after_make_filters}")
+    url_after_make_filters = authorized_user.current_url  # ; print(f"\nURL до применения фильтров: {url_after_make_filters}")
+    statuses = account.get_all_order_statuses()  # Собираю все статусы заказов со страницы
 
     assert url_before_make_filters != url_after_make_filters, 'URL не изменился после применения фильтров'
+    for status in statuses:  # Проверяю КАЖДЫЙ статус в списке
+        assert status == 'Отменен', f'На странице раздела есть заказ со статусом != "Отменен": {status}'
 
 
 @allure.feature('')

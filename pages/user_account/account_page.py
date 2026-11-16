@@ -23,6 +23,13 @@ class AccountPage(BasePage):
     def get_title(self):
         return self.get_text(LocatorsForAccount.TITLE_IN_TAB)
 
+    @allure.step('Метод получения статусов заказов в табе "Заказы" после фильтрации')
+    def get_all_order_statuses(self) -> list[str]:
+        # Используем find_all из BasePage, чтобы найти все элементы
+        elements = self.find_all(LocatorsForAccount.CHECK_ORDER_STATUS)
+        # Собираем текст из каждого элемента в список
+        return [el.text.strip() for el in elements]
+
     @allure.step('Метод поиска текстовки о пустоте раздела "Избранные товары"')
     def is_favorites_empty(self) -> bool:
         return self.is_visible(LocatorsForAccount.TEXT_EMPTY_PAGE_FAVORITE)

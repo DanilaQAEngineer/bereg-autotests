@@ -41,3 +41,4 @@ class LocatorsForAccount:
     DROPDOWN_PERIOD = (By.CSS_SELECTOR, 'div.content-md div[data-name="by_year"]')  # Дропдаун "Период"(//span[text()="2026"])[1]
     SELECT_2026_PERIOD = (By.XPATH, '(//span[text()="2026"])[1]')  # Дропдаун "Период" > 2026
     CHECK_MESSAGE_IN_EMPTY_PAGE = (By.CSS_SELECTOR, 'div.personal__block div.alert-warning')  # Заказы > Текстовка на странице пустого раздела
+    CHECK_ORDER_STATUS = (By.CSS_SELECTOR, 'div.orders__order__wrapper div.order__status__value')  # Заказы > арточка заказа > Поле "Статус"
