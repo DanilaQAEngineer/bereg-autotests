@@ -48,7 +48,9 @@ class LocatorsForModals:
     BTN_SEND_IN_ASK_QUESTION = (By.CSS_SELECTOR, 'div#popup_iframe_wrapper input[type="submit"]')  # Кнопка "Отправить"
 
     TITLE_IN_MODAL_ASK_QUESTION = (By.CSS_SELECTOR, 'div#popup_iframe_wrapper div.switcher-title')  # Заголовок модалки
+    TITLE_IN_MODAL_ASK_QUESTION_IN_ORDER_CARD = (By.CSS_SELECTOR, 'div#popup_iframe_wrapper div.switcher-title')  # Заголовок модалки (В ЛК > Заказы > Карточка заказа)
     MODAL_ASK_QUESTION = (By.CSS_SELECTOR, 'div#popup_iframe_wrapper div.scrollbar')  # Сама модалка "Задать вопрос"
+    MODAL_ASK_QUESTION_IN_ORDER_CARD = (By.CSS_SELECTOR, 'div.flexbox div.popup')  # Сама модалка "Задать вопрос" (В ЛК > Заказы > Карточка заказа)
     INPUT_NAME_IN_ASK_QUESTION = (By.CSS_SELECTOR, 'div#popup_iframe_wrapper input#POPUP_NAME')  # Поле "Ваше имя"
     INPUT_PHONE_IN_ASK_QUESTION = (By.CSS_SELECTOR, 'div#popup_iframe_wrapper input#POPUP_PHONE')  # Поле "Телефон"
     INPUT_EMAIL_IN_ASK_QUESTION = (By.CSS_SELECTOR, 'div#popup_iframe_wrapper input#POPUP_EMAIL')  # Поле "E-mail"

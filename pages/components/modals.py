@@ -255,14 +255,18 @@ class ModalsComponent(BasePage):
 
     @allure.step('Метод проверки открытия_отображения модалки "Задать вопрос"')
     def is_ask_question_modal_visible(self) -> bool:
-        WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(LocatorsForModals.MODAL_ASK_QUESTION))
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(LocatorsForModals.MODAL_ASK_QUESTION))
         return self.is_visible(LocatorsForModals.MODAL_ASK_QUESTION)
 
-    @allure.step('Метод получения заголовка модалки "Задать вопрос"')
-    def check_title_in_ask_question_modal(self) -> str:
-        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(LocatorsForModals.TITLE_IN_MODAL_ASK_QUESTION))
-        return self.get_text(LocatorsForModals.TITLE_IN_MODAL_ASK_QUESTION)
+    @allure.step('Метод проверки открытия_отображения модалки "Задать вопрос по заказу" (в ЛК > Заказы > Карточка заказа)')
+    def is_ask_question_modal_in_order_card_visible(self) -> bool:
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(LocatorsForModals.MODAL_ASK_QUESTION_IN_ORDER_CARD))
+        return self.is_visible(LocatorsForModals.MODAL_ASK_QUESTION_IN_ORDER_CARD)
+
+    @allure.step('Метод получения заголовка модалки "Задать вопрос" (в ЛК > Заказы > Карточка заказа)')
+    def check_title_in_ask_question_modal_in_order_card(self) -> str:
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(LocatorsForModals.TITLE_IN_MODAL_ASK_QUESTION_IN_ORDER_CARD))
+        return self.get_text(LocatorsForModals.TITLE_IN_MODAL_ASK_QUESTION_IN_ORDER_CARD)
 
     @allure.step('Метод проверки наличия сообщений об обязательнсти заполнения пустых полей: "Ваше имя"')
     def is_error_message_name_in_ask_question_modal(self) -> bool:

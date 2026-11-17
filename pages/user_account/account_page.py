@@ -113,6 +113,21 @@ class AccountPage(BasePage):
         self.click(LocatorsForAccount.SELECT_2026_PERIOD)
         return self
 
+    @allure.step('Метод клика по карточке заказа')
+    def click_card_order(self):
+        self.click(LocatorsForAccount.ORDER_CARD)
+        return self
+
+    @allure.step('Метод клика по кнопке "Повторить заказ" в карточке заказа')
+    def click_repeat_order_in_order_card(self):
+        self.click(LocatorsForAccount.BTN_REPEAT_IN_ORDER)
+        return self
+
+    @allure.step('Метод клика по кнопке "Задать вопрос" в карточке заказа')
+    def click_ask_question_in_order_card(self):
+        self.click(LocatorsForAccount.BTN_ASK_QUESTION)
+        return self
+
     @allure.step('Метод клика по табу "Профили заказов"')
     def click_tab_profile_orders(self):
         self.click(LocatorsForAccount.TAB_PROFILE_ORDERS)

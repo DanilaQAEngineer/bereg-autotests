@@ -42,3 +42,9 @@ class LocatorsForAccount:
     SELECT_2026_PERIOD = (By.XPATH, '(//span[text()="2026"])[1]')  # Дропдаун "Период" > 2026
     CHECK_MESSAGE_IN_EMPTY_PAGE = (By.CSS_SELECTOR, 'div.personal__block div.alert-warning')  # Заказы > Текстовка на странице пустого раздела
     CHECK_ORDER_STATUS = (By.CSS_SELECTOR, 'div.orders__order__wrapper div.order__status__value')  # Заказы > арточка заказа > Поле "Статус"
+
+    ORDER_CARD = (By.CSS_SELECTOR, 'div.personal__block--orders a.item-link-absolute')  # Карточка заказа (для перехода внутрь заказа)
+    BTN_REPEAT_ORDER = (By.CSS_SELECTOR, 'div.orders__order__body-right a.btn-default')  # Заказы > Кнопка "Повторить заказ" (может падать, возможно, придётся XPATH юзать)
+    #    Карточка заказа:
+    BTN_REPEAT_IN_ORDER = (By.CSS_SELECTOR, 'div.order-pane__col a.btn-transparent-border')  # Заказы > Кнопка "Повторить заказ" (в самом заказе)
+    BTN_ASK_QUESTION = (By.CSS_SELECTOR, 'div.topic a.order__ask-question')  # Заказы > Кнопка "Задать вопрос" (в самом заказе)
