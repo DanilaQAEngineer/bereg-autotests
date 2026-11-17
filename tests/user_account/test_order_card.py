@@ -49,7 +49,7 @@ def test_ask_question_in_order_card(authorized_user):
         .click_ask_question_in_order_card()  # Кликаю на кнопку "Задать вопрос"
     )
 
-    title_modal = modals.check_title_in_ask_question_modal_in_order_card()#; print(f'Заголовок в модалке:{title_modal}')
+    title_in_modal = modals.check_title_in_ask_question_modal(); print(f'Заголовок в модалке:{title_in_modal}')
 
     assert modals.is_ask_question_modal_in_order_card_visible(), 'Модалка "Задать вопрос по заказу" не открылась'
-    assert title_modal != '', 'Заголовок в модалке "Задать вопрос по заказу" пустой'
+    assert title_in_modal != '', 'Заголовок в модалке "Задать вопрос по заказу" пустой'
