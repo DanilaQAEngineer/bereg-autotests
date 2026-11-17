@@ -38,6 +38,31 @@ class AccountPage(BasePage):
     def is_orders_empty(self) -> bool:
         return self.is_visible(LocatorsForAccount.CHECK_MESSAGE_IN_EMPTY_PAGE)
 
+    @allure.step('Метод поиска текстовки  сохранении новых данных в разделе "Личные данные"')
+    def is_success_message_after_saving_data(self) -> bool:
+        return self.is_visible(LocatorsForAccount.MSG_AFTER_SAVING_NEW_DATA)
+
+    @allure.step('Метод проверки наличия сообщений об обязательности заполнения пустых полей: "ФИО"')
+    def is_error_message_fio_in_tab_personal_data(self) -> bool:
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(LocatorsForAccount.ERROR_INPUT_NAME_IN_TAB_PERSONAL_DATA))
+        return self.is_visible(LocatorsForAccount.ERROR_INPUT_NAME_IN_TAB_PERSONAL_DATA)
+
+    @allure.step('Метод проверки наличия сообщений об обязательности заполнения пустых полей: "E-mail"')
+    def is_error_message_email_in_tab_personal_data(self) -> bool:
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(LocatorsForAccount.ERROR_INPUT_EMAIL_IN_TAB_PERSONAL_DATA))
+        return self.is_visible(LocatorsForAccount.ERROR_INPUT_EMAIL_IN_TAB_PERSONAL_DATA)
+
+    @allure.step('Метод проверки наличия сообщений об обязательности заполнения пустых полей: "Телефон"')
+    def is_error_message_phone_in_tab_personal_data(self) -> bool:
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(LocatorsForAccount.ERROR_INPUT_PHONE_IN_TAB_PERSONAL_DATA))
+        return self.is_visible(LocatorsForAccount.ERROR_INPUT_PHONE_IN_TAB_PERSONAL_DATA)
+
+    @allure.step('Метод проверки наличия значения в полях модалки "Задать вопрос"')
+    def is_field_filled_in_personal_data(self, locator) -> bool:
+        """Универсальная проверка любого input-поля на наличие значения."""
+        element = self.find(locator)
+        value = element.get_attribute('value')
+        return bool(value and value.strip())
 
     ###    2) Методы действий с элементами на странице:
     @allure.step('Метод клика по табу "Мой кабинет"')
@@ -48,6 +73,53 @@ class AccountPage(BasePage):
     @allure.step('Метод клика по табу "Личные данные"')
     def click_tab_personal_data(self):
         self.click(LocatorsForAccount.TAB_PERSONAL_DATA)
+        return self
+
+    @allure.step('Метод очистки поля "ФИО" на странице таба "Личные данные"')
+    def clear_name_field_in_tab_personal_data(self):
+        WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located(LocatorsForAccount.INPUT_NAME_IN_TAB_PERSONAL_DATA))
+        element = self.find(LocatorsForAccount.INPUT_NAME_IN_TAB_PERSONAL_DATA)  # Твой локатор поля имени
+        element.clear()
+        return self
+
+    @allure.step('Метод очистки поля "E-mail" на странице таба "Личные данные"')
+    def clear_email_field_in_tab_personal_data(self):
+        WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located(LocatorsForAccount.INPUT_EMAIL_IN_TAB_PERSONAL_DATA))
+        element = self.find(LocatorsForAccount.INPUT_EMAIL_IN_TAB_PERSONAL_DATA)  # Твой локатор поля имени
+        element.clear()
+        return self
+
+    @allure.step('Метод очистки поля "Телефон" на странице таба "Личные данные"')
+    def clear_phone_field_in_tab_personal_data(self):
+        WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located(LocatorsForAccount.INPUT_PHONE_IN_TAB_PERSONAL_DATA))
+        element = self.find(LocatorsForAccount.INPUT_PHONE_IN_TAB_PERSONAL_DATA)  # Твой локатор поля имени
+        element.clear()
+        return self
+
+    @allure.step('Метод ввода данных в поле "ФИО" (таб "Личные данные")')
+    def enter_fio_in_personal_data(self, fio: str):
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(LocatorsForAccount.INPUT_NAME_IN_TAB_PERSONAL_DATA))
+        self.type(LocatorsForAccount.INPUT_NAME_IN_TAB_PERSONAL_DATA, fio)
+        return self
+
+    @allure.step('Метод ввода данных в поле "E-mail" (таб "Личные данные")')
+    def enter_email_in_personal_data(self, email: str):
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(LocatorsForAccount.INPUT_EMAIL_IN_TAB_PERSONAL_DATA))
+        self.type(LocatorsForAccount.INPUT_EMAIL_IN_TAB_PERSONAL_DATA, email)
+        return self
+
+    @allure.step('Метод ввода данных в поле "Телефон" (таб "Личные данные")')
+    def enter_phone_in_personal_data(self, phone: str):
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(LocatorsForAccount.INPUT_PHONE_IN_TAB_PERSONAL_DATA))
+        self.type(LocatorsForAccount.INPUT_PHONE_IN_TAB_PERSONAL_DATA, phone)
+        return self
+
+    @allure.step('Метод клика по кнопке "Сохранить изменения" в табе "Личные данные"')
+    def click_btn_save_in_tab_personal_data(self):
+        self.click(LocatorsForAccount.BTN_SAVE_IN_TAB_PERSONAL_DATA)
         return self
 
     @allure.step('Метод клика по табу "Личный счёт"')

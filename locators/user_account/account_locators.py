@@ -1,5 +1,3 @@
-
-
 from selenium.webdriver.common.by import By
 
 
@@ -48,3 +46,16 @@ class LocatorsForAccount:
     #    Карточка заказа:
     BTN_REPEAT_IN_ORDER = (By.CSS_SELECTOR, 'div.order-pane__col a.btn-transparent-border')  # Заказы > Кнопка "Повторить заказ" (в самом заказе)
     BTN_ASK_QUESTION = (By.CSS_SELECTOR, 'div.topic a.order__ask-question')  # Заказы > Кнопка "Задать вопрос" (в самом заказе)
+
+    #    Таб «Личные данные»:
+    INPUT_NAME_IN_TAB_PERSONAL_DATA = (By.CSS_SELECTOR, 'div.form-body input#NAME')  # ЛК > Личные данные > Поле "ФИО"
+    INPUT_EMAIL_IN_TAB_PERSONAL_DATA = (By.CSS_SELECTOR, 'div.form-body input#EMAIL')  # ЛК > Личные данные > Поле "E-mail"
+    INPUT_PHONE_IN_TAB_PERSONAL_DATA = (By.CSS_SELECTOR, 'div.form-body input#PERSONAL_PHONE')  # ЛК > Личные данные > Поле "Телефон"
+
+    ERROR_INPUT_NAME_IN_TAB_PERSONAL_DATA = (By.CSS_SELECTOR, 'div.form-body label#NAME-error')  # ЛК > Личные данные > Ошибка "This field is required." под полем "ФИО"
+    ERROR_INPUT_EMAIL_IN_TAB_PERSONAL_DATA = (By.CSS_SELECTOR, 'div.form-body label#EMAIL-error')  # ЛК > Личные данные > Ошибка "This field is required." под полем "E-mail"
+    ERROR_INPUT_PHONE_IN_TAB_PERSONAL_DATA = (By.CSS_SELECTOR, 'div.form-body label#PERSONAL_PHONE-error')  # ЛК > Личные данные > Ошибка "This field is required." под полем "Телефон"
+
+    BTN_SAVE_IN_TAB_PERSONAL_DATA = (By.CSS_SELECTOR, 'div.form-footer button[name="save"]')  # ЛК > Личные данные > Кнопка "Сохранить изменения"
+
+    MSG_AFTER_SAVING_NEW_DATA = (By.CSS_SELECTOR, 'div.cabinte-page div.alert-success')  # ЛК > Личные данные > Сообщение "Изменения сохранены" после редактирования данных

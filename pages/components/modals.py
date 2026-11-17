@@ -399,7 +399,7 @@ class ModalsComponent(BasePage):
         self.click(LocatorsForModals.CHECKBOX_COFIDENTIONAL_IN_ASK_QUESTION)
         return self
 
-    @allure.step('Метод очистки поля "Ваше имя"')
+    @allure.step('Метод очистки поля "Ваше имя" в модалке "Задать вопрос"')
     def clear_name_field_in_ask_question_modal(self):
         WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located(LocatorsForModals.INPUT_NAME_IN_ASK_QUESTION))
@@ -407,7 +407,7 @@ class ModalsComponent(BasePage):
         element.clear()
         return self
 
-    @allure.step('Метод очистки поля "Телефон"')
+    @allure.step('Метод очистки поля "Телефон" в модалке "Задать вопрос"')
     def clear_phone_field_in_ask_question_modal(self):
         WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located(LocatorsForModals.INPUT_PHONE_IN_ASK_QUESTION))
@@ -415,7 +415,7 @@ class ModalsComponent(BasePage):
         element.clear()
         return self
 
-    @allure.step('Метод очистки поля "E-mail"')
+    @allure.step('Метод очистки поля "E-mail" в модалке "Задать вопрос"')
     def clear_email_field_in_ask_question_modal(self):
         WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located(LocatorsForModals.INPUT_EMAIL_IN_ASK_QUESTION))
