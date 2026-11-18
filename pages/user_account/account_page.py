@@ -18,16 +18,30 @@ class AccountPage(BasePage):
         return self
 
 
-    ###    1) Методы нахождения_проверки_получения элементов на странице:
+    # === Проверки ===
     @allure.step('Метод получения заголовка табов')  # Один универсальный локатор для всех
     def get_title(self):
         return self.get_text(LocatorsForAccount.TITLE_IN_TAB)
+
+    @allure.step('Метод проверки наличия значения в инпут-полях')
+    def is_field_filled(self, locator) -> bool:
+        """Универсальная проверка любого input-поля на наличие значения."""
+        element = self.find(locator)
+        value = element.get_attribute('value')
+        return bool(value and value.strip())
+
+    @allure.step('Проверка состояния чекбокса')
+    def is_checkbox_checked(self, locator) -> bool:
+        """ Универсальная проверка любого чекбокса, что он отмечен """
+        # Ищем элемент напрямую, без ожидания видимости (чекбоксы часто скрыты)
+        element = self.driver.find_element(*locator)
+        return element.is_selected()
 
     # ==================================================================================================================
     # ТАБ "ЗАКАЗЫ"
     # ==================================================================================================================
 
-    # --- Навигация ---
+    # === Навигация ===
     @allure.step('Метод клика по табу "Заказы"')
     def click_tab_orders(self):
         self.click(LocatorsForAccount.TAB_ORDERS)
@@ -39,21 +53,11 @@ class AccountPage(BasePage):
         return self
 
     @allure.step('Метод выбора параметра "Отменен" в дропдауне "Статус заказа"')
-    # def select_otmena_in_dropdown_status_order(self, status_text: str):
-    #     # Ждем, пока дропдаун появится, и выбираем опцию по видимому тексту
-    #     element = self.find(LocatorsForAccount.FILTER_STATUS_ORDER)
-    #     Select(element).select_by_visible_text(status_text)
-    #     return self
     def select_otmena_in_dropdown_status_order(self):
         self.click(LocatorsForAccount.SELECT_STATUS_BY_OTMENA)
         return self
 
     @allure.step('Метод выбора параметра "Выполнен" в дропдауне "Статус заказа"')
-    # def select_otmena_in_dropdown_status_order(self, status_text: str):
-    #     # Ждем, пока дропдаун появится, и выбираем опцию по видимому тексту
-    #     element = self.find(LocatorsForAccount.FILTER_STATUS_ORDER)
-    #     Select(element).select_by_visible_text(status_text)
-    #     return self
     def select_vypolnen_in_dropdown_status_order(self):
         self.click(LocatorsForAccount.SELECT_STATUS_BY_VYPOLNEN)
         return self
@@ -64,10 +68,6 @@ class AccountPage(BasePage):
         return self
 
     @allure.step('Метод выбора параметра "Не оплачен" в дропдауне "Статус оплаты"')
-    # def select_filter_status_payment(self, payment_text: str):
-    #     element = self.find(LocatorsForAccount.FILTER_STATUS_PAYMENT)
-    #     Select(element).select_by_visible_text(payment_text)
-    #     return self
     def select_dont_payment_in_dropdown_status_payment(self):
         self.click(LocatorsForAccount.SELECT_STATUS_BY_DONT_PAYMENT)
         return self
@@ -78,10 +78,6 @@ class AccountPage(BasePage):
         return self
 
     @allure.step('Метод выбора параметра "2026" в дропдауне "Период"')
-    # def select_filter_status_payment(self, payment_text: str):
-    #     element = self.find(LocatorsForAccount.FILTER_STATUS_PAYMENT)
-    #     Select(element).select_by_visible_text(payment_text)
-    #     return self
     def select_2026_in_dropdown_period(self):
         self.click(LocatorsForAccount.SELECT_2026_PERIOD)
         return self
@@ -101,13 +97,11 @@ class AccountPage(BasePage):
         self.click(LocatorsForAccount.BTN_ASK_QUESTION)
         return self
 
-    # --- Проверки ---
+    # === Проверки ===
     @allure.step('Метод получения статусов заказов в табе "Заказы" после фильтрации')
     def get_all_order_statuses(self) -> list[str]:
-        # Используем find_all из BasePage, чтобы найти все элементы
-        elements = self.find_all(LocatorsForAccount.CHECK_ORDER_STATUS)
-        # Собираем текст из каждого элемента в список
-        return [el.text.strip() for el in elements]
+        elements = self.find_all(LocatorsForAccount.CHECK_ORDER_STATUS)  # Используем find_all из BasePage, чтобы найти все элементы
+        return [el.text.strip() for el in elements]  # Собираем текст из каждого элемента в список
 
     @allure.step('Метод поиска текстовки о пустоте раздела "Заказы"')
     def is_orders_empty(self) -> bool:
@@ -117,7 +111,7 @@ class AccountPage(BasePage):
     # ТАБ "МОЙ КАБИНЕТ"
     # ==================================================================================================================
 
-    # --- Навигация ---
+    # === Навигация ===
     @allure.step('Метод клика по табу "Мой кабинет"')
     def click_tab_my_cabinet(self):
         self.click(LocatorsForAccount.TAB_PERSONAL_CABINET)
@@ -127,7 +121,7 @@ class AccountPage(BasePage):
     # ТАБ "ЛИЧНЫЕ ДАННЫЕ"
     # ==================================================================================================================
 
-    # --- Навигация ---
+    # === Навигация ===
     @allure.step('Метод клика по табу "Личные данные"')
     def click_tab_personal_data(self):
         self.click(LocatorsForAccount.TAB_PERSONAL_DATA)
@@ -180,7 +174,7 @@ class AccountPage(BasePage):
         self.click(LocatorsForAccount.BTN_SAVE_IN_TAB_PERSONAL_DATA)
         return self
 
-    # --- Проверки ---
+    # === Проверки ===
     @allure.step('Метод поиска текстовки  сохранении новых данных в разделе "Личные данные"')
     def is_success_message_after_saving_data(self) -> bool:
         return self.is_visible(LocatorsForAccount.MSG_AFTER_SAVING_NEW_DATA)
@@ -202,13 +196,6 @@ class AccountPage(BasePage):
         WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located(LocatorsForAccount.ERROR_INPUT_PHONE_IN_TAB_PERSONAL_DATA))
         return self.is_visible(LocatorsForAccount.ERROR_INPUT_PHONE_IN_TAB_PERSONAL_DATA)
-
-    @allure.step('Метод проверки наличия значения в полях раздела "Личные данные"')
-    def is_field_filled_in_personal_data(self, locator) -> bool:
-        """Универсальная проверка любого input-поля на наличие значения."""
-        element = self.find(locator)
-        value = element.get_attribute('value')
-        return bool(value and value.strip())
 
     # ==================================================================================================================
     # ТАБ "ЛИЧНЫЙ СЧЁТ"
@@ -233,17 +220,100 @@ class AccountPage(BasePage):
     # ТАБ "ПОДПИСКИ"
     # ==================================================================================================================
 
-    # --- Навигация ---
+    # === Навигация ===
     @allure.step('Метод клика по табу "Подписки"')
     def click_tab_subscribes(self):
         self.click(LocatorsForAccount.TAB_SUBSCRIBES)
         return self
 
+    @allure.step('Метод очистки поля "Ваш e-mail" (таб "Подписки")')
+    def clear_email_field_in_subscribes_tab(self):
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(LocatorsForAccount.INPUT_EMAIL_IN_TAB_SUBSCRIBES))
+        element = self.find(LocatorsForAccount.INPUT_EMAIL_IN_TAB_SUBSCRIBES)  # Твой локатор поля имени
+        element.clear()
+        return self
+
+    @allure.step('Метод ввода данных в поле "Ваш e-mail" (таб "Подписки")')
+    def enter_email_in_subscribes_tab(self, email: str):
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(LocatorsForAccount.INPUT_EMAIL_IN_TAB_SUBSCRIBES))
+        self.type(LocatorsForAccount.INPUT_EMAIL_IN_TAB_SUBSCRIBES, email)
+        return self
+
+    @allure.step('Метод клика по чекбоксу "Первая рассылка" в табе "Подписки"')
+    def click_checkbox_rub_1_in_subscribes_tab(self):
+        self.click(LocatorsForAccount.CHECKBOX_RUB_1_IN_TAB_SUBSCRIBES)
+        return self
+
+    @allure.step('Метод клика по чекбоксу "Новости магазина" в табе "Подписки"')
+    def click_checkbox_rub_2_in_subscribes_tab(self):
+        self.click(LocatorsForAccount.CHECKBOX_RUB_2_IN_TAB_SUBSCRIBES)
+        return self
+
+    @allure.step('Метод клика по радиокнопке "Текст" в табе "Подписки"')
+    def click_radio_button_1_in_subscribes_tab(self):
+        self.click(LocatorsForAccount.RADIOBUTTON_1_IN_TAB_SUBSCRIBES)
+        return self
+
+    @allure.step('Метод клика по радиокнопке "HTML" в табе "Подписки"')
+    def click_radio_button_2_in_subscribes_tab(self):
+        self.click(LocatorsForAccount.RADIOBUTTON_2_IN_TAB_SUBSCRIBES)
+        return self
+
+    @allure.step('Метод клика по кнопке "Добавить" в табе "Подписки"')
+    def click_btn_add_in_subscribes_tab(self):
+        self.click(LocatorsForAccount.BTN_ADD_IN_TAB_SUBSCRIBES)
+        return self
+
+    @allure.step('Метод клика по кнопке "Изменить" в табе "Подписки"')
+    def click_btn_save_in_subscribes_tab(self):
+        self.click(LocatorsForAccount.BTN_SAVE_IN_TAB_SUBSCRIBES)
+        return self
+
+    @allure.step('Метод клика по кнопке "Сброс" в табе "Подписки"')
+    def click_btn_reset_in_subscribes_tab(self):
+        self.click(LocatorsForAccount.BTN_RESET_IN_TAB_SUBSCRIBES)
+        return self
+
+    # === Проверки ===
+    @allure.step('Метод проверки_получения заголовка "Настройки подписки" в разделе "Подписки"')
+    def get_title_in_subscribes_tab(self):
+        return self.get_text(LocatorsForAccount.TITLE_IN_TAB_SUBSCRIBES)
+
+    @allure.step('Метод проверки_получения ошибок в разделе "Подписки" (все ошибки в одном локаторе)')
+    def get_errors_in_subscribes_tab(self):
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(LocatorsForAccount.ERROR_MSG_IN_TAB_SUBSCRIBES))
+        return self.get_text(LocatorsForAccount.ERROR_MSG_IN_TAB_SUBSCRIBES)
+
+    @allure.step('Метод проверки_получения сообщения об успехе подписки в разделе "Подписки"')
+    def get_success_msg_after_sub_in_subscribes_tab(self):
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(LocatorsForAccount.MSG_AFTER_CLICK_BTN_ADD))
+        return self.get_text(LocatorsForAccount.MSG_AFTER_CLICK_BTN_ADD)
+
+    @allure.step('Метод проверки появления блока "Подтверждение подписки" после успешной подписки')
+    def is_block_verify_subscribe(self) -> bool:
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(LocatorsForAccount.BLOCK_1_AFTER_SUCCESS_SUBSCRIBE))
+        return self.is_visible(LocatorsForAccount.BLOCK_1_AFTER_SUCCESS_SUBSCRIBE)
+
+    @allure.step('Метод проверки_получения заголовка блока "Подтверждение подписки"')
+    def get_title_1_success_msg_after_sub_in_subscribes_tab(self):
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(LocatorsForAccount.TITLE_BLOCK_1_AFTER_SUCCESS_SUBSCRIBE))
+        return self.get_text(LocatorsForAccount.TITLE_BLOCK_1_AFTER_SUCCESS_SUBSCRIBE)
+
+    @allure.step('Метод проверки появления блока "Состояние подписки" после успешной подписки')
+    def is_block_status_subscribe(self) -> bool:
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(LocatorsForAccount.BLOCK_2_AFTER_SUCCESS_SUBSCRIBE))
+        return self.is_visible(LocatorsForAccount.BLOCK_2_AFTER_SUCCESS_SUBSCRIBE)
+
+    @allure.step('Метод проверки_получения заголовка блока "Состояние подписки"')
+    def get_title_2_success_msg_after_sub_in_subscribes_tab(self):
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(LocatorsForAccount.TITLE_BLOCK_2_AFTER_SUCCESS_SUBSCRIBE))
+        return self.get_text(LocatorsForAccount.TITLE_BLOCK_2_AFTER_SUCCESS_SUBSCRIBE)
+
     # ==================================================================================================================
     # ТАБ "ИЗБРАННЫЕ ТОВАРЫ"
     # ==================================================================================================================
 
-    # --- Навигация ---
+    # === Навигация ===
     @allure.step('Метод клика по табу "Избранные товары"')
     def click_tab_favorite_cards(self):
         self.click(LocatorsForAccount.TAB_FAVORITE_CARDS)
@@ -275,7 +345,7 @@ class AccountPage(BasePage):
         self.click(LocatorsForAccount.BREADCRUMBS_PERSONAL_CABINET)
         return self
 
-    # --- Проверки ---
+    # === Проверки ===
     @allure.step('Метод поиска текстовки о пустоте раздела "Избранные товары"')
     def is_favorites_empty(self) -> bool:
         return self.is_visible(LocatorsForAccount.TEXT_EMPTY_PAGE_FAVORITE)

@@ -2,9 +2,7 @@ import pytest
 import allure
 
 
-from config.settings import settings
 from pages.user_account.account_page import AccountPage
-from pages.components.modals import ModalsComponent
 from locators.user_account.account_locators import LocatorsForAccount
 
 
@@ -66,9 +64,9 @@ def test_enter_data_in_personal_data(authorized_user, fio, email, phone):
         .enter_phone_in_personal_data(phone)
     )
 
-    assert account.is_field_filled_in_personal_data(LocatorsForAccount.INPUT_NAME_IN_TAB_PERSONAL_DATA), 'Поле "ФИО" пустое!'
-    assert account.is_field_filled_in_personal_data(LocatorsForAccount.INPUT_EMAIL_IN_TAB_PERSONAL_DATA), 'Поле "E-mail" пустое!'
-    assert account.is_field_filled_in_personal_data(LocatorsForAccount.INPUT_PHONE_IN_TAB_PERSONAL_DATA), 'Поле "Телефон" пустое!'
+    assert account.is_field_filled(LocatorsForAccount.INPUT_NAME_IN_TAB_PERSONAL_DATA), 'Поле "ФИО" пустое!'
+    assert account.is_field_filled(LocatorsForAccount.INPUT_EMAIL_IN_TAB_PERSONAL_DATA), 'Поле "E-mail" пустое!'
+    assert account.is_field_filled(LocatorsForAccount.INPUT_PHONE_IN_TAB_PERSONAL_DATA), 'Поле "Телефон" пустое!'
 
 
 @allure.feature('')
