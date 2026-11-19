@@ -36,6 +36,11 @@ class AuthModalComponent(BasePage):
         self.click(LocatorsForAuthModal.BTN_VITY)
         return self
 
+    @allure.step('Метод клика по кнопке "Регистрация" в модалке "Вход в ЛК')
+    def click_register_link(self):
+        self.click(LocatorsForAuthModal.BTN_REGISTRATION)
+        return self
+
     @allure.step('Метод проверки уведомления об успешной авторизации на сайте')
     def check_notification_after_auth(self) -> bool:
         return self.is_visible(LocatorsForAuthModal.AFTER_AUTH_NOTIFICATION)
