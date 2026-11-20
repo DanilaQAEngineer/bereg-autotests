@@ -8,6 +8,11 @@ from locators.components.auth_locators import LocatorsForAuthModal
 class AuthModalComponent(BasePage):
     """ Методы модалки авторизации """
 
+    @allure.step('Метод клика по кнопке "Регистрация" в модалке "Вход в ЛК')
+    def click_element(self, locator):
+        self.find(locator).click()
+        return self
+
     @allure.step('Метод ввода логина')
     def enter_login(self, email: str):
         self.type(LocatorsForAuthModal.INPUT_LOGIN, email)
@@ -34,11 +39,6 @@ class AuthModalComponent(BasePage):
     @allure.step('Метод клика кнопки "Войти"')
     def click_auth_button(self):
         self.click(LocatorsForAuthModal.BTN_VITY)
-        return self
-
-    @allure.step('Метод клика по кнопке "Регистрация" в модалке "Вход в ЛК')
-    def click_register_link(self):
-        self.click(LocatorsForAuthModal.BTN_REGISTRATION)
         return self
 
     @allure.step('Метод проверки уведомления об успешной авторизации на сайте')

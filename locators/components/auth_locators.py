@@ -36,8 +36,10 @@ class LocatorsForAuthModal:
     INPUT_PASSWORD_IN_REGISTRATION_PAGE = (By.CSS_SELECTOR, 'div.form-body input#input_PASSWORD')  # Модалка "Регистрация" > Поле "Пароль"
     INPUT_CONFIRM_PASSWORD_IN_REGISTRATION_PAGE = (By.CSS_SELECTOR, 'div.form-body input#input_CONFIRM_PASSWORD')  # Модалка "Регистрация" > Поле "Подтверждение пароля"
     #CAPTCHA_IN_REGISTRATION_PAGE = (By.CSS_SELECTOR, '')
-    CHECKBOX_1_IN_REGISTRATION_PAGE = (By.CSS_SELECTOR, 'div.form-body span.form-checbox__text')  # Модалка "Регистрация" > Чекбокс "Продолжая, вы соглашаетесь с ..."
-    CHECKBOX_2_IN_REGISTRATION_PAGE = (By.CSS_SELECTOR, 'div.form-body span.form-come__text')  # Модалка "Регистрация" > Чекбокс "Продолжая, вы соглашаетесь на ..."
+    CHECKBOX_1_IN_REGISTRATION_PAGE = (By.XPATH, '(//span[@class="form-checkbox__box form-box"])[1]')  # Модалка "Регистрация" > Чекбокс "Продолжая, вы соглашаетесь с ..."
+    CHECK_CHECKBOX_1 = (By.CSS_SELECTOR, 'div.form-body input#licenses_register')  # Проверка появления флажка в первом чекбоксе
+    CHECKBOX_2_IN_REGISTRATION_PAGE = (By.XPATH, '(//span[@class="form-checkbox__box form-box"])[2]')  # Модалка "Регистрация" > Чекбокс "Продолжая, вы соглашаетесь на ..."
+    CHECK_CHECKBOX_2 = (By.CSS_SELECTOR, 'div.form-body input#marketing_popup_OCB')  # Проверка появления флажка во втором чекбоксе
     BTN_REGISTRATION_IN_REGISTRATION_PAGE = (By.CSS_SELECTOR, 'div.form-footer button[value="Регистрация"]')  # Модалка "Регистрация" > Кнопка "Зарегстрироваться"
 
     ERROR_MSG_UNDER_INPUT_FIO_IN_REGISTRATION_PAGE = (By.CSS_SELECTOR, 'div.form-body label#input_NAME-error')  # Модалка "Регистрация" > Поле "ФИО" > Сообщение об ошибке: "Заполните это поле!"
