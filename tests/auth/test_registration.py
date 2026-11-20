@@ -1,5 +1,3 @@
-import time
-
 import allure
 import pytest
 
@@ -29,6 +27,14 @@ def test_open_registration_page(browser):
     assert registration.is_visible_element(LocatorsForAuthModal.BREADCRUMBS_IN_REGISTRATION_PAGE), 'Хлебных крошек на странице нет'
     page_title = registration.check_text(LocatorsForAuthModal.TITLE_IN_REGISTRATION_PAGE)#; print(f'Заголовок на странице раздела: {page_title}')
     assert "регистрация" in page_title.lower(), f'Ожидали заголовок про регистрация, получили: "{page_title}"'
+    assert registration.is_visible_element(LocatorsForAuthModal.INPUT_FIO_IN_REGISTRATION_PAGE), 'Поля "ФИО" на странице нет'
+    assert registration.is_visible_element(LocatorsForAuthModal.INPUT_EMAIL_IN_REGISTRATION_PAGE), 'Поля "E-mail" на странице нет'
+    assert registration.is_visible_element(LocatorsForAuthModal.INPUT_PHONE_IN_REGISTRATION_PAGE), 'Поля "Телефон" на странице нет'
+    assert registration.is_visible_element(LocatorsForAuthModal.INPUT_PASSWORD_IN_REGISTRATION_PAGE), 'Поля "Пароль" на странице нет'
+    assert registration.is_visible_element(LocatorsForAuthModal.INPUT_CONFIRM_PASSWORD_IN_REGISTRATION_PAGE), 'Поля "Подтверждение пароля" на странице нет'
+    assert registration.is_visible_element(LocatorsForAuthModal.CHECKBOX_1_IN_REGISTRATION_PAGE), 'Первого чекбокса на странице нет'
+    assert registration.is_visible_element(LocatorsForAuthModal.CHECKBOX_2_IN_REGISTRATION_PAGE), 'Второго чекбокса на странице нет'
+    assert registration.is_visible_element(LocatorsForAuthModal.BTN_REGISTRATION_IN_REGISTRATION_PAGE), 'Кнопки "Зарегистрироваться" на странице нет'
 
 
 @allure.feature('Регистрация')
@@ -81,7 +87,7 @@ def test_enter_data(browser, fio, email, phone, password, confirm_password):
         (LocatorsForAuthModal.ERROR_MSG_UNDER_INPUT_CONFIRM_PASSWORD_IN_REGISTRATION_PAGE, 'заполните это поле', 'Подтверждение пароля'),
         (LocatorsForAuthModal.ERROR_MSG_UNDER_INPUT_CAPTCHA_IN_REGISTRATION_PAGE, 'пройдите проверку', 'Капча'),
         (LocatorsForAuthModal.ERROR_MSG_UNDER_CHECKBOX_1_IN_REGISTRATION_PAGE, 'согласитесь с условиями', 'Чекбокс 1'),
-        (LocatorsForAuthModal.ERROR_MSG_UNDER_CHECKBOX_2_IN_REGISTRATION_PAGE, 'заполните это поле', 'Чекбокс 2'),
+        (LocatorsForAuthModal.ERROR_MSG_UNDER_CHECKBOX_2_IN_REGISTRATION_PAGE, 'заполните это поле', 'Чекбокс 2')
     ]
 )
 @pytest.mark.smoke
@@ -111,6 +117,7 @@ def test_check_all_errors(browser, locator, expected_text, field_name):
     'email',
     [
         ('abcdgmail.com'),
+        ('абвгд@mail.ru')
     ]
 )
 @pytest.mark.smoke
