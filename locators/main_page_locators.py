@@ -14,14 +14,17 @@ class LocatorsForMainPage:
     # ==================================================================================================================
     # БЛОК "БЕСТСЕЛЛЕРЫ"
     # ==================================================================================================================
-    TAB_HIT = (By.CSS_SELECTOR, 'div.CATALOG_TAB div[data-code="HIT"]')  # Бестселлеры > Таб "Хит" (возможно, нужен xpath, т.к. 2 совпадения)
-    TAB_RECOMMEND = (By.CSS_SELECTOR, 'div.CATALOG_TAB div[data-code="RECOMMEND"]')  # Таб "Бестселлеры > Советуем" (возможно, нужен xpath, т.к. 2 совпадения)
-    TAB_NEW = (By.CSS_SELECTOR, 'div.CATALOG_TAB div[data-code="NEW"]')  # Бестселлеры > Таб "Новинка" (возможно, нужен xpath, т.к. 2 совпадения)
-    TAB_STOCK = (By.CSS_SELECTOR, 'div.CATALOG_TAB div[data-code="STOCK"]')  # Бестселлеры > Таб "Акция" (возможно, нужен xpath, т.к. 2 совпадения)
+    TITLE_BESTSELLEAR = (By.CSS_SELECTOR, 'div.CATALOG_TAB a.stroke-theme-hover')  # Бестселлеры > Заголовок блока
+    TAG_IN_CARD_LISTING_BESTSEALER = (By.CSS_SELECTOR, 'div.CATALOG_TAB div.catalog-block div.sticker__item-content')  # Бестселлеры > Тэг в карточек товара на странице
+    TAB_HIT = (By.XPATH, '//div[contains(@class, CATALOG_TAB)]//span[contains(text(), "Хит")]')  # Бестселлеры > Таб "Хит"
+    TAB_RECOMMEND = (By.XPATH, '//div[contains(@class, CATALOG_TAB)]//span[contains(text(), "Советуем")]')  # Таб "Бестселлеры > Советуем"
+    TAB_NEW = (By.XPATH, '//div[contains(@class, CATALOG_TAB)]//span[contains(text(), "Новинка")]')  # Бестселлеры > Таб "Новинка"
+    TAB_STOCK = (By.XPATH, '//div[contains(@class, CATALOG_TAB)]//span[contains(text(), "Акция")]')  # Бестселлеры > Таб "Акция"
 
     # ==================================================================================================================
     # БЛОК "ПОХОДНЫЕ ПАЛАТКИ И ПЕЧИ"
     # ==================================================================================================================
     TITLE_PECHI = (By.CSS_SELECTOR, 'div.CUSTOM_CATALOG a.stroke-theme-hover')  # Походные палатки и печи > Заголовок блока
+    TAG_IN_CARD_LISTING_PECHI = (By.CSS_SELECTOR,'div.CUSTOM_CATALOG div.catalog-block div.sticker__item-content')  # Походные палатки и печи > Тэг в карточек товара на странице
     TAB_PALATKI = (By.XPATH, '(//span[text()="Палатки"])[4]')  # Походные палатки и печи > Таб "Палатки"
     TAB_ARM_PALATKI = (By.XPATH, '(//span[text()="Армейские палатки"])[4]')  # Походные палатки и печи > Таб "Армейские палатки"
