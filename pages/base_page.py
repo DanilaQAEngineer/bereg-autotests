@@ -40,9 +40,13 @@ class BasePage:    # Объявляем класс, который будет ш
         """Найти видимый элемент (с ожиданием)."""
         return wait_visible(self.driver, locator)    # ждём видимости и возвращаем элемент: позволит не падать сразу, если элемент появится только через 1–2 сек  // Почему не self.driver.find_element(*locator)? Потому что find_element ищет сразу и падает, если элемента нет, а wait_visible даёт время
 
-    def find_all(self, locator: tuple[By, str]):    # Ищем ВСЕ элементы по локатору: для списков карточек, ссылок, опций
-        """Найти все элементы (без ожидания)."""
-        return self.driver.find_elements(*locator)    # Распаковываем кортеж в позиционные аргументы: (By.CSS_SELECTOR, ".item") → find_elements(By.CSS_SELECTOR, ".item")
+    # def find_all(self, locator: tuple[By, str]):    # Ищем ВСЕ элементы по локатору: для списков карточек, ссылок, опций
+    #     """Найти все элементы (без ожидания)."""
+    #     return self.driver.find_elements(*locator)    # Распаковываем кортеж в позиционные аргументы: (By.CSS_SELECTOR, ".item") → find_elements(By.CSS_SELECTOR, ".item")
+    def find_all(self, locator, timeout=None):
+        """Найти все элементы с ожиданием появления хотя бы одного."""
+        wait_present(self.driver, locator, timeout=timeout)  # ждём 1+ элемент
+        return self.driver.find_elements(*locator)
 
     # open/click/type возвращает self → можно строить цепочки: page.open(url).click(btn).type(field, "text")
     def click(self, locator: tuple[By, str]) -> "BasePage":    # Добавил метод клика с такой же распаковкой локатора на поз.аргументы: ищем на странице локатор и обращаемся к нему

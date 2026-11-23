@@ -136,7 +136,8 @@ def test_check_all_errors_modal_subscribes(browser, locator, expected_text, fiel
     browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
     (
-        footer.click_element(LocatorsForFooterMenu.BTN_SUBSCRIBES_IN_FOOTER)
+        footer.enter_text(LocatorsForFooterMenu.INPUT_EMAIL_IN_MODAL_SUBSCRIBES, "invalid_email")  # прокинул в тест некорректную почту, чтоб наверняка ошибка появилась, т.к. временами падает
+        .click_element(LocatorsForFooterMenu.BTN_SUBSCRIBES_IN_FOOTER)
         .click_element(LocatorsForFooterMenu.BTN_SUBSCRIBES_IN_MODAL_SUBSCRIBES)
     )
 

@@ -5,9 +5,12 @@ from dotenv import load_dotenv
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 
 from pages.components.header import HeaderComponents
+from locators.components.auth_locators import LocatorsForAuthModal
 from pages.components.auth_modal import AuthModalComponent
 from config.settings import settings
 from utils.logger import get_logger
@@ -69,7 +72,7 @@ def pytest_runtest_makereport(item, call):
     report = outcome.get_result()
 
     if report.when == "call" and report.failed:
-        driver = item.funcargs.get("driver")
+        driver = item.funcargs.get("browser")
         if driver:
             settings.screenshots_dir.mkdir(exist_ok=True)
             name = f"{item.name}.png"
@@ -81,30 +84,36 @@ def pytest_runtest_makereport(item, call):
                 log.error(f"Не удалось сохранить скриншот: {e}")
 
 
-# @pytest.fixture(autouse=True)
-# def clean_browser_state(browser):
-#     """
-#     Автоматически очищает localStorage и sessionStorage
-#     после завершения каждого теста.
-#     """
-#     yield  # Выполняем тест
-#
-#     try:
-#         browser.execute_script("window.localStorage.clear();")
-#         browser.execute_script("window.sessionStorage.clear();")
-#         browser.delete_all_cookies()
-#     except Exception as e:
-#         log.warning(f"Не удалось очистить состояние браузера: {e}")
+@pytest.fixture(autouse=True)
+def clean_browser_state(browser):
+    # """
+    # Автоматически очищает localStorage и sessionStorage
+    # после завершения каждого теста.
+    # """
+    # yield  # Выполняем тест
+    #
+    # try:
+    #     browser.delete_all_cookies()
+    #     browser.execute_script("window.localStorage.clear(); window.sessionStorage.clear();")
+    # except Exception as e:
+    #     log.warning(f"Не удалось очистить состояние браузера: {e}")
+    """Автоматически очищает состояние браузера после каждого теста."""
+    yield  # Выполняем тест
+
+    # После теста:
+    browser.delete_all_cookies()
+    browser.execute_script("window.localStorage.clear();")
+    browser.execute_script("window.sessionStorage.clear();")
+    # Если сайт запоминает что-то в URL, делаем переход на чистую главную:
+    browser.get("https://pfbereg.ru/")
 
 
 @pytest.fixture
 def authorized_user(browser):
     """ Фикстура, возвращающая драйвер, в котором пользователь уже авторизован """
     browser.get(settings.base_url)
-
     header = HeaderComponents(browser)
     auth = AuthModalComponent(browser)
-
     email = os.getenv('TEST_USER_EMAIL')
     password = os.getenv('TEST_USER_PASSWORD')
 
@@ -116,7 +125,10 @@ def authorized_user(browser):
     )
 
     # Ждем, пока кнопка "Войти" сменится на аватарку/ЛК (подтверждение успеха)
-    # ... здесь можно добавить WebDriverWait ...
+    # КРИТИЧНО: ждём, пока авторизация реально завершится: проверяем по элементу, который появляется ТОЛЬКО после успешного входа
+    WebDriverWait(browser, 15).until(
+        EC.presence_of_element_located(LocatorsForAuthModal.AFTER_AUTH_NOTIFICATION)  # < уведомление после успешной авторизации
+    )
 
     yield browser  # Отдаем драйвер в тест
     # (Здесь можно добавить разлогин, если нужно, но при закрытии браузера сессия и так сбросится)
