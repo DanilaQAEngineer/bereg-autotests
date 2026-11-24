@@ -7,24 +7,31 @@ class LocatorsForMainPage:
     # ==================================================================================================================
     # БАННЕРНАЯ КАРУСЕЛЬ
     # ==================================================================================================================
-    BTN_PREV_SLIDE = (By.CSS_SELECTOR, 'div.slider-nav-wrap div.swiper-button-prev')
+    CURRENT_BANNER_ON_PAGE = (By.CSS_SELECTOR, 'div.swiper-slide-active a.target')  # Ссылка текущего баннера в карусели
     BTN_NEXT_SLIDE = (By.CSS_SELECTOR, 'div.slider-nav-wrap div.swiper-button-next')
-    CURRENT_BANNER_ON_PAGE = (By.CSS_SELECTOR, 'div.maxwidth-banner a.target')  # Текущий баннер в карусели
+    BTN_PREV_SLIDE = (By.CSS_SELECTOR, 'div.slider-nav-wrap div.swiper-button-prev')
 
     # ==================================================================================================================
     # БЛОК "БЕСТСЕЛЛЕРЫ"
     # ==================================================================================================================
-    TITLE_BESTSELLEAR = (By.CSS_SELECTOR, 'div.CATALOG_TAB a.stroke-theme-hover')  # Бестселлеры > Заголовок блока
-    TAG_IN_CARD_LISTING_BESTSEALER = (By.CSS_SELECTOR, 'div.CATALOG_TAB div.catalog-block div.sticker__item-content')  # Бестселлеры > Тэг в карточек товара на странице
-    TAB_HIT = (By.XPATH, '//div[contains(@class, CATALOG_TAB)]//span[contains(text(), "Хит")]')  # Бестселлеры > Таб "Хит"
-    TAB_RECOMMEND = (By.XPATH, '//div[contains(@class, CATALOG_TAB)]//span[contains(text(), "Советуем")]')  # Таб "Бестселлеры > Советуем"
-    TAB_NEW = (By.XPATH, '//div[contains(@class, CATALOG_TAB)]//span[contains(text(), "Новинка")]')  # Бестселлеры > Таб "Новинка"
-    TAB_STOCK = (By.XPATH, '//div[contains(@class, CATALOG_TAB)]//span[contains(text(), "Акция")]')  # Бестселлеры > Таб "Акция"
+    TITLE_BESTSELLER = (By.CSS_SELECTOR, 'div.CATALOG_TAB a.stroke-theme-hover')  # Бестселлеры > Заголовок блока
+    TAG_IN_CARD_LISTING_BESTSELLER = (By.CSS_SELECTOR, 'div."CATALOG_TAB" div.catalog-block div.sticker__item-content')  # Бестселлеры > Тэг в карточек товара на странице
+
+    ### ФИЛЬТРЫ БЛОКА "БЕСТСЕЛЛЕРЫ"
+    FILTER_HIT = (By.XPATH, '//div[contains(@class, "CATALOG_TAB")]//span[contains(text(), "Хит")]')  # Бестселлеры > Таб "Хит"
+    FILTER_RECOMMEND = (By.XPATH, '//div[contains(@class, "CATALOG_TAB")]//span[contains(text(), "Советуем")]')  # Таб "Бестселлеры > Советуем"
+    FILTER_NEW = (By.XPATH, '//div[contains(@class, "CATALOG_TAB")]//span[contains(text(), "Новинка")]')  # Бестселлеры > Таб "Новинка"
+    FILTER_STOCK = (By.XPATH, '//div[contains(@class, "CATALOG_TAB")]//span[contains(text(), "Акция")]')  # Бестселлеры > Таб "Акция"
 
     # ==================================================================================================================
     # БЛОК "ПОХОДНЫЕ ПАЛАТКИ И ПЕЧИ"
     # ==================================================================================================================
     TITLE_PECHI = (By.CSS_SELECTOR, 'div.CUSTOM_CATALOG a.stroke-theme-hover')  # Походные палатки и печи > Заголовок блока
     TAG_IN_CARD_LISTING_PECHI = (By.CSS_SELECTOR,'div.CUSTOM_CATALOG div.catalog-block div.sticker__item-content')  # Походные палатки и печи > Тэг в карточек товара на странице
-    TAB_PALATKI = (By.XPATH, '(//span[text()="Палатки"])[4]')  # Походные палатки и печи > Таб "Палатки"
-    TAB_ARM_PALATKI = (By.XPATH, '(//span[text()="Армейские палатки"])[4]')  # Походные палатки и печи > Таб "Армейские палатки"
+
+    ### ФИЛЬТРЫ БЛОКА "БЕСТСЕЛЛЕРЫ"
+    FILTER_PALATKI = (By.XPATH, '(//div[contains(@class, "CUSTOM_CATALOG")]//span[contains(text(), "Палатки")])[4]')  # Походные палатки и печи > Таб "Палатки"
+    FILTER_ARM_PALATKI = (By.XPATH, '//div[contains(@class, "CUSTOM_CATALOG")]//span[contains(text(), "Армейские палатки")]')  # Походные палатки и печи > Таб "Армейские палатки"
+    FILTER_BANI = (By.XPATH, '//div[contains(@class, "CUSTOM_CATALOG")]//span[contains(text(), "Походные бани")]')  # Походные палатки и печи > Таб "Походные бани"
+    FILTER_PECHI = (By.XPATH, '//div[contains(@class, "CUSTOM_CATALOG")]//span[contains(text(), "Походные печи")]')  # Походные палатки и печи > Таб "Походные печи"
+    FILTER_MEBEL = (By.XPATH, '//div[contains(@class, "CUSTOM_CATALOG")]//span[contains(text(), "Мебель")]')  # Походные палатки и печи > Таб "Мебель"
