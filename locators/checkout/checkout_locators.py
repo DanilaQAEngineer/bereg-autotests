@@ -44,9 +44,9 @@ class LocatorsForCheckout:
     # ==================================================================================================================
     BTN_IZMENIT_1 = (By.XPATH, '(//div[contains(@class, "pandd")]//div[text()="Изменить"])[1]')  # Блок "Способ доставки" (Выберите адрес доставки) > Доставка транспортной компанией > Кнопка "Изменить"
     RADIO_DOSTAVKA = (By.XPATH, '//div[contains(@class, "bx-soa-pp-item-container")]//span[text()="Доставка транспортной компанией или Озон Доставкой"]')  # Блок "Способ доставки" (Выберите адрес доставки) > Доставка транспортной компанией > Радиокнопка "Доставка транспортной компанией"
-    INPUT_ENTER_ADRESS = (By.CSS_SELECTOR, 'div.pandd div.grid-list__item textarea#soa-property-7')  # Блок "Способ доставки" (Выберите адрес доставки) > Доставка транспортной компанией > Поле "Адрес доставки"
-    INPUT_ENTER_INDEX = (By.CSS_SELECTOR, 'div.pandd div.grid-list__item input#zipProperty')  # Блок "Способ доставки" (Выберите адрес доставки) > Доставка транспортной компанией >  Поле "Индекс"
-    INPUT_ENTER_COMMENT_1 = (By.CSS_SELECTOR, 'div.pandd div.grid-list__item textarea#orderDescription')  # Блок "Способ доставки" (Выберите адрес доставки) > Доставка транспортной компанией >  Поле "Комментарий к заказу"
+    INPUT_ENTER_ADRESS = (By.CSS_SELECTOR, 'div.pandd textarea[autocomplete="address"]')  # Блок "Способ доставки" (Выберите адрес доставки) > Доставка транспортной компанией > Поле "Адрес доставки"
+    INPUT_ENTER_INDEX = (By.CSS_SELECTOR, 'div.pandd input[autocomplete="zip"]')  # Блок "Способ доставки" (Выберите адрес доставки) > Доставка транспортной компанией >  Поле "Индекс"
+    INPUT_ENTER_COMMENT_1 = (By.CSS_SELECTOR, 'div.pandd textarea#orderDescription')  # Блок "Способ доставки" (Выберите адрес доставки) > Доставка транспортной компанией >  Поле "Комментарий к заказу"
     BTN_PRODOL_3 = (By.XPATH, '(//div[contains(@class, "bx-soa-more")]//div[text()="Продолжить"])[2]')  # Блок "Способ доставки" (Выберите адрес доставки) > Доставка транспортной компанией >  Кнопка "Продолжить"
 
     ERROR_MSG_UNDER_INPUT_INDEX = (By.CSS_SELECTOR, 'div.pandd div#tooltip-zipProperty div.tooltip-inner')  # Блок "Способ доставки" (Выберите адрес доставки) > Доставка транспортной компанией >  Поле "Индекс" > Ошибка под полем
@@ -56,6 +56,7 @@ class LocatorsForCheckout:
     # ==================================================================================================================
     BTN_IZMENIT_2 = (By.XPATH, '(//div[contains(@class, "pandd")]//div[text()="Изменить"])[1]')  # Блок "Способ доставки" (Выберите адрес доставки) > Самовывоз > Кнопка "Изменить"
     RADIO_SAMOVYVOZ = (By.XPATH, '//div[contains(@class, "bx-soa-pp-item-container")]//span[text()="Самовывоз"]')  # Блок "Способ доставки" (Выберите адрес доставки) > Доставка транспортной компанией > Радиокнопка "Доставка транспортной компанией"
+    KARTA = (By.CSS_SELECTOR, 'div.pandd div.bx-soa-pickup-list-outer-wrap')  # Блок "Способ доставки" (Выберите адрес доставки) > Самовывоз > Яндекс-карта
     INPUT_ENTER_COMMENT_2 = (By.CSS_SELECTOR, 'div.pandd div.grid-list__item textarea#orderDescription')  # Блок "Способ доставки" (Выберите адрес доставки) > Самовывоз >  Поле "Комментарий к заказу"
     BTN_PRODOL_4 = (By.XPATH,  '(//div[contains(@class, "bx-soa-more")]//div[text()="Продолжить"])[2]')  # Блок "Способ доставки" (Выберите адрес доставки) > Самовывоз >  Кнопка "Продолжить"
     # ==================================================================================================================
