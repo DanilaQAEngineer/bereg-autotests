@@ -25,8 +25,7 @@ def test_open_registration_page(browser):
 
     assert "/auth/registration/" in browser.current_url, 'Переход на страницу "Регистрация" не произошел'
     assert registration.is_visible_element(LocatorsForAuthModal.BREADCRUMBS_IN_REGISTRATION_PAGE), 'Хлебных крошек на странице нет'
-    page_title = registration.check_text(LocatorsForAuthModal.TITLE_IN_REGISTRATION_PAGE)#; print(f'Заголовок на странице раздела: {page_title}')
-    assert "регистрация" in page_title.lower(), f'Ожидали заголовок про регистрация, получили: "{page_title}"'
+    assert "регистрация" in registration.check_text(LocatorsForAuthModal.TITLE_IN_REGISTRATION_PAGE).lower(), f'Ожидали заголовок про регистрация, получили: "{registration.check_text(LocatorsForAuthModal.TITLE_IN_REGISTRATION_PAGE).lower()}"'
     assert registration.is_visible_element(LocatorsForAuthModal.INPUT_FIO_IN_REGISTRATION_PAGE), 'Поля "ФИО" на странице нет'
     assert registration.is_visible_element(LocatorsForAuthModal.INPUT_EMAIL_IN_REGISTRATION_PAGE), 'Поля "E-mail" на странице нет'
     assert registration.is_visible_element(LocatorsForAuthModal.INPUT_PHONE_IN_REGISTRATION_PAGE), 'Поля "Телефон" на странице нет'

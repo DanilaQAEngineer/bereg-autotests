@@ -5,8 +5,13 @@ from time import sleep
 
 from pages.cart.cart_page import Basket
 from pages.catalog.listing_page import ListingPage
+from locators.cart.cart_locators import LocatorsForCart
 
 #    СЮДА ЕЩЁ НУЖНО БУДЕТ ДОБАВИТЬ ТЕСТОВ ДЛЯ УДАЛЕНИЯ/ВОССТАНОВЛЕНИЯ КАРТОЧКИ ИЗ/В КОРЗИНЕ + ПОЛНОЕ ОЧИЩЕНИЕ КОРЗИНЫ
+
+# ======================================================================================================================
+#    КОРЗИНА
+# ======================================================================================================================
 @allure.feature('Корзина')
 @allure.story('Проверить, что товар, добавленный со страницы каталога действительно появляется в корзине')
 @pytest.mark.smoke
@@ -95,3 +100,36 @@ def test_delete_card_in_basket(browser):
 
     assert cart.check_message_pod_promokod(), 'Сообщения под полем "Промокод" нет: корзина не пустая'
     assert cart.get_text_message_pod_promokod() != '', 'Сообщение пустое'
+
+# ======================================================================================================================
+# КОРЗИНА > БЛОК "ИТОГО"
+# ======================================================================================================================
+@allure.feature('Корзина > Блок "Итого"')
+@allure.story('')
+# @pytest.mark.parametrize(
+#     'data', [
+#         ('INVALID_PROMO_123')
+#     ]
+# )
+@pytest.mark.smoke
+def test_invalid_promocode(browser):
+    """ Проверка ошибки после ввода недействительного промокода """
+    listing = ListingPage(browser)
+    cart = Basket(browser)
+
+    #    Предусловие_1: Добавляем товар в корзину
+    (
+        listing.open_page_category_with_sorting_filters()
+        .product_card.click_button_add_cart_in_basket()
+    )
+
+    cart.open_basket_page()
+    #    Предусловие_2: Добавить несколько товаров в корзину (иначе не появится сообщения с ошибкой, т.к. мин.сумма = 1000р)
+    cart.click_button_plus()
+    cart.click_button_plus()
+
+    #    Вводим невалидный промокод
+    cart.enter_text(LocatorsForCart.INPUT_PROMOCODE, '123')
+    cart.click_element(LocatorsForCart.BTN_PROMOCODE)
+
+    assert cart.is_element_visible(LocatorsForCart.MSG_AFTER_ENTER_PROMOCODE), 'Ошибка "Не найден" не появилась'

@@ -1,4 +1,6 @@
 import allure
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 
 from config.settings import settings
@@ -9,9 +11,51 @@ from locators.cart.cart_locators import LocatorsForCart
 class Basket(BasePage):
     """ Методы для тестирования корзины товаров """
 
+    # ==================================================================================================================
+    # === ДЕЙСТВИЯ ===
+    # ==================================================================================================================
     @allure.step('Метод открытия страницы корзины')
     def open_basket_page(self):
         self.driver.get(f'{settings.base_url}/basket/')
+        return self
+
+    @allure.step('Ввод текста "{value}" в поле {locator}')
+    def enter_text(self, locator, value: str) -> "Basket":
+        """ Универсальный метод ввода данных в любое текстовое поле """
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(locator))
+        self.type(locator, value)
+        return self
+
+    @allure.step('Универсальный метод клика (JS)')
+    def click_element(self, locator):
+        """Универсальный метод клика. Используем JS-клик, чтобы обойти перекрытия (оверлеи)"""
+        element = self.find(locator)
+        self.driver.execute_script("arguments[0].click();", element)
+        return self
+
+    # ==================================================================================================================
+    # === ПРОВЕРКИ ===
+    # ==================================================================================================================
+    @allure.step('Метод ожидания видимости элемента {locator}')
+    def wait_until_visible(self, locator, timeout=10):
+        """
+        Ждет, пока элемент станет видимым на странице
+        (метод нужен для того, чтобы искать какой-то элемент перед действием (замена таймслипов))
+        """
+        WebDriverWait(self.driver, timeout).until(EC.visibility_of_element_located(locator))
+        return self
+
+    @allure.step("Универсальный метод проверки элемента на странице")
+    def is_element_visible(self, locator) -> bool:
+        WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(locator))
+        return self.is_visible(locator)
+
+    @allure.step('Метод ожидания пересчёта тоговой суммы корзины')
+    def wait_for_cart_total_change(self, timeout=5):
+        """Ждёт, пока в корзине появится/обновится элемент с суммой."""
+        WebDriverWait(self.driver, timeout).until(
+            EC.visibility_of_element_located(LocatorsForCart.PRICE_IN_ITOGO_BLOCK)
+        )
         return self
 
     @allure.step('Метод проверки наличия товаров в корзине')

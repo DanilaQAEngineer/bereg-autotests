@@ -20,7 +20,7 @@ class ListingPage(BasePage):
         self.filter_panel = FilterPanelComponent(driver)
 
     @allure.step('Метод открытия какой-нибудь дефолтной страницы раздела, на которой есть сортировка, фильтры и карточки товара: {category_url}')
-    def open_page_category_with_sorting_filters(self, category_url: str = '/catalog/aksessuary1/dlya-palatok/'):
+    def open_page_category_with_sorting_filters(self, category_url: str = '/catalog/aerolodki/'):
         self.driver.get(f'{settings.base_url}{category_url}')
         return self
 

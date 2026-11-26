@@ -14,10 +14,12 @@ class MainPage(BasePage):
     # ==================================================================================================================
     # === ДЕЙСТВИЯ ===
     # ==================================================================================================================
-    @allure.step('Метод клика по элементу {locator}')
+    @allure.step('Метод клика по элементу {locator} (через JS)')
     def click_element(self, locator):
-        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(locator))
-        self.find(locator).click()
+        WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(locator))
+        element = self.find(locator)
+        # Клик через JS, чтобы игнорировать перекрытия (попапы, баннеры)
+        self.driver.execute_script("arguments[0].click();", element)
         return self
 
     @allure.step('Метод переключения баннера на следующий слайд')
@@ -46,14 +48,18 @@ class MainPage(BasePage):
         element = self.find(LocatorsForMainPage.CURRENT_BANNER_ON_PAGE)
         return element.get_attribute('href')
 
-    @allure.step('Метод получения списка тегов в карточках блока {block_name}')
-    def get_tags_in_block(self, locator) -> list[str]:
+    @allure.step('Метод получения списка тегов в карточках блоков')
+    def get_tags_in_blocks(self, locator) -> list[str]:
         """ Собирает тексты всех видимых тегов (стикеров) в указанном блоке """
         WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(locator))
         elements = self.find_all(locator)
         # Фильтруем пустые строки и убираем пробелы
         return [el.text.strip() for el in elements if el.text.strip()]
 
-    @allure.step('Проверка, что URL содержит ожидаемую подстроку {expected_part}')
-    def is_url_contains(self, expected_part: str) -> bool:
-        return expected_part in self.driver.current_url
+    @allure.step('Метод получения списка названий товаров в блоке {locator}')
+    def get_product_titles_in_block(self, locator) -> list[str]:
+        """Собирает тексты заголовков всех карточек в указанном блоке."""
+        WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(locator))
+        elements = self.find_all(locator)
+        # Собираем текст и чистим от пробелов
+        return [el.text.strip() for el in elements if el.text.strip()]

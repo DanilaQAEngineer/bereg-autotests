@@ -41,6 +41,7 @@ class ProductCardComponent(BasePage):
     @allure.step('Метод клика по кнопке "В корзину" в карточке товара')
     def click_button_add_cart_in_basket(self):
         self.click(LocatorsForProductCard.IN_BASKET_BUTTON)
+        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(LocatorsForProductCard.NOTIFICATION_AFTER_ADDED_IN_BASKET))
         return self
 
     @allure.step('Метод наведения курсора на фото карточки в листинге (нужно для появления кнопки "Быстрый просмотр")')

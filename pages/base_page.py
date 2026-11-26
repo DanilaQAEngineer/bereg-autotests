@@ -1,6 +1,9 @@
+import allure
 from selenium.webdriver.common.by import By    # импортировали «способ поиска»: говорим Selenium, как искать элемент: == By.CSS_SELECTOR.XPATH.ID
 from selenium.webdriver.remote.webdriver import WebDriver    # импортировали з селениума WebDriver (подсказывает методы)
 from selenium.common.exceptions import TimeoutException    # импортировали исключения таймаута: нужен для is_visible: если элемента нет — Selenium бросает именно это, мы его ловим и возвращаем False
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 
 from utils.waits import wait_page_loaded, wait_invisible
@@ -80,4 +83,54 @@ class BasePage:    # Объявляем класс, который будет ш
     def wait_element_invisible(self, locator, timeout=10):
         """Жду исчезновения элемента (например, лоадера)."""
         wait_invisible(self.driver, locator, timeout)
+        return self
+
+    ### Какие-то новые методы ###
+    @allure.step('Ожидание появления класса у элемента')
+    def wait_for_class(self, locator, class_name: str, timeout=5):
+        """Ждёт, пока у элемента появится указанный CSS-класс."""
+        WebDriverWait(self.driver, timeout).until(
+            lambda d: class_name in d.find_element(*locator).get_attribute('class')
+        )
+        return self
+
+    @allure.step('Ожидание изменения текста элемента')
+    def wait_for_text_change(self, locator, old_text: str = None, timeout=5):
+        """Ждёт, пока текст элемента изменится (относительно old_text или просто станет непустым)."""
+        if old_text is not None:
+            WebDriverWait(self.driver, timeout).until(
+                lambda d: d.find_element(*locator).text != old_text
+            )
+        else:
+            WebDriverWait(self.driver, timeout).until(
+                lambda d: d.find_element(*locator).text.strip() != ''
+            )
+        return self
+
+    @allure.step('Ожидание исчезновения лоадера')
+    def wait_for_loader_disappear(self, loader_locator, timeout=10):
+        """Ждёт, пока исчезнет лоадер/спиннер."""
+        WebDriverWait(self.driver, timeout).until(
+            EC.invisibility_of_element_located(loader_locator)
+        )
+        return self
+
+    @allure.step('Ожидание появления элемента-индикатора {locator}')
+    def wait_for_indicator_element(self, locator, timeout=10, visibility=True):
+        """
+        Универсальный метод ожидания ключевого элемента перед действием.
+
+        :param locator: Локатор элемента-индикатора (например, кнопка "Купить в 1 клик")
+        :param timeout: Время ожидания в секундах
+        :param visibility: Если True, ждет видимости элемента. Если False, достаточно наличия в DOM.
+        :return: self (для цепочки вызовов)
+        """
+        if visibility:
+            WebDriverWait(self.driver, timeout).until(
+                EC.visibility_of_element_located(locator)
+            )
+        else:
+            WebDriverWait(self.driver, timeout).until(
+                EC.presence_of_element_located(locator)
+            )
         return self
